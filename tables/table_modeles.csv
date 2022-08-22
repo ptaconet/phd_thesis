@@ -1,0 +1,11 @@
+fd,Modélisation explicative,Modélisation descriptive,Modélisation prédictive
+Enjeu scientifique,Tester ou vérifier des théories scientifiques déjà existantes,"Mieux comprendre un phénomène d’intérêt, générer de nouvelles théories scientifiques",Prédire de nouvelles ou futures observations
+Exemple de question de recherche,De combien augmentera la densité agressive des anophèles pour chaque millimètre supplémentaire de précipitation ? ,Quels sont les déterminants de la densité agressive des anophèles ?,Quelle sera la densité agressive des anophèles en un site et une date donnés ? 
+Forme d’inférence logique associée,Hypothético-déductif,Holistico-inductif,NA
+Besoin d’interpréter le modèle statistique,Oui,Oui,Non
+Contraintes principales pour le modèle statistique,Capacité à délivrer des informations statistiques sur les relations,"Capacité à capturer des relations complexes (non-linéarités, intéractions)","Capacité à capturer des relations complexes (non-linéarités, intéractions)"
+Classe de modèle statistique la plus adaptée,Modèles paramétriques,Modèles non-paramétriques,Modèles non-paramétriques
+Exemple de modèles stastistiques appropriés,"Régressions linéaires, régressions logistiques","Forêts aléatoires, SVM, XG Boost","Forêts aléatoires, SVM, XG Boost, réseau de neurones"
+Validation du modèle,,,
+Evaluation du modèle,Puissance explicative calculée sur les données ayant servi à entraîner le modèle,"Puissance explicative, puissance prédictive",Puissance prédictive calculée sur des données n’ayant pas servi à entraîner le modèle
+Interprétation du modèle,"Coefficients directeurs, p-values, intervalles de confiance à 95 %","Variables d’importance, PDP, ICE, SHAP, Shapley values, LIME, etc.",NA

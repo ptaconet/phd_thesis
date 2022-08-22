@@ -1,0 +1,27 @@
+Classes retenues,Classes initialement définies,Présence sur zone(s) d’étude,Classe,Définition
+Eau permanente (Permanent water bodies),Eau dormante,BF et CI,Eau dormante,"Zone d'eaux profondes, généralement conséquences de la mise en place de barrages ou autres infrastructures de retenues d’eaux"
+Eau permanente (Permanent water bodies),Eau courante,BF et CI,Eau courante,Cours d’eau (rivière ou fleuve en eau tout au long de l’année)
+"Culture et jachère, hors coton et riz (Crops)",À maïs,BF et CI,Culture à maïs,Zones de culture à maïs
+"Culture et jachère, hors coton et riz (Crops)",À poids de terre,BF et CI,Culture à poids de terre,Zones de culture à poids de terre
+"Culture et jachère, hors coton et riz (Crops)",À arachide,BF et CI,Culture à arachide,Zones de culture à arachide
+"Culture et jachère, hors coton et riz (Crops)",À mil,BF,Culture à mil,Zones de culture à mil
+"Culture et jachère, hors coton et riz (Crops)",À sorgho,BF,Culture à sorgho,Zones de culture à sorgho
+"Culture et jachère, hors coton et riz (Crops)",À haricot,BF,Culture à haricot,Zones de culture à haricot
+"Culture et jachère, hors coton et riz (Crops)",À sésame,BF,Culture à sésame,Zones de culture à sésame
+"Culture et jachère, hors coton et riz (Crops)",Jachère,CI,Jachère,Terrain laissé en jachère et recouvert d’herbes envahissantes denses peu pénétrables
+Culture cotonière (Cotton),Culture cotonière,BF et CI,Culture cotonière,Zones de culture à coton
+Rizière (Rice),Rizière,BF et CI,Rizière,Zones de culture à riz
+Plantation (Plantation),À mangue,CI,Plantation à mangue,Zones de plantations à manguiers
+Plantation (Plantation),À anacarde,CI,Plantation à anacarde,Zones de plantations à anacardiers
+Savane ligneuse (Ligneous savannah),Savane arbustive,BF,Savane arbustive,"Formation herbeuse comportant un tapis de grandes herbes graminéennes mesurant, en fin de saison de végétation, au moins 80 cm de hauteur, avec des feuilles planes disposées à la base ou sur les chaumes, des herbes et plantes herbacées de moindre taille - où seuls les arbustes sont présents"
+Savane ligneuse (Ligneous savannah),Savane arborée,BF,Savane arborée,"Formation herbeuse comportant un tapis de grandes herbes graminéennes mesurant, en fin de saison de végétation, au moins 80 cm de hauteur, avec des feuilles planes disposées à la base ou sur les chaumes, des herbes et plantes herbacées de moindre taille - où arbres et arbustes sont disséminés"
+Savane ligneuse (Ligneous savannah),Savane boisée,BF,Savane boisée,"Formation herbeuse comportant un tapis de grandes herbes graminéennes mesurant, en fin de saison de végétation, au moins 80 cm de hauteur, avec des feuilles planes disposées à la base ou sur les chaumes, des herbes et plantes herbacées de moindre taille - où arbres et arbustes forment un couvert clair et continu"
+Savane ligneuse (Ligneous savannah),Savane dégradée,CI,Savane dégradée,"Savane anciennement arborée ou boisée, dont la dégradation a affecté le peuplement et le couvert (moins important que ceux des savanes non dégradées). La formation herbacée y est souvent absente. Ces zones pourraient aussi être des savanes déboisées actuellement en cours de recolonisation. En terme de recouvrement ligneux ce milieu ressemble à la savane boisée."
+Prairie (Grassland),Prairie,BF,Prairie,"Formation herbeuse ouverte constituée de graminées (et parfois quelques plantes ligneuses). Si présente, la strate ligneuse est de faible densité et de hauteur inférieure à 10 mètres. ; les graminées sont vivaces et ne dépassent pas généralement 80 cm de haut"
+Milieu forestier non humide (Woodland),Forêt dense,CI,Forêt dense,"Forêt non inféodées aux zones humides (non inondables), dont le peuplement est fermé, sans ouverture majeure du couvert (supérieur à 80 %), les arbres ont une hauteur de l’ordre d’une vingtaine de mètres"
+Milieu forestier non humide (Woodland),Forêt claire,BF et CI,Forêt claire,"Forêt non inféodées aux zones humides (non inondables), dont le peuplement est ouvert, avec des arbres de petite et moyenne taille (10 à 20 mètres de hauteur), et les cimes sont plus ou moins jointives, l’ensemble du couvert laissant largement filtrer la lumière (40 à 60 % de recouvrement)"
+Forêt ripicole (Riparian forest),Forêt ripicole,BF et CI,Forêt ripicole,"Formation forestière des bords de cours d'eau, temporairement inondées"
+Prairie marécageuse (Marsh),Prairie marécageuse,BF et CI,Prairie marécageuse,"Formation herbeuse comportant un tapis de grandes herbes graminéennes (minimum 1 mètre), fréquemment inondée en saison humide, présente dans les zones de bas fond ou en bordure des marais ou des eaux dormantes"
+Bâti (Settlements),Bâti,BF et CI,Bâti,Milieux construits (villes ou villages)
+Sol nu (Bare soil),Sol nu,BF et CI,Sol nu,Sols nu dégradés ou sols nu agricoles
+Route principale (Main tracks),Routes principales,BF et CI,Routes principales,Routes ou sentiers de largeur supérieure à 5 mètres

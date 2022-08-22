@@ -1,0 +1,218 @@
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'` 
+
+# Description des données recueillies sur le terrain au cours du projet REACT {#data-terrain}
+
+*Cette annexe décrit les protocoles de recueil des données de terrain collectées dans le cadre du projet REACT, utilisées dans les travaux de thèse*
+
+#### Données entomologiques {#entomo-data}
+
+Dans le cadre du projet REACT, plusieurs enquêtes entomologiques (huit en Côte d'Ivoire, sept au Burkina Faso) ont été effectuées dans chaque village au cours des 2 années du projet. Les périodes des enquêtes ont couvert les conditions climatiques typiques de ces régions tropicales (à l'exception de la haute saison des pluies - juillet à septembre). Les moustiques ont été collectés en utilisant la technique de la capture sur sujet humain [@Silver2008], de 17h00 à 09h00, à l'intérieur et à l'extérieur des habitations, à raison de quatre sites (habitations) par village. Ainsi, dans la zone de Korhogo (CI), un total de 2048 nuits-homme de capture a été réalisé (32 villages * 8 enquêtes entomologiques * 4 points de collecte * 2 lieux); tandis que dans la zone de Diébougou (BF), un total de 1512 nuits-homme de capture a été réalisé (27 villages * 7 enquêtes entomologiques * 2 points de collecte * 2 lieux). Au total, cela représente environ 52000 heures de collecte effectuées dans le cadre du projet REACT. Les anophèles ont été identifiés à l'aide de clés morphologiques [@gillies_anophelinae_1968; @gillies_supplement_1987]. Tous les individus appartenant au groupe *Anopheles funestus* (dans les deux zones d'étude) et au complexe *Anopheles gambiae* (sur la zone burkinabé uniquement) ont été identifiés à l'espèce par PCR [@koekemoer_cocktail_2002; @cohuet_isolation_2002]. Sur la zone ivoirienne, en raison du très grand nombre d'*An. gambiae s.l.* collectés, un sous-échantillon de ces individus (sélectionnés aléatoirement dans l'espace et le temps) a été identifié à l'espèce. Enfin, les mutations de la cible L1014F (*kdr-w*), L1014S (*kdr-e*) et G119S (*ace-1*) ont été détectées par PCR sur tous les *An. gambiae s.l.* et *An. coluzzii* collectés sur la zone burkinabé. Des descriptions détaillées des méthodes utilisées pour collecter ces données sont fournies dans [@zogo_anopheles_2019; @soma_anopheles_2020].\
+
+<!-- Dans la zone de Korhogo, un total de 57722 anophèles a été collecté. Les principales espèces/complexes trouvés étaient *An. gambiae s.l.* et *An. funestus* (respectivement 56267 (97% de tous les anophèles collectés) et 714 (1%) individus collectés). Parmi les 56267 *An. gambiae s.l.* collectés, 3922 (7%) ont été identifiés à l'espèce : 3726 (95% des individus identifiés à l'espèce) étaient des *An. gambiae s.s.* et 196 (5%) étaient des *An. coluzzii*. Par conséquent, dans la suite de cette étude, nous considérerons les *An. gambiae s.l.* collectés dans la zone de Korhogo comme des *An. gambiae s.s.*. Dans la zone de Diébougou, un total de 3056 anophèles a été collecté. Les principales espèces collectées étaient *An. coluzzii*, *An. gambiae s.s.* et *An. funestus* (respectivement 1322 (43% de tous les anophèles collectés), 616 (20%) et 708 (23%) individus collectés).\ -->
+
+Le tableau \@ref(tab:table-compspec-ano) résume la composition spécifique des anophèles capturés sur chaque zone d'étude.
+
+```{r table-compspec-ano, results="asis", echo = F}
+df1 <- read.csv("tables/table_compspecifique_ano.csv", check.names = FALSE)
+kable(df1, caption.short = "Composition spécifique des anophèles capturés au cours des missions entomologiques du projet REACT", caption = "Composition spécifique des anophèles capturés au cours des missions entomologiques du projet REACT", format = "latex", booktabs = T) %>% kable_styling(full_width = TRUE,latex_options =c("striped", "hold_position")) %>% add_footnote(label="* nombre moyen de piqûres / homme / nuit de capture", notation = "none")
+```
+
+<!-- Les distributions spatio-temporelles des densités agressives des anophèles sont détaillées dans le chapitre 5, et celles de leurs résistances physiologiques et comportementales dans le chapitre 6. -->
+
+#### Données de comportement humain relatif à l'utilisation de moustiquaires et aux habitudes horaires nocturnes {#humbehav-data}
+
+<!-- Les taux de possession et utilisation des MIILDA peuvent impacter les traits bioécologiques, comportementaux et physiologiques des populations d'anophèles; en réduisant leur longévité (s'ils y sont sensibles) ou en favorisant le développement des résistances physiologiques ou comportements à risque. Par ailleurs, le risque d'exposition à la piqûre est modulé par les habitudes nocturnes des populations relatives à l'utilisation des moustiquaires, aux horaires d'entrée et sortie des habitations, et aux horaires de sommeil [@killeen_characterizing_2014]. Dans le cadre du projet REACT, plusieurs enquêtes de comportement humain ont été menées afin de mesurer ces paramètres.\  -->
+
+Au total, cinq enquêtes de comportement humain (trois sur la zone de Diébougou, deux sur la zone de Korhogo) ont été menées. Les enquêtes ont été effectuées après la distribution des moustiquaires (voir figure \@ref(fig:study-areas)) et couvrent au mieux les conditions climatiques typiques des zones d'étude. Pour chaque enquête, une quinzaine de ménages a été séléctionnée aléatoirement, et pour chacun de ces ménages trois personnes (maximum) appartenant à chacun des trois groupes d'âge suivants ont été aléatoirement séléctionnées : 0–5 ans, 6–17 ans, et supérieur ou égal à 18 ans. Le chef du ménage a ensuite été questionné sur l'heure à laquelle chaque personne sélectionnée, la nuit précédant l'enquête, est entrée (le soir) et sortie (le matin) de i) l'habitation, et ii) son espace de sommeil éventuellement protégé par une MIILDA. Les ménages pour ces enquêtes ont été sélectionnés indépendamment de ceux des enquêtes entomologiques. Le protocole de collecte de ces données est plus largement détaillé dans le chapitre 4. 
+
+#### Données de micro-climat au cours des collectes entomologiques
+
+<!-- Les conditions micro-climatiques et environnementales locales au moment de la recherche de repas de sang sont susceptibles d'affecter le comportement de piqûre des anophèles. Par ailleurs, elles peuvent influencer l'activité de piqure des vecteurs selon leur statut de résistance (voir section \@ref(interaction-environnement-vecteur)). Dans le projet REACT, plusieurs variables climatiques et environnementales ont ainsi été directement mesurées simultanément à chaque collecte entomologique.\ -->
+
+Les paramètres climatiques et environnementaux mesurés simultanément à chaque collecte entomologique étaient les suivants : la température, l'humidité relative, la luminosité et la pression atmosphérique. Les instruments utilisés pour mesurer ces données étaient les suivants : pour la température et l'humidité relative : capteur Hygro Buttons 23 [Proges Plus DAL0084] (résolution temporelle (RT) : 15 minutes) ; pour la luminosité : capteur HOBO Pendant® Temperature/Light 8K (RT : 15 minutes) ; pour la pression atmosphérique : capteur Extech SD700 (RT : 10 minutes). Les capteurs Hygro et Hobo étaient positionnés à l'intérieur des maisons où les captures étaient effectuées (au milieu de la pièce) et à l'extérieur (près du point captureur). Le baromètre était positionné au centre du village.\
+
+Nous avons complété ces paramètres mesurés sur le terrain avec des données issues de produits satellitaires ou de modèles météorologiques disponibles à des résolutions spatiales bien plus large. En particulier, nous avons extrait i) les précipitations semi-horaires des produits GPM [@precipitation_processing_system_pps_at_nasa_gsfc_gpm_2019] (voir section suivante) (résolution spatiale : 10 km, résolution temorelle : 30 minutes), et ii) la vitesse du vent des produits ERA-5 (résolution spatiale : 28 km, résolution temorelle : 1 heure).\
+
+La figure \@ref(fig:plot-microclimate) montre les séries temporelles horaires de température, humidité, luminosité et pression atmosphérique pour chaque enquête entomologique sur chaque zone d'étude.
+
+```{r plot-microclimate, fig.cap="Conditions micro-climatiques horaires au cours des enquêtes entomologiques", fig.scap="Conditions micro-climatiques horaires au cours des enquêtes entomologiques", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/microclimate.pdf")
+```
+
+#### Données de population et localisation des habitations {#pop-data}
+
+<!-- La forme des villages, la densité de population et la distance des habitations à sa lisière peuvent faire varier l'attractivité des villages ou des habitations au sein des villages pour les vecteurs, ainsi que leur capacité de dispersion (voir section \@ref(interaction-environnement-densite)). -->
+
+Afin de décrire l'attractivité et la pénétrabilité des des ménages pour les vecteurs du paludisme, nous avons recensé la population et enregistré l'emplacement géographique des habitations dans les villages, au cours du recensement de la population en début de projet, à l'aide d'un récépteur Global Positioning System (GPS).
+
+# Détails sur les travaux de cartographie de l'occupation du sol {#annex-landcover}
+
+*Cette annexe donne des informations supplémentaires sur les travaux de cartographie de l'occupation du sol dans les deux zones d'étude du projet REACT.*
+
+#### Résumé textuel et graphique des traitements {#details-annex-landcover}
+
+**Méthode.** [*NB : la méthode est détaillée dans la section \@ref(landcover-data). Ci-après, nous la résumons en quelques lignes.*] Nous avons généré des produits d'occupation du sol dans nos deux zones d'étude selon la méthode décrite ci-dessus. Les produits satellitaires utilisés étaient les suivants : images SPOT 6/7 (Satellite Pour l’Observation de la Terre), images Sentinel-2, et Modèle Numérique de Terrain (MNT) Shuttle Radar Topography Mission (SRTM) [@nasa_jpl_nasa_2013]. Nous avons mené des campagnes de terrain sur les deux zones, en novembre et décembre 2018, afin de constituer les jeux de données d'apprentissage et de validation. Nous avons établi les classes d’occupation du sol dans chacune des zones sur la base de recherches bibliographiques sur les types de paysages potentiellement rencontrés dans nos zones [@aubreville_accord_1957; @cilss_2016_landscapes_nodate; @oss_landcover_bf] et de nos observations du paysage sur le terrain. Nous avons collecté un minimum de 20 parcelles par classe, en tentant de les répartir au mieux sur l’étendue de chacune des zones. L'algorithme de segmentation utilisé est celui proposé par [@baatz_schape_2000]. Nous avons calculé au total une centaine de variables prédictives basés sur les images SPOT, Sentinel-2 et le MNT, ainsi que la forme des objets. Nous avons ensuite entrainé un modèle de forêts aléatoires [@breiman_random_2001] sur le jeu de données d'entrainement. Nous avons généré la matrice de confusion en utilisant la procédure de validation interne aux forêts aléatoires (basée sur les observations 'out-of-bag' [@Breiman1996OUTOFBAGE]). En se basant sur cette matrice, nous avons ensuite regroupé, dans le jeu de données d'entrainement, les classes d'occupation du sol dont la confusion était importante (par exemple, zones de culture de mil et de sorgho) ; en prenant cependant soin de conserver la distinction entre les différentes classes à priori favorables à la présence de gîtes larvaires (par exemple, zones marécageuses et rizicoles) ou aux résistances physiologiques ou comportementales des vecteurs. Nous avons entrainé un modèle de forêt aléatoires sur cette nouvelle version du jeu de données d'entraînement puis l'avons utilisé pour prédire la classe d'occupation du sol sur chaque objet issu de la segmentation. Comme précédemment, nous avons généré la matrice de confusion puis en avons extrait un indice de qualité de la classification (*accuracy* [@cohen_coefficient_1960]) mesurant la proportion d'objets correctement classés.\
+
+Les différentes étapes de la classification sont résumées graphiquement dans la figure suivante (\@ref(fig:workflow-obia)).
+
+```{r workflow-obia, fig.cap="Etapes du processus de cartographie de l'occupation du sol par classification supervisée orientée objet d'images satellitaires", fig.scap="Etapes du processus de cartographie de l'occupation du sol par classification supervisée orientée objet d'images satellitaires", out.width="0.7\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/obia_workflow.png")
+```
+
+#### Définitions des classes d'occupation du sol
+
+```{r table-landcover-definition, results="asis", echo = F}
+df1 <- read.csv("tables/table_landcover.csv", check.names = FALSE) %>% dplyr::select(4:5)
+
+df1 %>%
+  kable("latex", booktabs = T) %>%  
+  kable_styling(latex_options =c("striped","hold_position"),font_size = 7,full_width = TRUE) %>% 
+  column_spec(2, width = "12cm")
+```
+
+#### Photographies représentatives des principales classes d'occupation du sol rencontrées sur les zones d'étude
+
+```{r pictures-lc, fig.cap="Photographies représentatives des principales classes d'occupation du sol rencontrées sur les zones d'étude", fig.scap="Photos représentatives des principales classes d'occupation du sol rencontrées sur les zones d'étude", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/pictures_landcover.pdf")
+```
+
+# Présentation de la librarie R `opendapr` {#annex-opendapr}
+
+*Cette annexe présente succintement la librairie R opendapr, développée dans le cadre de la thèse afin d'extraire les séries temporelles satellitaires météorologiques (MODIS et GPM) sur les zones d'étude. La libraire est hebergée à l'adresse suivante : https://github.com/ptaconet/opendapr. Le texte de cette annexe est extrait de la description de la librairie, disponible à cette adresse*. \
+
+**opendapr** is an R package that provides functions to **harmonize** and **speed-up** the **download** of some well-known and widely-used **spatiotemporal Earth science datacubes** (e.g. [MODIS](https://lpdaac.usgs.gov/data/get-started-data/collection-overview/missions/modis-overview/), [VIIRS](https://lpdaac.usgs.gov/data/get-started-data/collection-overview/missions/s-npp-nasa-viirs-overview/), [GPM](https://pmm.nasa.gov/GPM) or [SMAP](https://smap.jpl.nasa.gov/)) using the [OPeNDAP framework](https://www.opendap.org/about) (*Open-source Project for a Network Data Access Protocol*)\
+
+***Harmonize ?*** opendapr proposes a single function to query the various data servers, and another single function to download the data.\
+
+***Speed-up ?*** opendapr uses the abilities offered by the OPeNDAP to download a subset of data cube, along spatial, temporal or any other data dimension (depth, ...). This way, it reduces downloading time and disk usage to their minimum : no more 1° x 1° MODIS tiles when your region of interest is only 100 km x 100 km wide !
+Moreover, opendapr supports parallelized downloads.\
+
+Below is a comparison of opendapr with other packages available for downloading chunks of remote sensing data :
+
+
+|    Package                                           | Data  |  Spatial subsetting* | Dimensional subsetting*   
+| :-------------------------------------------------- | :-------------: | :-------------: |  :-------------: | 
+| [`opendapr`](https://github.com/ptaconet/opendapr)      | MODIS, VIIRS, SMAP, GPM |  Yes  |   Yes  
+| [`MODIS`](https://github.com/MatMatt/MODIS)       | MODIS  |  No  |  No  
+| [`MODIStsp`](https://github.com/ropensci/MODIStsp)   |  MODIS |   No   |  Yes 
+| [`MODISTools`](https://github.com/ropensci/MODISTools)  |  MODIS  |   Yes   |   Yes 
+| [`smapr`](https://github.com/ropensci/smapr)      |  SMAP |   No | No  | No
+
+
+\* at the downloading phase\
+
+By enabling to download subsets of data cubes, opendapr facilites the access to Earth science data for R users in places where internet connection is slow or expensive and promotes digital sobriety for our research work. \
+
+The OPeNDAP, over which the package builds, is a project developed by the non-profit [OPeNDAP, Inc.](https://www.opendap.org/about) and advanced openly and collaboratively. By using this data access protocol, opendapr support the open-source-software movement.
+
+#### Installation
+
+<!--
+You can install the released version of opendapr from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("opendapr")
+```
+-->
+The package can be installed with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ptaconet/opendapr", build_vignettes = T, build_manual = T)
+```
+Work is ongoing to publish the package on the CRAN. 
+
+#### Collections available in opendapr {#coll-available}
+
+Currently **opendapr** supports download of 77 data collections, extracted from the following meta-collections : 
+
+* [MODIS land products](https://lpdaac.usgs.gov/data/get-started-data/collection-overview/missions/modis-overview/) made available by the [NASA / USGS LP DAAC](https://lpdaac.usgs.gov/) ([source OPeNDAP server](https://opendap.cr.usgs.gov/opendap/hyrax/)) ;
+* [VIIRS land products](https://lpdaac.usgs.gov/data/get-started-data/collection-overview/missions/s-npp-nasa-viirs-overview/) made available by the [NASA / USGS LP DAAC](https://lpdaac.usgs.gov/) ([source OPeNDAP server](https://opendap.cr.usgs.gov/opendap/hyrax/)) ;
+* [VIIRS land products](https://lpdaac.usgs.gov/data/get-started-data/collection-overview/missions/s-npp-nasa-viirs-overview/) made available by the [NASA LAADS DAAC](https://lpdaac.usgs.gov/) ([source OPeNDAP server](https://ladsweb.modaps.eosdis.nasa.gov/opendap/hyrax/allData/5000/)) ;
+* [Global Precipitation Measurement](https://pmm.nasa.gov/GPM) (GPM) made available by the [NASA / JAXA GES DISC](https://disc.gsfc.nasa.gov/) ([source OPeNDAP server](https://gpm1.gesdisc.eosdis.nasa.gov/opendap/GPM_L3)) ;
+* [Soil Moisture Active-Passive](https://smap.jpl.nasa.gov/) (SMAP) made available by the [NASA NSIDC DAAC](https://nsidc.org/) ([source OPeNDAP server](https://n5eil02u.ecs.nsidc.org/opendap/SMAP/))
+
+Details of each product available for download are provided through the function `odr_list_collections()`. 
+
+#### Get Started 
+
+Downloading the data with **opendapr** is a simple two-steps workflow : 
+
+* With the function **`odr_get_url()`**, get the URL(s) of the data for :
+  
+  + a collection : see [previous section](#collections-available-in-opendapr),
+  + variables,
+  + region of interest,
+  + time range,
+  + output data format (netcdf, ascii, json)
+  
+* Next, with the function **`odr_download_data()`** : download the data to your computer.
+
+Additional functions include : list collection available for download (`odr_list_collections()` ), list variables available for each collection ( `odr_list_variables()` ), login to EOSDIS Earthdata before querying the servers and downloading the data (`odr_login()`).\
+
+**Have a look at the [`vignette("opendapr1")`](https://ptaconet.github.io/opendapr/articles/opendapr1.html) to get started with a simple example, and for a more advanced workflow see the [`vignette("opendapr2")`](https://ptaconet.github.io/opendapr/articles/opendapr2.html) !**
+
+
+#### Next steps
+
+Next developments may involve :
+
+* Short term : including more SMAP collections (at now only SPL3SMP_3.003 collection is available) 
+* Longer term : including access to more collections and OPeNDAP servers
+
+Any contribution is welcome !
+
+#### Acknowledgments
+
+We thank NASA and its partners for making all their Earth science data freely available, and implementing open data access protocols such as OPeNDAP. opendapr heavily builds on top of the OPeNDAP, so we thank the non-profit [OPeNDAP, Inc.](https://www.opendap.org/about) for developing the eponym tool in an open and collaborative way.
+
+We also thank the contributors that have tested the package, reviewed the documentation and brought valuable feedbacks to improve the package : [Florian de Boissieu](https://github.com/floriandeboissieu), Julien Taconet, [Nicolas Moiroux](https://github.com/Nmoiroux)
+
+The initial development and first release of this package were financed by the [MIVEGEC](https://www.mivegec.ird.fr/en/) unit of the [French Research Institute for Sustainable Development](https://en.ird.fr/), as part of the REACT project. 
+
+# Tutoriel d'initiation à la cartographie de l'occupation du sol par télédétéction spatiale sur logiciel libre {#formation-teledec}
+
+*Cette annexe présente un tutoriel pour réaliser des produits d'occupation du sol par classification supervisée orientée objet d'images satellitaires en se basant exclusivement sur des logiciels libres et à code source ouvert.*
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=-,nup=1,pagecommand={}]{formation_teledec.pdf}
+\endgroup
+  
+
+# Texte intégral de l'article complémentaire n°3 {#full-article-soma}
+
+:::: {.lightgreenbox data-latex=""}
+::: {.center data-latex=""}
+La référence de la publication est la suivante :
+:::
+
+*Soma, D.D., Zogo, B., **Taconet, P**. et al. Quantifying and characterizing hourly human exposure to malaria vectors bites to address residual malaria transmission during dry and rainy seasons in rural Southwest Burkina Faso. BMC Public Health 21, 251 (2021). https://doi.org/10.1186/s12889-021-10304-y*
+
+::::
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=-,nup=1,pagecommand={}]{article-soma-quantifying.pdf}
+\endgroup
+
+# Texte intégral de l'article complémentaire n°4 {#full-article-bationo}
+
+:::: {.lightgreenbox data-latex=""}
+::: {.center data-latex=""}
+La référence de la publication est la suivante :
+:::
+
+*Bationo, C.S., Gaudart, J., Dieng, S., Cissoko, M., **Taconet, P**. et al. Spatio-temporal analysis and prediction of malaria cases using remote sensing meteorological data in Diébougou health district, Burkina Faso, 2016–2017. Sci Rep 11, 20027 (2021). https://doi.org/10.1038/s41598-021-99457-9*
+
+::::
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=-,nup=1,pagecommand={}]{article_bationo.pdf}
+\endgroup

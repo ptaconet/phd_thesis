@@ -1,0 +1,8 @@
+book_filename: "these_taconet"
+chapter_name: "Chapitre "
+download: [
+    ["these_taconet.pdf", "PDF"],
+    ["these_taconet.epub", "EPUB"],
+    ["these_taconet.docx", "Word"]
+  ]
+delete_merged_file: true

@@ -1,0 +1,384 @@
+---
+title: 'Fouille de données spatio-temporelles pour l’étude du risque de transmission résiduelle du paludisme à échelle paysagère en milieu rural ouest-africain'
+author: 'Paul TACONET'
+date: 'XX   Mai 2022'
+institution: 'GAIA'
+division: 'Ecologie et Biodiversité'
+advisor: 'Nicolas MOIROUX'
+# If you have more two advisors, un-silence line 7
+#altadvisor: 'Your Other Advisor'
+department: 'IRD, UMR 224 MIVEGEC'
+degree: 'Doctorat'
+knit: bookdown::render_book
+site: bookdown::bookdown_site
+link-citations: yes
+linkcolor: blue 
+# Ci dessous : les references qui ne sont pas citées dans le corps du manuscrit mais que l'on veut avoir dans la biblio à la fin 
+#nocite: |   
+#  @corbel_distribution_2013, @sokhna_changes_2013  
+
+# The next two lines allow you to change the spacing in your thesis. You can 
+# switch out \onehalfspacing with \singlespacing or \doublespacing, if desired.
+header-includes:
+    - \usepackage{setspace}\onehalfspacing
+    - \usepackage{pdfpages} # pour insérer des documents pdf dans le corps du document
+    #- \usepackage[font={small,it}]{caption}
+    - \AtBeginDocument{\renewcommand{\chaptername}{Chapitre}}
+    - \AtBeginDocument{\renewcommand{\listfigurename}{Liste des figures}}
+    - \AtBeginDocument{\renewcommand{\listtablename}{Liste des tableaux}}
+    - \AtBeginDocument{\renewcommand{\appendixname}{Annexe}}
+    - \usepackage{pdflscape} # pour mettre des pages en paysage
+    - \newcommand{\blandscape}{\begin{landscape}} # pour mettre des pages en paysage
+    - \newcommand{\elandscape}{\end{landscape}} # pour mettre des pages en paysage
+    - \usepackage{tcolorbox} # pour mettre des box
+    - \tcbuselibrary{skins,xparse,breakable} # pour faire en sorte que la box soit breakable sur plusieurs pages
+    - \usepackage{xcolor}    
+        \definecolor{lightcyan}{rgb}{0.88, 1.0, 1.0} # pour definir la couleur de la box
+    - \usepackage{xcolor}    
+        \definecolor{lightgreen}{rgb}{0.6, 1.0, 0.8} # pour definir la couleur de la box
+    - \usepackage[utf8]{inputenc}
+    - \usepackage{graphicx}
+    - \usepackage[cyr]{aeguill}
+    - \usepackage[frenchb]{babel}
+    - \usepackage{lipsum}
+    - \usepackage{enumitem} 
+    - \usepackage[left=3cm,right=3cm, top = 3cm]{geometry}
+    - \usepackage{fancyhdr}
+    - \usepackage{soul}
+    - \usepackage[T1]{fontenc}
+    - \usepackage{tgheros}
+    - \usepackage{xcolor}
+        \definecolor{mypink3}{cmyk}{0, 0.79, 0.52, 0}
+        \definecolor{Valentia}{RGB}{233,78,82}
+        \definecolor{Titleblue}{RGB}{114, 146, 162}
+    - \usepackage[absolute]{textpos}
+    - \usepackage{eso-pic,graphicx}
+    - \usepackage{tikz}
+    - \usepackage[semibold]{sourcesanspro}
+    - \usepackage{sectsty}
+    - \usepackage{amsfonts}
+    - \usepackage{array}
+
+# This will automatically install the {remotes} package and {thesisdown}
+# Change this to FALSE if you'd like to install them manually on your own.
+params:
+  'Install needed packages for {thesisdown}': True
+  
+# Remove the hashtag to specify which version of output you would like.
+# Can only choose one at a time.
+output:
+  thesisdown::thesis_pdf: default 
+# thesisdown::thesis_gitbook: default         
+# thesisdown::thesis_word: default
+# thesisdown::thesis_epub: default
+
+toc-depth: 2
+# If you are creating a PDF you'll need to write your preliminary content 
+# (e.g., abstract, acknowledgements) below or use code similar to line 25-26 
+# for the .RMD files. If you are NOT producing a PDF, delete or silence
+# lines 25-39 in this YAML header.
+# abstract: | #'`r if(knitr:::is_latex_output()) paste(readLines(here::here("prelims", "00-abstract.Rmd")), collapse = "\n  ")`'
+abstract: | 
+
+ ***Français.*** La lutte contre la transmission du paludisme fait aujourd'hui face au ralentissement des progrès enregistrés au cours des quinze premières années du 21è siècle. Pour les redynamiser, il est nécessaire de passer d’une approche universelle de la prévention à une approche ciblée, adaptée au faciès local du risque de transmission. Ces stratégies nécessitent de décrire, comprendre et prédire le risque de transmission du paludisme à des échelles spatio-temporelles fines - adaptées à la prise de décision locale. Dans cette thèse, nous avons tenté d’expliquer et évaluer la prédictibilité dans l’espace et dans le temps, à échelle paysagère en milieu rural ouest-africain (au Burkina Faso et Côte d'Ivoire), de plusieurs indicateurs entomologiques du risque de transmission : présence et abondance des anophèles, résistances physiologiques et comportementales des anophèles aux insecticides. Nous avons pour cela utilisé des données entomologiques et environnementales hétérogènes, spatialisées et temporalisées, multi-source et multi-échelle (images satellitaires, capteurs micro-climatiques, enquêtes de comportement humains, etc.), et des méthodes de fouille de données avancées (notamment basées sur l’interprétation des modèles d’apprentissage automatique), dans des approches holistico-inductives de la génération de connaissances scientifiques. Nos résultats ont montré à l'échelle des villages une forte hétérogénéité spatio-temporelle des densités vectorielles, et une relative homogénéité de la prévalence des phénotypes / génotypes résistants. À partir des associations capturées par les modèles statistiques, nous avons émis de nombreuses hypothèses sur les déterminants environnementaux (climatiques, paysagers, socio-culturels, etc.) des différents indicateurs entomologiques étudiés ; autrement dit sur l’impact de l’environnement sur les traits de vie des vecteurs. Nos modèles étaient en mesure de prédire correctement et anticiper plusieurs semaines à l’avance les densités vectorielles à l’échelle du village, ce qui n’était pas le cas pour les résistances aux insecticides. À l'issue de ce travail, nous faisons des propositions pour l'amélioration (i) des méthodes actuelles de lutte anti-vectorielle, (ii) de l’utilisation de la science et ingénierie des (géo-)données en général, et de la modélisation statistique en particulier, pour la recherche et le contrôle du paludisme, et (iii) des outils de surveillance et prévention du risque de transmission du paludisme à échelle locale en milieu rural ouest-africain.\
+ 
+ ***English.*** The fight against malaria transmission is currently stalling. To reinvigorate progress, it is necessary to shift from an universal approach of prevention to a targeted one, adapted to the local transmission risk profile. Such strategy requires to characterise, understand, and predict the risk of transmission of malaria at fine spatial and temporal scales, i.e. scales suitable for local decision-making. In this thesis, we have attempted to explain and evaluate the spatial and temporal predictability of several entomological indicators of transmission risk at a landscape scale in rural West Africa (in Burkina Faso and Côte d'Ivoire) : presence, abundance of anopheles, physiological and behavioral resistance to insecticides. We used heterogeneous, spatio-temporal, multi-source and multi-scale entomological and environmental data, and data mining methods (among others, based on interpretable machine learning techniques), in a holistic-inductive approach to scientific knowledge generation. Our results showed strong spatio-temporal heterogeneities in vector abundances at the village scale, and relative homogeneities in the prevalence of vector resistances. Based on the associations captured by the statistical models, we made numerous hypotheses on the environmental determinants (climatic, landscape, socio-cultural, etc.) of the various entomological indicators studied ; in other words, on the impact of environmental conditions on the vectors' life traits. Our models were able to acurately forecast vector abundances at the village scale several weeks ahead, which was not the case for the prevalence of insecticide resistance. At the end of this work, we make proposals for the improvement of (i) current vector control methods, (ii) the use of (geo)data science and data engineering in general, and statistical modelling in particular, for malaria research and control, and (iii) tools for the surveillance and prevention of malaria transmission risk at the local scale in rural West Africa.\
+ \
+  
+ \includegraphics[scale=0.8]{logos2.pdf}
+
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab 
+# is needed on the line after the `|`.
+acknowledgements: |
+ Il se dit en général qu'une thèse ne se fait pas seul... et bien, celle-ci ne dérogera pas à la règle ! Profitons donc de cette tribune qui nous est offerte en début de manuscrit de thèse pour remercier toutes les personnes qui, de près ou de loin, en m'accompagnant professionnellement, personnellement, ou les deux, ont contribué à ce travail :) \
+
+ Mes premiers remerciements vont tout naturellement à Nicolas, mon directeur de thèse. Si l'on m'avait annoncé que notre entretien, il y a quatre ans, mènerait à cette thèse, je n'y aurais pas cru ! Merci donc, pour commencer, de m'avoir initialement recruté puis rapidement proposé ce sujet de thèse. Merci, également, pour ton suivi et tes conseils éclairés tout au long de ce travail. Et enfin et surtout, merci de m'avoir accordé en tous temps ta confiance tout au long de ces trois années et demi pour mener à bien ma thèse. Cette confiance et la liberté que tu m'as laissées m'ont permis d'explorer des domaines de recherche inconnus de moi jusqu'alors et qui se sont révélés passionnants, de produire un travail à mon image, et finalement je pense, de mieux appréhender le métier de chercheur !\
+ 
+ En second lieu, je souhaite vivement remercier les personnes qui portent les projets de recherche sur lesquels ma thèse a été adossée. Merci à Cédric Pennetier et Nicolas Moiroux, porteurs des projets REACT 1 et REACT 2; et à Karine Mouline, porteuse du projet ANORHYTHM. Vos compétences et votre motivation pour ces sujets si passionnants sont un exemple à suivre pour les chercheuses et chercheurs en herbe comme moi ! Merci à l'unité MIVEGEC qui m'a hébergée pour mener à bien cette thèse. Merci également aux organismes publics qui ont financé, directement ou indirectement, ma thèse : l'Initiative 5%, le Ministère des Affaires Étrangères, l'Agence Nationale de la Recherche, l'Institut de Recherche pour le Développement.\
+
+ La garantie d'une recherche de qualité est son évaluation par les pairs. Merci, ainsi, aux chercheurs et chercheuses qui ont pris le temps de suivre ou d'évaluer ma thèse, à travers le comité de suivi individuel et le jury de thèse : Catherine Linard, Ibrahima Dia, Annelise Tran, Morgan Mangeas, Eric Daudé, Florence Fournet, Jean Gaudart, Emmanuel Roux, Carlo Costantini, Frédéric Simard. Un remerciement particulier à Catherine Linard et Ibrahima Dia, qui ont accepté la chronophage tâche de rapporter ma thèse.\
+
+ Cette thèse se basant très largement sur les données du projet REACT 1, je souhaite remercier particulièrement toutes les personnes qui ont oeuvré à son accomplissement, sur le terrain, au laboratoire, ou au bureau ; ainsi que les habitants des villages du projet REACT. Ma thèse n'aurait pu voir le jour sans cet immense travail de collecte de données auquel vous avez contribué. Merci, au passage, aux collègues des organismes scientifiques partenaires de l'IRD avec lesquels j'ai échangé pendant ma thèse : l'Institut de Recherche en Sciences de la Santé au Burkina Faso et l'Institut Pierre Richet en Côte d'Ivoire.\
+ 
+ Une mention spéciale à Aristide et Abou, mes accompagnateurs moto sur le terrain - je sais que j'ai parfois pu vous faire suer pour collecter mes parcelles d'occupation du sol :) ! Et tant qu'on est sur le terrain, merci à Hamidou Konaté, qui a pris grand soin de moi lors de mon accès palustre à Iolonioro. Grâce à toi, j'ai pu appréhender mon sujet de thèse - toute mesure gardée - au plus proche de la réalité terrain, en toute sécurité !\
+ 
+ Ce travail a également été rendu possible grâce aux innombrables personnes travaillant, au niveau technique ou politique, à ouvrir de nombreuses données (satellitaires ou autres) et développer des logiciels à code source ouvert, pour que chacun puisse les utiliser facilement et librement. Je souhaite les remercier ici. Merci en particulier à Raffaele Gaetano, contributeur au développement du logiciel Orfeo Toolbox, pour ton aide sur l'utilisation de cet outil. De même, je remercie toutes les personnes anonymes qui font vivre les forums de discussion sur la science des données, en répondant aux questions techniques. Ces forums ont été largement utilisés dans mes travaux.\
+
+ Avant le commencement de ce travail, de nombreuses personnes m'ont fait confiance au niveau professionnel. Je souhaite ici les en remercier : ce travail a aussi été rendu possible grâce à elles. Merci à Nathalie Molines de m'avoir initialement introduit au monde de la géomatique au cours de ma formation initiale, et de m'avoir fait confiance en m'autorisant - déjà à l'époque - de faire des stages 'alternatifs' m'ayant permis de creuser cette voie précocément. Merci à Axel Falguier de m'avoir recruté, il y a tout juste neuf ans, pour ma première expérience professionnelle en tant que géomaticien pour la réserve naturelle des Terres Australes et Antarctiques Françaises - je conserve une belle nostalgie de cette époque. Enfin, merci à vous, Julien Barde et Emmanuel Chassot, de m'avoir introduit au monde de la recherche scientifique il y a sept ans (à l'époque, sur les pêcheries thonières) et en particulier, au sein de l'IRD. De la pêche au thon à la chasse aux moustiques, il n'y eu qu'un pas ! Ces années à l'IRD ont été pour moi extrêmement enrichissantes, grâce à tous ces projets portés par des personnes passionnées, dans un institut qui porte de belles valeurs humanistes. Pourvu que ça dure !\
+
+ Vivre hors de son pays est toujours l'occasion de formidables rencontres et d'ouvrir un peu plus son esprit, et les deux premières années de ma thèse passées à Bobo-Dioulasso, au Burkina Faso, l'ont une fois de plus confirmé. Je salue donc bien bas toute l'équipe bobolaise ! Les innombrables Brakina savourées avec vous au Zoffi, les séances ciné Rembob's, les longues soirées dansantes à l'Entente ou encore les tournois de badminton au club Muraz ont rythmé une vie douce et remplie d'apprentissages de vie. Un Anitié particulier à la bande proche : Simon, Julia, Clément, Fleurance, Yara, Issouf, Hélène, Soizic, Farès.\
+
+ Ces dix-huit derniers mois, les amis montpellierains ont bien pris le relais ! Merci à Camille et Bifi pour les innombrables soirées dans les mas et pour les tours de vélo, à Ben et Agnès pour les soirées dansantes dignes de celles de Bobo, à Marco (aaaaiie) et Coralie pour les apéros et virées dans l'arrière pays, à Rodaco pour un peu tout ça à la fois et même plus. Une pensée pour toi Martin, mon brolloc de la rue M2S, ça kif ! Merci à mes collègues et amies de bureau qui m'ont accompagné sur ma période montpelliéraine : Lison, Angélique et Adeline. Si c'est un plaisir de venir au bureau, c'est en bonne partie grâce à vous. Pourvu que l'on continue à travailler (et pas que) comme on le fait si bien ! Merci en particulier à toi, Angélique, pour le code Latex de la page de garde de ce manuscrit, mais surtout pour tes conseils avisés de statisticienne et les discussions enrichissantes sur notre rôle dans la recherche.\
+ 
+ Bien sûr, je n'oublie pas les bases. La base de la base. Les *Vrais Gars* : Phil, Ninin, Adi, Jo, Seba, Tigrou, Flo, Lolo, Bouns. Merci pour vos messages de soutien tout au long de la thèse, pour les week-ends entre potes qui permettent de s'évader et oublier - un peu - la thèse. Longue vie aux VG et à bas les sapins ! Un merci spécial à Benoit de Haas, auteur des dessins séparant les trois grandes parties du manuscrit (pages 5, 63, 210). Plus largement, merci à tous les amis de l'Université de Technologie de Compiègne : le réseau de l'UTC est une ancre pour moi, qui me permet d'appréhender plus sereinement mes divagations géographiques de vie !\
+
+ Pierrot, mon cher cousin, une mention spéciale pour toi. Tu es pour moi un modèle, un exemple de motivation et de résilience. Obrigado !\
+
+  Merci à toi, ma Clairette. Ta délicatesse, tes plans d'évasion pour le week-end, sorties au cinéma ou encore autres petites attentions culinaires, et nos longues soirées à refaire le monde, m'ont grandement aidé à tenir et avancer. Ton abnégation nous a permis de mener à bien en parallèle cette (longue) fin de thèse et notre début de relation ! Merci pour ton accompagnement, ton soutien, et ta patience. Le meilleur est devant nous ! M'bifé !\
+
+  Enfin, merci à ma famille. Papa, Maman, Caroline, Marine, Julien, Alizée, Simon, Eliott, Noé. Je ne vous dirai jamais assez combien je vous aime. Vous êtes la moustiquaire qui me protège des piqûres de la vie ;) Et avec vous, pas de développement de résistances ! Papa et Maman, merci de m'avoir accompagné toutes ces années, de m'avoir toujours soutenu dans mes choix, de m'avoir guidé, en douceur, sans jamais interférer. Merci pour les valeurs que vous m'avez transmises. Je vous dédie cette thèse.
+  
+ 
+dedication: |
+ BF : Burkina Faso\
+ càd. : c'est-à-dire\
+ CI : Côte d'Ivoire\
+ CCM : Cross-Correlation Map\
+ EDA : Exploratory data analysis\
+ EIC : European Innovation Council\
+ ERC : Essai Randomisé Contrôlé\
+ FAIR : Findable, Accessible, Interoperable, Reusable\
+ FOSS : Free and Open Source Software\
+ GAM : Generalized Additive Model\
+ GLMM : Generalized Linear Mixed Model\
+ GPM : Global Precipitation Measurement\
+ IEC : Information, Education, Communication\
+ IPR : Institut Pierre Richet\
+ IRD : Institut de Recherche pour le Développement\
+ IRSS : Institut de Recherche en Sciences de la Sante\
+ LAV : Lutte Anti-Vectorielle\
+ LST : Land Surface Temperature\
+ MAP : Malaria Atlas Project\
+ MIILDA : Moustiquaire Imprégnée d’Insecticide à Longue Durée d’Action\
+ MODIS : Moderate Resolution Imaging Spectroradiometer\
+ MNT : Modèle Numérique de Terrain\
+ NASA : National Aeronotics and Space Agency\
+ NDVI : Normalized Difference Vegetation Index\
+ OMS : Organisation Mondiale de la Santé\
+ OPeNDAP : Open-source Project for a Network Data Acces Protocol\
+ PDP : Partial Dependence Plot\
+ PID : Pulvérisations Intra-Domiciliaires d’insecticide à effet rémanent\
+ PNLP : Programme National de Lutte contre le Paludisme\
+ SIG : Système d'Information Géographique\
+ SMI : Synthetic Meteorological Indicator\
+ SPOT : Satellite pour l'Observation de la Terre\
+ SRTM : Shuttle Radar Topography Mission\
+ TR : Transmission Résiduelle\
+ VIIRS : Visible Infrared Imaging Radiometer Suite
+#  You can have a dedication here if you wish. 
+preface: |
+ *La maturité de l'homme, c'est d'avoir retrouvé le sérieux qu'on avait au jeu quand on était enfant*
+ \
+ \
+ F. Nietzsche
+
+# *Nous avons grandi maintenant. Reste à savoir ce que cela veut dire.*\
+# \
+# Aaron Swartz
+#
+# \
+# \
+# \
+# \
+# \
+# \begin{flushright}
+# Dédié à mes parents
+# \end{flushright}
+
+#  This is an example of a thesis setup to use the reed thesis document class 
+#  (for LaTeX) and the R bookdown package, in general.
+  
+# Specify the location of the bibliography below
+bibliography: bib/thesis.bib
+# Download your specific csl file and refer to it in the line below.
+csl: csl/apa.csl
+lot: true
+lof: true
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of 
+metadata used to produce the document.  Be careful with spacing in this header!
+
+If you'd prefer to not include a Dedication, for example, simply delete the section entirely, or silence them (add # before each line). 
+
+If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+
+If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this.
+
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r include_packages, include=FALSE}
+# This chunk ensures that the thesisdown package is
+# installed and loaded. This thesisdown package includes
+# the template files for the thesis.
+if (!require(remotes)) {
+  if (params$`Install needed packages for {thesisdown}`) {
+    install.packages("remotes", repos = "https://cran.rstudio.com")
+  } else {
+    stop(
+      paste('You need to run install.packages("remotes")",
+            "first in the Console.')
+    )
+  }
+}
+if (!require(thesisdown)) {
+  if (params$`Install needed packages for {thesisdown}`) {
+    remotes::install_github("ismayc/thesisdown")
+  } else {
+    stop(
+      paste(
+        "You need to run",
+        'remotes::install_github("ismayc/thesisdown")',
+        "first in the Console."
+      )
+    )
+  }
+}
+library(thesisdown)
+library(tidyverse)
+library(kableExtra)
+# Set how wide the R output will go
+options(width = 70)
+```
+
+<!--
+The acknowledgments, preface, dedication, and abstract are added into the PDF
+version automatically by inputting them in the YAML at the top of this file.
+Alternatively, you can put that content in files like 00--prelim.Rmd and
+00-abstract.Rmd like done below.
+-->
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00--prelim.Rmd")}
+
+```
+
+```{r eval=!knitr::is_latex_output(), child=here::here("prelims", "00-abstract.Rmd")}
+
+```
+
+<!-- The {.unnumbered} option here means that the introduction will be 
+"Chapter 0." You can also use {-} for no numbers on chapters.
+-->
+
+<!-- Ci dessous : les references qui seront intégrées dans les légendes des figures -->
+(ref:who) [@who_2021] 
+(ref:weiss) [@weiss_mapping_2019]
+(ref:carnevale) [@carnevale_les_2009]
+(ref:wiebe) [@wiebe_geographical_2017]
+(ref:sherrardsmith) [@sherrard-smith_mosquito_2019]
+(ref:killeen) [@killeen_characterizing_2014]
+(ref:bertozzi) [@bertozzi-villa_maps_2021]
+(ref:moyes) [@moyes_evaluating_2020]
+(ref:breiman) [@breiman_statistical_2001]
+(ref:kell) [@kell_here_2004]
+(ref:shmueli) [@shmueli_explain_2010]
+(ref:yanai) [@yanai_what_2019]
+(ref:fontenille) [@fontenille_2019]
+(ref:molnar) [@molnar_interpretable_2019]
+(ref:moiroux) [@moiro2012]
+(ref:wilson) [@wilson_importance_2020]
+(ref:foo) (auteur : Pascal Combemorel, License : [CC-BY-SA](https://creativecommons.org/licenses/by-sa/4.0/))
+(ref:article1) \@ref(full-article-1)
+
+# Préface {.unnumbered}
+
+*Transmission résiduelle du paludisme*\
+
+Les deux premières décennies du XXI$^{ème}$ siècle ont représenté un âge d’or dans l’histoire de la lutte contre le paludisme. Au cours de ces années, grâce à un engagement scientifique, politique et financier sans précédent, le fardeau du paludisme a été significativement allégé à l’échelle mondiale. Plusieurs milliards de moustiquaires imprégnées d’insecticide, de tests de diagnostic rapide, de traitements à base d’artémisine, ont été distribués sur tous les continents touchés par la maladie [@who_2021]. Ces efforts considérables effectués dans la prévention, le diagnostic et le traitement du paludisme, ont porté leurs fruits : au niveau mondial entre 2000 et 2019 (avant la pandémie de covid-19), l’incidence du paludisme a reculé de 29 % et la mortalité de 60 %, des niveaux jusqu’alors inédits [@who_2020_world_nodate]. Sur cette même période, 1,5 milliards de cas de paludisme et 7,6 millions de décès associés ont été évités dans le monde [@who_2020_world_nodate].\
+
+Mais depuis quelques années, les progrès stagnent. L’incidence ne recule plus aussi rapidement : alors qu’elle diminuait de 4,25 % en moyenne par an sur la période 2000 – 2015, elle ne baissait plus que de 2 % par an sur la période 2015 - 2019 [@who_2020_world_nodate]. De même, la mortalité associée à la maladie ne diminue plus aussi rapidement. En cause : des changements socio-économiques et environnementaux, mais surtout des menaces biologiques telles que la résistance des parasites responsables du paludisme aux antipaludiques ou encore celle des moustiques vecteurs aux insecticides utilisés dans la lutte anti-vectorielle. Aussi, dans des zones pourtant couvertes par les outils de lutte anti-vectorielle conventionnels, la transmission du paludisme reste soutenue, voire réaugmente : cette transmission qui échappe aux stratégies de lutte mises en place est appelée transmission *résiduelle* du paludisme [@killeen_characterizing_2014].\
+
+Comment redynamiser les progrès ? Dans un contexte de ressources (financières, humaines, matérielles) limitées et d’émergence de menaces à l'efficacité des outils de lutte actuels, la communauté scientifique propose de repenser certaines approches de gestion de la maladie. En particulier, elle incite à développer de nouveaux outils de lutte contre la maladie, et à passer d’une démarche « universelle » - où les efforts sont déployés uniformément sur un territoire donné – à une démarche localisée, où les interventions sont optimisées en fonction des spécificités locales et du niveau de risque, notamment de transmission résiduelle de la maladie.\
+
+La mise en œuvre de ces approches nécessite d’approfondir les connaissances sur le risque de transmission résiduelle et sur sa distribution spatio-temporelle. L’enjeu est donc double. D’une part, il s’agit d’approfondir les connaissances fondamentales sur les phénomènes entrant en jeu dans le risque de transmission résiduelle. Ces connaissances peuvent permettre de développer de nouveaux outils de lutte. D’autre part, pour gérer le risque au niveau local, il est nécessaire d’acquérir une connaissance fine de la distribution spatio-temporelle de ce risque sur un territoire d’intérêt : comprendre les déterminants de son hétérogénéité et être en mesure de la prédire. Une telle connaissance permet ensuite de définir puis déployer les interventions qui sont susceptibles d’avoir le plus d’impact au regard de la situation locale.\
+
+Comment acquérir ces connaissances ? Le risque de transmission résiduelle est directement lié à la probabilité qu’un moustique vecteur du paludisme pique un humain. Cette probabilité de contact entre l’homme et le vecteur dépend elle-même en grande partie de l’environnement dans lequel les populations, humaines et vectorielles, évoluent. Une compréhension fine et holistique des interactions complexes, sur le terrain, entre le vecteur, l’homme, le parasite, et l’environnement est donc nécéssaire pour élaborer et mettre en œuvre ces nouvelles approches de la gestion du risque. A cet égard, la fouille de données (*data mining*) constitue une approche intéressante et en plein essor permettant de mieux appréhender l'étude de ce genre de systèmes complexes.
+
+\pagebreak
+
+*Données volumineuses, fouille de données et méthodes statistiques pour l’étude des systèmes complexes*\
+
+Le début du XXI$^{ème}$ siècle a aussi représenté le point de basculement dans l’ère de la donnée numérique. Des paramètres biophysiques de notre planète à nos comportements individuels, les réalités physiques, matérielles, de notre univers, sont toujours plus mesurées et archivées. En parallèle et en lien direct, les ressources informatiques et les méthodes statistiques ont connu une véritable révolution afin d’offrir les capacités de traiter ce « déluge de données ». À l’interface entre informatique, statistiques et connaissances métiers, la science des données a émergé en tant que discipline scientifique visant à exploiter ces « données volumineuses » pour mieux comprendre et prédire le monde qui nous entoure.\
+
+Dans un premier temps cantonnée à des fins commerciales, la science des données est en train de prendre une part toujours plus importante dans l'ensemble des disciplines de la recherche scientifique ; avec une prise de conscience croissante que ces données volumineuses peuvent jouer un rôle dans le processus de vérification, voire création, de connaissance scientifique. Ainsi, les projets de recherche collectent toujours plus de données pour étudier des phénomènes d’intérêt. Mais dans certaines disciplines, si la démarche d’utilisation de données à des fins de vérification d’hypothèses scientifiques pré-établies paraît souvent bien connue et maîtrisée par les chercheurs, le processus de création de connaissances ou nouvelles hypothèses scientifiques à partir de données volumineuses et modèles statistiques semble généralement moins maîtrisé.\
+
+Comment, au-delà de la « simple » vérification d’hypothèses scientifiques pré-établies, les données et méthodes statistiques peuvent-elles nous aider à générer de nouvelles connaissances ou théories scientifiques ? En quoi la modélisation statistique et les données servent-elles les objectifs fondamentaux de la recherche scientifique (créer, consolider, vérifier des hypothèses) ? Comment exploiter pleinement leur potentiel ? En particulier, comment peuvent-elles appuyer l’étude des systèmes biologiques complexes, tel que le système environnement – hôte - vecteur ?\
+
+\pagebreak
+
+*Présentation générale de la thèse et de l'organisation du manuscrit*\
+
+Cette thèse étudie le risque de transmission résiduelle du paludisme, et en particulier les liens entre environnement et vecteurs du paludisme, en utilisant des méthodes avancées de modélisation statistique. Bien que les problématiques abordées concernent un grand nombre de pays africains, la présente étude se concentre sur deux zones rurales ouest-africaines endémiques du paludisme de la taille de districts sanitaires, situées au Burkina Faso et en Côte d’Ivoire. La thèse se veut à l’interface entre les sciences de l’entomologie médicale, de la géo-épidémiologie, et des données. L’objectif principal est d’améliorer certaines connaissances fondamentales sur le risque de transmission résiduelle du paludisme dans nos deux zones d’étude, en étudiant la bio-écologie des vecteurs. Le second objectif est d’offrir au lecteur un éclairage épistémologique et méthodologique sur le rôle de la modélisation statistique dans la recherche scientifique, et en particulier sur son potentiel pour l'étude des systèmes biologiques complexes ; les travaux de thèse en représentant des cas d’étude concrets.\
+ 
+Le manuscrit se divise en 7 chapitres répartis dans 3 grandes parties. La première partie (chapitres 1 et 2) a pour objectif de dresser un cadre théorique et bibliographique sur le paludisme et la modélisation statistique utile à la compréhension des travaux de thèse ; et de présenter les objectifs et enjeux de la thèse. La deuxième partie du manuscrit (chapitres 3 à 6) constitue le cœur du travail de thèse. Enfin, dans la troisième partie (chapitre 7), nous discutons l’ensemble résultats.
+
+
+
+
+
+
+
+
+
+<!-- **Paludisme et transmission résiduelle**\ -->
+
+<!-- Le paludisme humain est une maladie millénaire [@sundararaman_genomes_2016]. D’un document chinois datant de 2700 avant J.-C. à des textes d’Homère dans la Grèce antique, la littérature historique, sur les cinq continents, ne manque pas de descriptions d’accès fiévreux correspondant en tous points aux symptômes du paludisme [@cox_history_2010]. Aujourd’hui, presque 150 ans après les premières découvertes majeures liées à la maladie (parasite responsable et rôle des moustiques *anopheles* impliqués)[@cox_history_2010], et malgré les efforts déployés pour faire reculer la maladie depuis autant de temps, le paludisme reste l’une des quatre maladie infectieuses (avec la tuberculose, le sida et le covid-19 depuis 2020) les plus mortelles (en nombre de décès annuels dus à la maladie) au niveau mondial [@le_monde_covid-19_2020]. Puisque cette thèse s’articule autour de la statistique et de la donnée, donnons en introduction de ce manuscrit quelques chiffres principalement issus du dernier « Rapport sur le paludisme dans le monde » de l’Organisation Mondiale de la Santé [@who_2021], pour rappeler, pêle-mêle : le poids de la maladie dans le monde, le déséquilibre dans sa répartition spatiale et démographique, les efforts et progrès effectués depuis une vingtaine d’années, ainsi que les récentes - et inquiétantes – évolutions.\ -->
+
+<!-- Au niveau mondial, en 2000, environ 3,2 milliards d’êtres humains vivaient dans des zones endémiques de paludisme, répartis dans 108 pays. Cette année là, le nombre de cas de paludisme était estimé à 241 millions (81 cas pour 1000 personnes à risque), et le nombre de décès attribuables à la maladie à 896 000 (30 pour 100 000 personnes à risque).\ -->
+
+<!-- Vingt ans après (en 2020), le nombre de personnes vivant dans des zones à risque est à peu près identique (3,4 milliards d’êtres humains). Le nombre de pays endémiques, par contre, a reculé ; passant à 87. Cette année là, le nombre de cas de paludisme était estimé à 241 millions (59 cas / 1000 personnes à risque), et le nombre de décès attribuables à la maladie à 627 000 (15 pour 100 000 pers. à risque).\ -->
+
+<!-- Ces chiffres montrent que la maladie a globalement reculé sur ces 20 dernières années. Bien que les données précédant l’année 2000 soient rares, l’OMS estime qu’un tel recul, dans une si courte période, est sans précédent dans l’Histoire. Ces progrès peuvent être attribués à des efforts scientifiques, politiques, financiers, engagés sur cette période, eux aussi inédits. Ces efforts ont concerné différents aspects de la prévention, du diagnostic et du traitement de la maladie. Ainsi, au niveau mondial, 2,3 milliards de moustiquaires imprégnées d’insecticide ont été distribuées entre 2004 et et 2020, et 3,1 milliards de tests de détection rapide de la maladie ainsi que 3,5 milliards de traitements par combinaison thérapeutique à base d’artémisinine ont été vendus entre 2010 et 2020.\ -->
+
+<!-- Malgré les progrès, ces chiffres montrent aussi que le paludisme reste un problème majeur dans le monde. En sus de la tragédie humaine et du problème de santé publique que représente la maladie, elle constitue un frein au développement humain et économique dans les pays endémiques ; d’autant plus qu’elle touche en grande majorité les populations les plus vulnérables à la fois économiquement et physiquement. En effet, en 2020, 95 % des cas et 96 % de la mortalité étaient concentrés en Afrique sub-saharienne (figure \@ref(fig:global-pfpr-2019)) ; et les enfants de moins de 5 ans représentaient 77 % de la mortalité.\ -->
+
+<!-- ```{r global-pfpr-2019, fig.cap="Taux de prévalence de Plasmodium falciparum chez les enfants âgés de deux à dix ans (PfPR2-10) en 2019 (ref:weiss)", fig.scap="Taux de prévalence de Plasmodium falciparum chez les enfants âgés de deux à dix ans en 2019", out.width="1.1\\linewidth", fig.align="left", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/global_PfPR_2019.png") -->
+<!-- ``` -->
+
+<!-- Un regard plus détaillé sur l’évolution des statistiques mondiales et africaines associées au paludisme permet de dégager trois périodes au cours de ces 20 dernières années (figure \@ref(fig:malaria-african-trends)). La période 2000 - 2015 a été marquée par une réduction forte et continue de la maladie. L’incidence du paludisme au niveau mondial a diminué de 27 % sur cette période, et la mortalité de 52 %. Entre 2015 et 2019, les progrès ont stagné. Sur cette période, l’incidence n’a diminué que de 2 % entre 2015 et 2019 et la mortalité de 16 %. L'année 2020 a été marquée par une augmentation significative des cas et de la mortalité, en partie liés à la pandémie de covid-19 qui a perturbé les services sanitaires. Cette dernière année mise à part, le ralentissement observé depuis 2015 s’explique – au moins en partie – par l’émergence et la généralisation des résistances des parasites aux antipaludiques et des résistances des vecteurs aux insecticides utilisés en santé publique ou en agriculture [@who_2021]. Aussi, dans des zones pourtant couvertes par les outils de lutte anti-vectorielle (LAV) conventionnels (moustiquaires imprégnées d’insecticide en tête), la transmission du paludisme reste soutenue, voire réaugmente. Cette transmission s'effectuant en zone couverte par les outils de LAV conventionels est appelée transmission *résiduelle* du paludisme [@killeen_characterizing_2014].\ -->
+
+<!-- ```{r malaria-african-trends, fig.cap="Morbité (à gauche) et mortalité (à droite) annuelle liées au paludisme dans la région Afrique de l'OMS entre 2000 et 2020 (ref:who)", fig.scap="Morbité et mortalité annuelle liées au paludisme dans la région Afrique de l'OMS entre 2000 et 2020", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/malaria_africa_trends.png") -->
+<!-- ``` -->
+
+<!-- Pour redynamiser le progrès, les pistes sont multiples. Outre le maintien à minima des efforts actuels, la communauté des acteurs de la lutte contre le paludisme recommande de concevoir de nouveaux outils de lutte contre la maladie, afin de cibler la part résiduelle de la transmission, freiner le développement et limiter l’impact épidémiologique des menaces biologiques. Il est également préconisé de passer d’une approche « universelle » de la gestion du paludisme – où les efforts de prévention, diagnostic, traitement sont déployés de manière uniforme sur le territoire – à une approche davantage « ciblée » - où les stratégies de contrôle et traitement sont adaptées aux spécificités locales. Cette approche consiste à déployer les outils les plus adaptés aux conditions locales de maladie (faciès entomologique, épidémiologique, de vulnérabilité des populations, etc.), et prioriser les zones dans lesquelles intervenir en fonction de leur niveau de risque relatif. Ce nouveau paradigme de gestion territoriale stratifiée du paludisme a notamment été formalisé par l’OMS dans une approche intitulée « High burden to high impact » (HBHI) (« D’une charge élevée à un fort impact ») [@who_2020_world_nodate]. Ces différentes pistes -->
+
+
+<!-- concevoir de nouveaux outils de lutte, adapter la lutte au contexte local, cibler le déploiement des interventions - nécessitent respectivement - -  -->
+<!-- . En particulier, les méthodes issues de la science des données et les données environnementales télédétectées peuvent aider.  -->
+
+<!-- - d'approfondir les connaissances fondamentales sur les déterminants du risque de transmission résiduelle,  -->
+<!-- - d'être en mesure de diagnostiquer le risque de transmission sur un territoire d'intérêt, et  -->
+<!-- - d'être en mesure de prédire le risque de transmission résiduelle dans l'espace et dans le temps à fine échelle spatio-temporelle : déterminants, intensité, hétérogénéité spatio-temporelle. -->
+
+<!-- Ces différents objectifs -->
+
+<!-- Le risque de transmission résiduelle du paludisme est le fruit d’interactions complexes entre des facteurs relevant du parasite responsable de la maladie, du moustique vecteur, et de l’humain. Ces facteurs de risque sont eux mêmes intimement liés à l’environnement dans lequel les populations, vectorielles et humaines, évoluent. Sur un territoire d’intérêt, l’étude des intéractions au sein du système {environnement, hôte, vecteur, parasite} est donc primordiale pour comprendre et prédire la transmission résiduelle et in fine concevoir de nouveaux outils de lutte ou mettre en œuvre l’approche localisée de la gestion du paludisme. Au regard de la complexité du système biologique {environnement, hôte, vecteur}, une telle étude ne peut se faire sans collecter et analyser des données variées, nombreuses, fines, spatialisées et temporalisées.\ -->
+
+<!-- Comment, dès lors, étudier efficacement le risque de transmission résiduelle du paludisme avec pour objectif opérationnel de développer ou déployer des outils de lutte anti-vectoriels complémentaires à la moustiquaire sur le territoire ?\ -->
+
+<!-- **Étude du système complexe {environnement, hôte, vecteur} et fouille de données**\ -->
+
+<!-- Le risque de transmission résiduelle du paludisme est le fruit d’interactions complexes entre des facteurs relevant du moustique vecteur de la maladie (abondance, comportement, résistances, etc.), de l’humain (utilisation de moustiquaires, habitudes horaires de sommeil, etc.) et du parasite responsable de la maladie. Ces facteurs de risque sont eux mêmes intimement liés à l’environnement dans lequel les populations, vectorielles et humaines, évoluent. Sur un territoire d’intérêt, l’étude des intéractions au sein du système {environnement, hôte, vecteur, parasite} est donc primordiale pour comprendre la transmission résiduelle et in fine concevoir de nouveaux outils de lutte ou mettre en œuvre l’approche localisée de la gestion du paludisme. Au regard de la complexité du système biologique {environnement, hôte, vecteur}, une telle étude ne peut se faire sans collecter et analyser des données variées, nombreuses, fines, spatialisées et temporalisées.\ -->
+
+<!-- La fouille de données, méthode issue de la science des données, constitue une approche intéressante et en plein essor pour étudier ce genre de systèmes biologiques contenant des relations complexes et souvent peu hypothétisables. A l’ère des données volumineuses, des méthodes statistiques de pointe, et des ressources informatiques performantes de traitement de données, la fouille de données a son rôle à jouer dans le processus de vérification, consolidation, création de connaissance scientifique, et de prédiction des comportements dans les systèmes biologiques complexes. Comment, dès lors, utiliser efficacement la fouille de données et ses développement récents pour mieux comprendre et prédire des systèmes complexes tels que le système {environnement, hôte, vecteur} ? \ -->
+
+<!-- **Présentation générale de la thèse et organisation du manuscrit**\ -->
+
+<!-- Cette thèse propose puis implémente trois approches de recherche permettant de tendre vers ces objectifs opérationnels.  -->
+
+<!-- Cette thèse étudie le risque de transmission résiduelle du paludisme, et en particulier les liens entre environnement et traits biologiques, physiologiques et comportementaux des vecteurs du paludisme, en utilisant des méthodes de fouille de données. Nous y présentons plusieurs approches permettant de mieux comprendre et prédire le risque, et ainsi tendre vers les objectifs opérationnels de l'approche HBHI. Bien que les problématiques abordées concernent un grand nombre de pays, la présente étude se concentre sur deux zones rurales ouest-africaines de la taille de districts sanitaires, situées dans deux pays endémiques du paludisme : le Burkina Faso et la Côte d’Ivoire. La thèse se veut à l’interface entre les sciences de l’entomologie médicale, de la geo-épidémiologie, et des données. L’objectif principal est d’améliorer certaines connaissances fondamentales sur le risque de transmission résiduelle du paludisme dans nos deux zones d’étude. Le second objectif est d’offrir au lecteur un éclairage épistémologique et méthodologique sur l’étude des systèmes biologiques complexes par la fouille de données.\ -->
+
+<!-- <!-- La thèse est rattachée et financée par les projets REACT et ANORHYTHM. Ces projets visent, respectivement, à évaluer l’impact de stratégies complémentaires à la moustiquaire imprégnée d’insecticides sur la transmission du paludisme et à étudier les rythmes circadiens des vecteurs du paludisme dans un contexte de changement global.\ --> 
+
+<!-- Le manuscrit est composé de 3 grandes parties.\ -->
+
+<!-- La première partie (chapitres 1 et 2) a pour objectif de dresser un cadre théorique et bibliographique sur la transmission résiduelle du paludisme (chapitre 1) et sur la fouille de données (chapitre 2). Les questions, enjeux et objectifs de la thèse sont détaillés en fin de chapitre 1. -->
+
+<!-- La deuxième partie du manuscrit (chapitres 3 à 7) constitue le cœur du travail de thèse. Après une présentation de nos zones d'étude et du travail de préparation et recueil des données utilisées pour les travaux de thèse (chapitre 3), nous y intégrons quatres articles qui constituent le travail de thèse. -->
+
+<!-- Enfin, dans la troisième partie (chapitre 7), nous discutons l’ensemble résultats. -->
+
+
+<!-- <!-- Le chapitre 1 introduit certaines généralités et concepts d’entomologie médicale liés au paludisme utiles à la compréhension des travaux de thèse, formalise le concept de risque de transmission résiduelle, détaille le cadre conceptuel utilisé pour l’étude du risque de transmission résiduelle dans la thèse, et expose les questions de recherche. Le chapitre 2 introduit les concepts liés à la fouille de données ; et montre en quoi ces méthodes permettent de répondre aux questions de recherche, et au sens plus large d’étudier les systèmes biologiques complexes tels que le système environnement – vecteur en conditions naturelles.\ --> 
+
+<!-- <!-- La deuxième partie du manuscrit (chapitres 3 à 7) constitue le cœur du travail de thèse. Au chapitre 3, nous présentons les zones d’étude et le travail de préparation et recueil des données utilisées pour les travaux de thèse. Le chapitre 4 présente une étude visant à caractériser et quantifier la transmission résiduelle sur nos zones d’étude. Les chapitres 5 et 6 consistent en deux études visant à explorer les liens entre l’environnement et, respectivement, les densités agressives et les résistances (comportementales et physiologiques) des vecteurs du paludisme sur nos zones d’étude, en utilisant des méthodes de fouille de données. Le chapitre 7 présente une quatrième étude \ --> 
+
+
+
+<!-- objectif : étudier les déterminants entomologiques du risque de transmission résiduelle du paludisme , en particulier, . Accent particulier sur l'utilisation de données environnementales télédétéctées et les méthodes récentes de fouille de données.  -->
+

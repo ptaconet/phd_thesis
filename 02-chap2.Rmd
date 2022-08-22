@@ -1,0 +1,299 @@
+# Contexte méthodologique : Étude des systèmes complexes et modélisation statistique {#data-mining}
+
+L'enjeu des principales études de cette thèse (chapitres \@ref(data-mining-abundances) et \@ref(data-mining-resistances)) est d'approfondir les connaissances sur certains traits bio-écologiques, comportementaux ou physiologiques des vecteurs du paludisme. A cette fin, nous utiliserons une forme particulière d'étude des systèmes complexes, nommée "holistico-inductive". L'approche holistico-inductive est différente, conceptuellement et pratiquement, de l'approche hypothético-déductive généralement mieux maitrisée des chercheurs.\
+
+Qu'est ce que l'approche holistico-inductive, et en quoi diffère-t-elle de l'approche hypothético-déductive ? Quel rôle peut jouer la modélisation statistique dans ces différentes approches ? En quoi la modélisation statistique peut-elle servir les différents grands objectifs de la recherche scientifique : tester, améliorer, ou construire des théories scientifiques ? Ce chapitre apporte des éléments de réponse à ces questions. Son enjeu principal, dans le cadre strict de la thèse, est de préciser le raisonnement scientifique et les choix méthodologiques effectués dans les travaux à suivre. Au sens plus large, l'objectif est de montrer en quoi la modélisation statistique peut servir les différents grands objectifs de la recherche scientifique : tester, améliorer, ou - de part ses récents développements - construire des théories scientifiques.
+
+
+<!-- ou n'utiliserons pas l'approche classique hypothético-déductive qui consiste à émettre une ou plusieurs hypothèses à priori puis à la vérifier avec des données et des modèles statistiques. L'approche nous utiliserons une approche en trois étapes : i) recueil d'un nombre important de données concernant ces traits de vie et leurs potentiels déterminants, ii) utilisation de modèles statistiques dont l'objectif est de capturer des éventuelles associations existantes entre ces données, et enfin iii) interprétation de ces associations à la lumière des connaissances scientifiques existantes. Cette approche bien particulière d'inférence porte un nom : l'approche "holistico-inductive", par opposition à l'approche hypothético-déductive ; et repose amplement sur un outil d'analyse de données : la modélisation statistique. Dans ce cadre, et afin de préciser le raisonnement scientifique et les choix méthodologiques effectués dans les travaux à suivre dans la thèse, ce chapitre se donne deux objectifs : i) présenter l'approche holistico-inductive pour étudier les systèmes complexes, et ii) présenter le rôle que tient la modélisation statistique dans cette approche. Au sens plus large, l'enjeu de ce chapitre est de montrer en quoi la modélisation statistique peut servir les différents grands objectifs de la recherche scientifique : tester, améliorer, ou construire des théories scientifiques. -->
+
+<!-- Dans une première partie (section \@ref(studying-complex-systems)), nous présentons ainsi les deux formes d'inférence logique existantes (déduction et induction) et, en lien direct, les deux approches (réductionniste et holistique) pour étudier les sytèmes complexes tels que ceux abordés dans cette thèse. Nous développons en particulier sur l'aspect complémentaire de ces deux approches. Dans une deuxième partie (section \@ref(statistical-modeling)), nous présentons l'outil scientifique que constitue la modélisation statistique : en reprenant la définition mathématique du modèle statique, nous décrivons la manière dont il peut servir chacune des différentes approches préalablement décrites, à travers trois démarches distinctes (modélisation explicative, prédictive, descriptive). Nous détaillons les étapes générales d'un travail modélisation statistique et insistons sur les différences fondamentales dans les choix à effectuer en fonction des objectifs et enjeux de l'analyse statistique. Finalement, nous présentons en quoi les développements récents dans le domaine de la modélisation statistique ouvrent des perspectives interessantes concernant l'extraction de connaissances dans les systèmes complexes par approche holistico-inductive.\ -->
+
+## Considérations épistémologiques sur l'étude des systèmes complexes {#studying-complex-systems}
+
+### Les deux formes d'inférence logique (inductif et déductif)
+
+L'objectif principal de la recherche scientifique est de faire avancer les connaissances en construisant et testant des hypothèses scientifiques. Les nouvelles hypothèses scientifiques sont construites à partir d'hypothèses existantes : ce processus s'appelle l'inférence logique. On reconnait deux formes principales d'inférence logique [@johnson-laird_human_2013; @kell_here_2004] : la déduction et l'induction.\
+
+Le **raisonnement déductif** (ou *hypothesis-driven* [@kell_here_2004]) confirme l'hypothèse par le cas. Dans cette forme de raisonnement, l'hypothèse (ou la théorie) est le point de départ. Les observations (ou données) sont utilisées pour la tester dans des situations particulières et ainsi la vérifier ou l'infirmer.\
+
+Le **raisonnement inductif** (ou *data-driven* [@kell_here_2004]), à l'inverse, part du cas pour générer l'hypothèse. Dans cette forme de raisonnement, l’observation (ou la donnée) est le point de départ. Ces données sont utilisées pour formuler des hypothèses, des théories, plus générales. Autrement dit, dans ce cas, les données servent à générer l'hypothèse, qui est donc l'objectif et le point final du raisonnement.\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°1 : **Exemples de raisonnements déductif et inductif** (extrait de @kell_here_2004)
+:::
+
+Raisonnement déductif : Toutes les baleines sont bleues; Georges est une baleine, donc Georges est bleu.\
+
+Raisonnement inductif : Georges est une baleine et est bleu; Anne est une baleine et est bleue; Percy est une baleine et est bleue; etc.; nous pouvons donc induire l'idée (hypothèse) que toutes les baleines sont bleues.
+
+::::
+
+Ces deux formes de raisonnement, à priori complémentaires, s'alimentent et forment ainsi le cycle de la génération de connaissances (figure \@ref(fig:cycle-knowledge)). En particulier, elles tiennent chacun leur rôle dans l'étude des systèmes complexes.\
+
+```{r cycle-knowledge, fig.cap="Le cycle de la connaissance (ref:kell)", fig.scap="Le cycle de la connaissance", out.width="0.6\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/cycle_knowledge.png")
+```
+
+### Etudier les systèmes complexes : approches holistique et réductionniste {#study-complex-systems}
+
+Un système complexe est un sytème composé de nombreux éléments qui peuvent intéragir les uns avec les autres. S'il n'existe à priori pas de définition formelle largement acceptée du système complexe, ceux-ci sont définis, selon les cas et selon les auteurs, par l'existence d'effets et d'interactions non linéaires entre éléments du système, ou encore par l'existence de niveaux d'organisation différents [@bar-yam_general_nodate]. Ainsi, par exemple, nous pouvons qualifier le système {densités agressives des anophèles - environnement} de complexe (figure \@ref(fig:complex-system-anopheles)) : au sein de ce système, les effets de l'environnement sur le facteur étudié (la densités agressives des anophèles) peuvent être non-linéaires, de nombreuses interactions existent à priori [@stresman_beyond_2010] ; l'ensemble provoquant un effet (les densités agressives) à priori difficilement prédictible. De manière générale, les sytèmes biologiques sont complexes [@bar-yam_general_nodate].\
+
+Deux stratégies au moins peuvent être envisagées pour étudier et tenter d'approfondir la compréhension d'un sytème complexe : l'approche réductionniste et l'approche holistique [@kell_here_2004; @bar-yam_general_nodate; @amboise_projet_1996]. Nous résumons ces approches dans les prochains paragraphes, en nous basant sur ces trois références bibliographiques.\
+
+Dans l'approche réductionniste, le système complexe est considéré comme un ensemble de sous-sytèmes, moins complexes et ainsi plus simples à approcher, contenant un nombre réduit d'éléments, de relations et interactions. La compréhension de chacun de ces différents sous-systèmes permet ensuite de reconstruire le système complexe initial physiquement ou intellectuellement. Dans cette approche, le système complexe est tout d'abord décomposé en sous-systèmes pertinents en se basant sur les connaissances à priori du système complexe ; puis pour chaque sous-système, un nombre restreint de variables le caractérisant est sélectionné - là aussi en se basant sur les connaissances *à priori*. L'enjeu de l'étude est alors de vérifier si et comment ces variables parcimonieusement sélectionnées impactent le comportement du sous-sytème. L'approche réductionniste repose donc sur un certain niveau de connaissance à priori du système complexe : à la fois pour créer les sous-sytèmes et pour sélectionner des variables pour chacun d'entre eux. En ce sens, l'approche réductionniste de l'étude des systèmes complexes est associée au raisonnement hypothético-déductif : les données servent à valider des hypothèses préalablement construites.\
+
+L'approche holistique, à l'opposé, considère que la complexité théorique des relations et interactions dans le système complexe implique qu'il faille étudier, chercher à décrire et comprendre, le système en entier, dans sa complexité. La première étape dans cette approche consiste à recueillir un maximum d'observations (données), ayant un impact plus ou moins lointainement soupçonné, sur le sytème étudié, quitte à en écarter certaines par la suite si elles ne s'avèrent pas utiles. Dans un second temps, les relations et interactions entre ces observations sont décrites - en général à l'aide d'outils informatiques et statistiques au regard du volume d'observations - puis interprétées à la lumière des connaissances préalables existantes. Cette démarche, reposant donc principalement sur les données, peut permettre d'améliorer, raffiner, ou faire émerger de nouvelles hypothèses scientifiques sur le fonctionnement du système complexe. En ce sens, l'approche holistique de l'étude des systèmes complexes est associée au raisonnement inductif : les données sont la source de l'hypothèse. On parle ainsi d'approche holistico-inductive.\
+
+\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°2 : **Exemple de questionnements de recherche et approches associées, en lien avec la thèse**
+:::
+
+Répondre à la question *"Sur mon territoire d'étude, quel est l'impact de l'interaction entre les précipitations et les températures sur les densités agressives des moustiques ?"* relève d'une approche réductionniste hypothético-déductive. Parmi tous les déterminants potentiels des densités agressives, deux en particulier sont sélectionnés (températures et précipitations), que l'on sait impacter l'abondance. L'objectif de l'étude sera de quantifier précisement l'impact des précipitations, des températures, et de leur interaction sur les densités agressives des moustiques.\
+
+Répondre à la question *"Sur mon territoire d'étude, quels sont les déterminants des densités agressives des moustiques ?"* relève d'une approche holistico-inductive. L'objectif de l'étude sera de collecter un maximum d'observations sur l'ensemble des potentiels déterminants des densités agressives, puis de décrire les liens existant entre ces observations, afin d'élaborer des hypothèses sur les déterminants des densités agressives (facteurs déterminants, effets, interactions, etc.).
+
+::::
+
+\
+
+L'approche hypothético-déductive réductionniste nécessite donc un cadre établi, rigide : l'hypothèse de recherche, précise, est formellement énoncée puis vérifiée ou testée à l'aide d'expérimentations contrôlées et de méthodes statistiques rigoureuses. L'approche hostistico-inductive, de son côté, est de prime abord moins rigide : les hypothèses de recherche ne sont pas formellement énoncées (ou n'existent même pas nécéssairement), le nombre de variables est plus important, les méthodes d'analyse moins rigides, le tout afin de laisser place à la découverte potentielle d'informations intéressantes. L’enjeu de l'approche holistico-inductive n’est pas de produire des résultats généralisables mais de mieux comprendre un phénomène d’intérêt, en espérant que la connaissance du phénomène acquise au cours de la recherche permettra de raffiner et d’améliorer la théorie existante. L'approche holistico-inductive requiert donc beaucoup de données et des hypothèses de départ très ouvertes. Le différentiel de rigidité au moment de l'établissement d'hypothèses préalables est regagné dans les étapes suivantes de l'analyse, qui nécéssitent rigueur, intégration du jugement subjectif et des connaissances humaines, afin d'interpréter les signaux (associations, etc.) révélés par l'analyse. En ce sens, ses défenseurs la considèrent comme une approche plus ouverte mais tout aussi rigoureuse que l'approche hypothético-déductive.\
+
+Ces deux approches de l'étude du système complexe, qui impliquent donc des démarches intrinsèquement différentes, sont pourtant complémentaires dans la compréhension des systèmes complexes. L'approche holistico-inductive, de part son caractère volontairement ouvert, est susceptible de soulever de nouvelles questions, ou hypothèses, potentiellement peu ou pas intuitionnées. La génération d'hypothèses est donc la fin du parcours. Ces nouvelles hypothèses pourront ensuite être testées expérimentalement, et validées, par raisonnement hypothético-déductif dans une approche réductionniste. Autrement dit, les approches hypothético-déductives (réductionnistes) et holistico-inductives sont itératives dans l'avancement des connaissances en général, et dans la compréhension des systèmes complexes en particulier (figure \@ref(fig:holism-reductionism)).\
+
+```{r holism-reductionism, fig.cap="Holisme et réductionnisme en tant que stratégies complémentaires et itératives pour comprendre les systèmes complexes (ref:kell)", fig.scap="Holisme et réductionnisme en tant que stratégies complémentaires et itératives pour comprendre les systèmes complexes", out.width="0.6\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/holism_reductionism.png")
+```
+
+Bien que ces approches soient donc à priori complémentaires, plusieurs auteurs constatent que les approches inductive en général, et holistico-inductive en particulier, sont aujourd'hui moins utilisées dans la recherche scientifique que les approches hypothético-déductives et réductionnistes [@shmueli_predictive_2010; @amboise_projet_1996; @kell_here_2004; @bar-yam_general_nodate; @yanai_night_2019]. L'approche hypothético-déductive est considérée dans certains milieux comme la seule méthode valable et fiable pour faire avancer les connaissances. Ainsi, par exemple, les rejets de projets ou idées scientifiques avec pour justification qu'ils "n'ont pas d'hypothèse testée", ou qu'ils consistent en des "fishing expeditions", sont fréquents : à l'extrême : "s'il n'y a pas d'hypothèse, ce n'est pas de la science" [@kell_here_2004; @yanai_night_2019]. Cette préférence de la déduction sur l'induction est probablement liée à une forme de sécurité psychologique qu'offre l'approche déductive [@kell_here_2004] (si l'axiome et l'observation sont correctes, l'inférence logique doit être correcte) mais pas l'approche inductive ; ainsi qu'à son cadre en apparence plus rigoureux, formel [@amboise_projet_1996]. Par ailleurs, nous hypothétisons ici que la défection pour l'approche holistico-inductive pourrait venir - en sus de son caractère inductif - d'un déficit de maitrise de certains outils nécéssaires à la conduite de cette approche (comme nous allons le voir dans la section \@ref(statistical-modeling) à suivre) : l'analyse de données en général et les statistiques, mathématiques, informatique en particulier.\
+
+<!-- Ces auteurs rappellent, néanmoins, l'importance du raisonnement inductif dans la construction des connaissances : celui-ci permet de faire émerger de nouvelles questions de recherche et hypothèses scientifiques (figure \@ref(fig:day-night-science)). 
+
+  
+-->
+
+\
+
+Quoi qu'il en soit, ces paragraphes ont montré que l'analyse des données est au coeur de la génération et validation d'hypothèses en général et de l'étude des systèmes complexes en particulier, quelle que soit l'approche et la forme d'inférence logique utilisée. La modélisation statistique est un puissant outil d'analyse de données, capable de servir, historiquement, l'approche hypothético-déductive mais aussi, de part ses développements récents, l'approche holistico-inductive - en faisant donc un outil essentiel du chercheur.
+
+<!-- Cette approche, de prime abord moins rigide, laisse place à la découverte d’associations non-attendues, qui, mises en perspective avec les connaissances actuelles, peuvent faire remonter de nouvelles questions, etc. L’objectif est alors de collecter le maximum de données qui ont un lien hypothétique – ou pas – avec la variable étudiée, et d’utiliser les méthodes adéquates pour « laisser parler » les données. Si la rigueur est moindre sur le nombre de variables, elle l’est sur les méthodes utilisées et l’interprétation : que signifie une association non-attendue ? Problème méthodologique ? Association hasardeuse ? Véritable signal à approfondir ? -->
+
+<!-- Par nature, l'approche holistique demande donc la collecte de nombreuses données (observations) puis leur analyse dans l'objectif de réveler des associations entre ces variables ; qui constitueront le point de départ de la génération d'hypothèses.  -->
+
+## Les enjeux scientifiques de la modélisation statistique {#statistical-modeling}
+
+### Formalisation mathématique du modèle statistique
+
+L'approche déterministe de la science, défendue entre autre par Karl Popper [@arnaud_karl_1986], veut que la structure du monde est telle que tout *évènement qui se produit* est déterminé par les *événements passés* conformément aux *lois de la nature*. Graphiquement et mathématiquement, cette approche peut être présentée par la figure \@ref(fig:x-nature-y) et l'équation *(1)* ci-dessous :
+
+```{r x-nature-y, fig.cap="Illustration de l'approche déterministe de la science (adapté de (ref:breiman))", fig.scap="Illustration de l'approche déterministe de la science ", out.width="0.5\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/x_nature_y.pdf")
+```
+
+\begin{center}
+(1)         $\mathrm{Y} = {F}(X)$ 
+\end{center}
+
+où :
+
+- Y est l'évènement qui se produit, 
+- $X$ est l'ensemble des évènements passés causant Y,
+- $F$ est la loi de la nature (aussi appelé modèle causal théorique) reliant $X$ à Y.\
+
+La modélisation statistique est un outil permettant d'approximer et de formaliser mathématiquement cette réalité. Dans un modèle statistique, une ou plusieurs variables dite(s) 'indépendante(s)', notées $x$ et approximant X, sont associées à une autre variable dite 'dépendante', notée y et approximant Y, via une fonction (le modèle statistique) notée $f$. Mathématiquement, cela se traduit par l'équation suivante *(2)* :\
+
+\begin{center}
+(2)        $\mathrm{y} = {f}(x, \epsilon)$
+\end{center}
+
+\
+
+où :
+
+- y est la variable dépendante, pendant de Y dans *(1)*, 
+- $x$ est une ou plusieurs variables indépendante(s), pendant de X dans *(1)*,
+- $f$ est le modèle statistique associant y et $x$, pendant de F dans *(1)*,
+- $\epsilon$ est un terme d'erreur regroupant la part non expliquée de y, puisque $f$ ne fait qu'approximer $F$
+
+\
+
+Approximer et formaliser mathématiquement la réalité - cad. faire usage de la modélisation statistique - peut servir trois enjeux liés à *(1)* : i) expliquer (tester) une loi de la nature $F$, ii) décrire une loi de la nature $F$, iii) prédire un évènement Y [@shmueli_explain_2010; @shmueli_predictive_2010; @fayyad_data_nodate; @karpatne_theory-guided_2017]. En nous basant sur ces quatre références bibliographiques, nous résumons chacun de ces enjeux dans la prochaine section.\
+
+### Les trois enjeux de la modélisation statistique (expliquer, prédire, décrire)
+
+<!-- i) vérifier des lois de la nature (par la *modélisation explicative*), ii) prédire le comportement d'un évènement (par la *modélisation prédictive*), iii) découvrir (décrire) de nouvelles lois de la nature (par la *modélisation descriptive*). -->
+
+*Note : au préalable, définissons dès maintenant les termes "modélisation statistique" et "fouille de données" tels qu'ils sont utilisés dans ce manuscrit. En effet, les définitions semblent varier selon les sources, au sein même de la famille des statisticiens. Nous définirons donc "modélisation statistique" comme l'ensemble du processus d'extraction de connaissances à partir de données et de modèle(s) statistique(s) (ledit processus est décrit dans la section \@ref(steps-statistical-modeling)). Cette définition équivaut à celle de "statistical modeling" dans @shmueli_explain_2010. Nous définirons "fouille de données" comme l'ensemble du processus d'extraction de connaissances à partir de données. Cette définition équivaut à celle de "knowledge discovery in databases" dans @fayyad_data_nodate. À la différence de la modélisation statistique, la fouille de données n'implique pas qu'il soit spécifiquement fait usage d'un modèle statistique pour générer des connaissances à partir des données.* 
+
+#### ***Modéliser pour expliquer (modélisation explicative)***
+
+Un modèle statistique peut être utilisé pour **tester ou vérifier un modèle causal théorique (cad. des hypothèses) pré-existant**. On parle dans ce cas de 'modélisation explicative' [@shmueli_explain_2010], 'd'objectif de vérification' [@fayyad_data_nodate], ou de 'theory-based model[ing]' [@karpatne_theory-guided_2017].\
+
+Dans cette approche, le modèle causal (cad. la loi de la nature) existe au niveau conceptuel, préalablement à l'utilisation du modèle statistique. Le modèle statistique est utilisé pour tester ou vérifier ce modèle théorique. Pour cela, des variables x et y, représentant respectivement X et Y, sont contruites à partir de données judicieusement collectées. Un modèle statistique est ensuite utilisé pour associer les variables x et y. L'interprétation du modèle statistique permet finalement de générer des informations statistiques sur le modèle causal théorique.\
+
+Cette forme de modélisation sert donc l'approche hypothético-déductive : les observations sont intégrées dans un modèle statistique dont l'objectif est de délivrer des informations statistiques sur les associations entre observations, permettant alors de vérifier et éventuellement préciser les hypothèses préalables. Dans l'étude des systèmes complexes, l'approche réductionniste fait donc ainsi usage de la modélisation explicative.\
+
+<!-- :::: {.lightcyanbox data-latex=""} -->
+<!-- ::: {.center data-latex=""} -->
+<!-- Exemple de modélisation explicative -->
+<!-- ::: -->
+
+<!-- Le lien théorique entre les précipitations et la densité des vecteurs est connu (à priori, les précipitations génèrent des gites larvaires et augmentent donc la densité des vecteurs). Afin de tester cette hypothèse, et de quantifier l'effet et la significativité de la relation, il est possible de collecter des données sur l'abondance à la fois des précipitations et des vecteurs, puis appliquer un modèle statistique pour lier les deux variables. L'analyse du modèle permettra de conclure à propos de l'effet des précipitations sur la densité des vecteurs (par exemple, en terme de nombre d'anophèles supplémentaires par millimètre supplémentaire de précipitation). -->
+
+<!-- :::: -->
+
+Ainsi, dans cette approche : 
+
+- **le modèle statistique $f$ est l'objet d'intéret** de la modélisation : son analyse permet de **tester/vérifier** les hypothèses pré-existantes de $F$ ;
+- les données **x et y sont des outils** permettant d'estimer $f$.
+
+#### ***Modéliser pour décrire (modélisation descriptive)***
+
+Un modèle statistique peut être utilisé pour **décrire un modèle causal**. Dans ce cas, l'enjeu principal du modèle étant de décrire des associations entre des évènements, on parle de 'modélisation descriptive' [@shmueli_explain_2010], d'objectif de 'description' [@fayyad_data_nodate] ou 'theory-guided data science model[ing]' [@karpatne_theory-guided_2017].\
+
+Dans cette approche, le modèle causal n'existe pas nécéssairement, ou n'est pas formellement établi, au niveau conceptuel. Le modèle statistique $f$ est utilisé pour décrire un modèle théorique $F$ contenant des associations éventuellement peu ou pas hypothétisées. L'interprétation du modèle statistique permet finalement, éventuellement de mieux comprendre $F$.\
+
+Cette forme de modélisation sert donc l'approche holistico-inductive : les observations sont intégrées dans un modèle statistique dont l'objectif est de trouver des descriptions résumées et pertinentes expliquant les données. Le jugement subjectif et les connaissances préalables sur F permettent ensuite d'interpréter ces relations, afin d'améliorer les connaissances sur le modèle causal théorique.\
+
+Ainsi, dans cette approche : 
+
+- **le modèle statistique $f$ est l'objet d'intéret** : son analyse permet éventuellement de **mieux comprendre** $F$ ;
+- les données **x et y sont des outils** permettant d'estimer $f$.
+
+#### ***Modéliser pour prédire (modélisation prédictive)***
+
+Enfin, un modèle statistique peut être utilisé pour **prédire de nouvelles ou futures valeurs d'un évènement**. On parle dans ce cas de modélisation statistique prédictive [@shmueli_explain_2010] ou d'objectif de prédiction [@fayyad_data_nodate].\
+
+La modélisation prédictive s'effectue en deux étapes. Dans un premier temps, un modèle statistique, dit prédictif, est construit à partir de données x et y. En général, le pouvoir prédictif du modèle est évalué, à savoir sa capacité à générer des prédictions précises sur de nouvelles observations^[ce point est détaillé dans la section \@ref(steps-statistical-modeling) à suivre]. Dans un second temps, ce modèle est utilisé pour prédire y lorsque de nouvelles valeurs de x, pour lesquelles les valeurs de y sont inconnues, sont disponibles.\
+
+La modélisation prédictive a donc principalement une portée opérationnelle : les prédictions sont généralement utilisées à des fins pratiques. Cependant, elle peut également jouer un rôle dans la construction ou amélioration de théories scientifiques. Utiliser un modèle statistique à des fins de prédiction, et évaluer son pouvoir prédictif, peut par exemple permettre d'évaluer la pertinence d'une théorie (cad. un modèle causal $F$) (si le modèle prédit mal, la théorie est-elle réellement valable ?), d'évaluer la prédictibilité d'un phénomène empirique, de comparer plusieurs théories concurrentes (celle qui prédit le mieux a des chances d'être celle qu'il faut retenir), d'améliorer les théories existantes, etc. [@shmueli_predictive_2010]. Utilisée dans ce contexte, la modélisation prédictive rejoint donc en partie les enjeux de la modélisation descriptive.\
+
+<!-- - new theory generation, measurement development, comparison of competing theories, improvement of existing models, relevance assessment, and assessment of the predictability of empirical phenomena -->
+
+<!-- Un indicateur de pouvoir prédictif du modèle (ou précision prédictive) est également calculé. Cet indicateur renseigne sur la capacité du modèle à générer des prédictions sur de nouvelles observations de x. -->
+
+<!-- :::: {.lightcyanbox data-latex=""} -->
+<!-- ::: {.center data-latex=""} -->
+<!-- Exemple de modélisation prédictive -->
+<!-- ::: -->
+
+<!-- On cherche à prédire la densité des vecteurs dans l'espace et dans le temps. On sait que la densité des vecteurs est impactée par les précipitations et les températures. La collecte de données spatio-temporelles sur les précipitations, les températures et les anophèles nous permettra dans un premier temps de  -->
+
+
+<!-- :::: -->
+
+Ainsi, dans cette approche : 
+
+- les données **x et y sont les objets d'intérêt**, en particulier y ;
+- **le modèle statistique $f$ est un outil** permettant de générer des prédictions de y à partir de x.\
+\
+\
+
+Les rôles et fonctions du modèle statistique $f$ et des données x et y diffèrent donc selon l'enjeu de la modélisation. Ces distinctions entre objets d'intérêt et outils sont importantes car elles guident les choix durant tout le processus de modélisation statistique, dès la phase de définition de l'objectif de l'étude. Dans la prochaine section, nous détaillons les grandes étapes du processus de modélisation statistique, en précisant pour chacune d'elles les différences fondamentales entre les formes de modélisation.
+
+<!-- En modélisation explicative et en modélisation descriptive, l'objet d'intérêt pour le modélisateur est le modèle statistique f ; et les données x et y sont des outils pour estimer f. En modélisation explicative, on utilise ensuite f pour tester/vérifier les hypothèses de F, tandis qu'en modélisation descriptive, on utilise f pour mieux comprendre F. En modélisation prédictive en revanche, l'objets d'intérêt pour le modélisateur est la donnée y ; et le modèle statistique f est un outil permettant de générer des prédictions de y à partir de x.  -->
+
+<!-- Ainsi, en modélisation prédictive l'enjeu est d'identifier les variables x (et données associées) et la fonction f qui généreront les meilleures prédictions de y.  -->
+
+### Les étapes du processus de modélisation statistique {#steps-statistical-modeling}
+
+Quelle que soit l'approche, le travail de modélisation statistique est un processus complexe, itératif, constitué d'étapes bien définies. Chacune de ces étapes implique des choix, qui diffèrent suivant l'approche utilisée, et ces choix peuvent avoir un impact sur les étapes suivantes et sur l'information et la connaissance extraites en bout de processus [@shmueli_explain_2010; @fayyad_data_nodate]. La figure \@ref(fig:modeling-steps) expose ces étapes. Dans cette section, nous énumérons et décrivons brièvement les principales d'entre elles, en exposant en quoi les choix diffèrent en fonction de l’approche empruntée. Sauf mention spécifique, l'ensemble de cette section est basée sur les travaux de @shmueli_explain_2010, @shmueli_predictive_2010 et @fayyad_data_nodate.\
+
+```{r modeling-steps, fig.cap="Etapes du processus de modélisation statistique (ref:shmueli)", fig.scap="Etapes du processus de modélisation statistique", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/modeling_steps.png")
+```
+
+***Définition de l'objectif*** : **Cette étape consiste à définir l'objectif à priori du travail de modélisation (expliquer, décrire, ou prédire).** En effet, les différences conceptuelles entre les trois approches de modélisation impliquent, comme nous allons le voir ensuite, des choix différents dans les étapes du processus de modélisation à suivre ; même si les données utilisées peuvent être identiques.\
+
+***Conceptualisation de l'étude et collecte des données*** : **Cette étape consiste à définir les caractéristiques de la collecte de données.** En fonction de l'approche, ces caractéristiques peuvent différer. Ainsi par exemple, en modélisation explicative, la puissance statistique est un critère majeur. Un certain nombre d'observation est donc nécéssaire, mais au delà d'un certain volume, la puissance statistique n'augmente plus. En modélisation prédictive, en général, davantage d'observations sont nécéssaires. D'autres enjeux sont à considérer : plans d'échantillonage des données, conditions d'expérimentation (laboratoire ou terrain), instruments de collecte des données, etc.\
+
+***Choix et construction des variables*** : **Cette étape consiste à construire des variables statistiques à partir des données.** Les critères pour construire les variables diffèrent largement selon l'approche. En modélisation explicative, l'objectif est la causalité : les variables x et y doivent donc représenter au plus proche les évènements X et Y que l'on cherche à vérifier. En modélisation prédictive, l'objectif est l'association : on ne cherche pas à comprendre le rôle de chaque variable en terme de relation de cause à effet. Les critères d'importance pour construire les variables sont donc principalement la qualité de l'association entre celles-ci et la disponibilité des variables prédictives (indépendantes), x, au moment des futures utilisations attendues du modèle (cad. quand il servira à prédire y à partir de nouveaux x).\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°3 : **Un exemple classique en géo-épidémiologie, le NDVI : variable explicative ou prédictive ?**
+:::
+
+Une variable largement utilisée dans les travaux de modélisation statistique en géo-épidémiologie est le Normalized Difference Vegetation Index (NDVI) [@parselia_satellite_2019], calculé à partir de valeurs de réflectance des sols mesurées par les capteurs embarqués dans les satellites ou les drones. Cette variable, adimensionnelle, permet de déterminer la santé de la végétation en mesurant la teneur en chlorophylle des plantes. Elle est donc à la fois représentative de la quantité de végétation et de la présence d'eau, deux paramètres environnementaux ayant à priori un impact sur les traits de vie des moustiques vecteurs (voir figure \@ref(fig:complex-system-anopheles)). Cette variable a donc un fort potentiel d'association avec la densité des moustiques, et à ce titre, peut être utilisée en modélisation prédictive de leur abondance. En revanche, en modélisation explicative, cette variable est peu pertinente : i) on ne peut discriminer l'effet de la présence d'eau et de la végétation et ii) quel que soit le sens de l'association, il est possible de fournir une explication (une association positive peut être expliquée par la présence d'eau, une association négative peut être expliquée par la densité de végétation impliquant une réduction de la capacité de dispersion des moustiques [@le_goff_low_1997]). On lui préfèrera ainsi, en modélisation explicative, des variables plus proches du modèle causal théorique : quantités de précipitations, suface occupée par la végétation, etc.
+
+::::
+
+En sus de la pertinence des variables, une autre distinction de taille est la gestion de la multicollinéarité (collinéarité entre variables). En modélisation explicative, la multicollinéarité est problématique car elle peut conduire à des effets (par ex. coefficients de régression) ou intervalles de confiance biaisés, interférant avec l'inférence. En modélisation prédictive, l'interprétation du modèle n'étant pas nécéssaire, la multicollinéarité n'est en général pas problématique.\
+
+***Choix du modèle statistique*** : **Cette étape consiste à sélectionner un modèle statistique, à savoir, une fonction mathématique ou un algorithme qui associe y à x.** Il existe de très nombreux modèles statistiques, et le choix dépend là encore de l'approche. En modélisation explicative et descriptive, où l'objectif est d'analyser $f$, le critère principal de Sélection est l'interprétabilité du modèle, c'est-à-dire la capacité à extraire les associations que le modèle a capturées. En modélisation explicative, le modèle doit être en mesure de délivrer des informations statistiques précises et chiffrées (intensité de l'effet, significativité de l'association, etc.). En modélisation descriptive, le modèle doit être en mesure de capturer au mieux les relations et interactions, potentiellement complexes (non-linéaires), entre variables. En modélisation prédictive, où $f$ n'est que l'outil, l'enjeu est de sélectionner un modèle qui génèrera les meilleures prédictions possibles de y ; l'interprétabilité du modèle n'est donc pas un critère de choix. L'interprétabilité et interprétation des modèles statistiques sont intrinsèquement liés à leur nature et la manière dont chacun fonctionne pour associer les variables. Nous nous attardons sur les différentes philosophies d'associations entre variables et sur l'interprétation des modèles dans les sections \@ref(model-categories) et \@ref(model-interpretation).\
+
+***Validation du modèle*** : **Cette étape consiste à vérifier certaines hypothèses permettant d'utiliser ou d'interpéter le modèle correctement.** En modélisation explicative, la validation du modèle consiste à vérifier que la forme de $f$ représente adéquatement la relation à priori entre x et y (voir section \@ref(model-categories)). En modélisation prédictive, la validation consiste à évaluer la propension du modèle à généraliser l'apprentissage, c'est à dire, à ne pas avoir sur-appris^[le surraprentissage est la propension du modèle à s'ajuster trop proche des données qui ont été utilisées pour l'entraîner - provoquant ainsi son incapacité à prédire sur de nouvelles données x].\
+
+<!-- Pour cela, on compare la performance prédictive du modèle sur les données qui ont servi à entraîner le modèle et sur des données non-utilisées pour entraîner le modèle : si la performance est significativement meilleure sur les données d'entraînement, le modèle a très probablement sur-appris.\ -->
+
+***Evaluation du modèle*** : **Cette étape consiste à évaluer la puissance explicative ou prédictive du modèle.** En modélisation explicative, la puissance explicative du modèle est la force de la relation indiquée par $f$. Des mesures telles que le R$^{2}$, représentant la proportion de la variance d'une variable dépendante expliquée par les variables indépendantes, peuvent être rapportées. En modélisation prédictive, la puissance prédictive du modèle est la capacité du modèle à prédire sur de nouvelles données, non utilisées pour entrainer le modèle. Là aussi, des indicateurs mesurant l'écart entre les valeurs observées et prédites peuvent être utilisées (aire sous la courbe (AUC), erreur moyenne carrée (MSE), etc.). Le choix de l'indicateur de puissance prédictive dépend de la nature et de la distribution statistique des données. Une différence majeure entre les évaluations des modèles prédictifs et explicatifs est la nature des données sur lesquelles l'évaluation est effectuée : alors qu'en modélisation explicative l'évaluation est faite sur les données ayant servi à générer le modèle, en modélisation prédictive, l'évaluation doit être faite sur des données qui n'ont pas servi à générer le modèle, puisque l'objectif du modèle sera de prédire sur de nouvelles données. Par ailleurs, si les observations sont non-indépendantes (par exemple dans le cas des enquêtes transversales ou des données spatiales ou temporelles), le jeu de données de validation d'un modèle prédictif doit être judicieusement sélectionné afin d'être indépendant du jeu de données d'entrainement - ceci afin d'éviter des performances prédictives surévaluées dues au suraprentissage [@meyer_improving_2018].\
+
+***Sélection du modèle*** : **Cette étape consiste à sélectionner un modèle à interpréter ou utiliser parmi les différents modèles potentiellement valides.** En modélisation explicative, un des critères les plus cruciaux est l'importance théorique des variables dans le modèle causal $F$. Il est ainsi nécéssaire de retenir dans le modèle les variables qui ont un effet théorique important, même s'il s'avère que dans le modèle ces variables sortent non-significativement associées à la variable réponse [@shmueli_explain_2010] (par exemple, il est important de retenir la variable 'type de mesure de lutte anti-vectorielle implémentée' dans un modèle qui cherche à expliquer l'abondance des moustiques, même si cette variable n'est finalement pas statistiquement significativement associée à l'abondance). En modélisation prédictive, le premier critère est la performance prédictive du modèle. Le choix se portera donc sur le modèle qui génère la meilleure prédiction, quitte à supprimer des variables théoriquement importantes au niveau conceptuel. De nombreuses méthodes de Sélection automatique de variables en modélisation prédictive existent à cet effet.\
+
+***Interprétation du modèle et utilisation des résultats*** : **Cette étape consiste à finalement extraire de l'information ou de la connaissance pertinente à partir du modèle statistique.** En modélisation explicative, les informations d'intérêt sont les métriques statistiques renseignant sur l'effet des variables explicatives sur la variable à expliquer (coefficients directeurs par exemple), la significativité de l'effet (p-value par exemple), et la performances explicative du modèle (R$^{2}$ par exemple). En modélisation descriptive, il s'agit de rapporter les relations, potentiellement complexes, capturées par le modèle sous une forme compréhensible par l'humain (tableaux, graphiques, etc.). En modélisation prédictive, l'interprétation du modèle est secondaire. Les informations d'intérêt sont principalement celles issues des étapes de validation et évaluation du modèle. Les concepts et outils d'interprétation des modèles, notamment en modélisation descriptive, sont détaillées dans la section \@ref(model-interpretation).\
+
+### Les deux grandes familles de modèles statistiques (modèles paramétriques et non-paramétriques) {#model-categories}
+
+Le choix du modèle statistique est un des éléments primordial dans le processus de modélisation statistique. En effet, chaque modèle est défini de telle manière qu'intrinsèquement, il associe différemment les variables indépendantes (x) et dépendantes (y). En bout de chaine, cela peut avoir un impact considérable sur la nature de la connaissance qui est finalement extraite.\
+
+On peut distinguer deux grandes catégories de modèles statistiques, définies par deux philosophies d'association de y à x (cad. de construction de $f$) conceptuellement différentes [@breiman_statistical_2001] : les modèles paramétriques (que @breiman_statistical_2001 appelle *data model(s)*) et les modèles non-paramétriques (que @breiman_statistical_2001 appelle *algorithmic model(s)*).\
+
+Les modèles paramétriques simplifient la fonction $f$ à une forme connue (par exemple : gaussienne, négative binomiale, etc.). Cette forme doit donc être spécifiée (par le modélisateur) dans le modèle. Le rôle du modèle statistique est ensuite d'estimer les coefficients de la fonction à partir des données. Des exemples de modèles paramétriques largement utilisés sont la régression linéaire et la régression logistique.\
+
+Les modèles non-paramétriques, de leur côté, ne font pas d'hypothèse concernant la forme de la fonction $f$. Ces modèles cherchent à s'ajuster au mieux aux données en construisant la fonction f à partir des données. Des exemples de modèles non-paramétriques largement utilisés sont les arbres de décision (et modèles dérivés, tels que les forêts aléatoires) et *Support Vector Machines*. Ces modèles sont parfois appelés modèles ou algorithmes d'apprentissage automatique (*machine learning*) [@bzdok_statistics_2018] ou de fouille de données (*data mining*) [@shmueli_explain_2010].\
+
+Chacune de ces méthodes possède son lot d'avantages et d'inconvénients. Les modèles paramétriques sont transparents (les coefficients de $f$ sont directement interprétables) et requièrent moins de données que les modèles non-paramétriques, puisque la forme de $f$ est à priori determinée. Cependant, ils exigent que la forme de la fonction soit connue à l'avance, et sont ensuite contraints de se conformer à cette forme. Les modèles non-paramétriques, parce qu'ils doivent chercher de manière autonome la forme de $f$, requièrent plus de données, de puissance et de temps de calcul, sont davantage susceptibles de surapprendre et sont moins transparents que les modèles paramétriques. Cependant, ils ne requièrent pas d'hypothèse à priori sur la forme fonctionnelle et sont capables de s'adapter à une gamme bien plus large de formes, en faisant ainsi de bons candidats si les relations sont à priori inconnues ou soupçonnées complexes (relations entre variables non-linéaires ou interactions potentielles), ce qui est souvent le cas dans les processus naturels et en particulier biologiques [@breiman_statistical_2001].\
+
+Aussi, par définition, les modèles paramétriques sont à priori adaptés à la modélisation explicative (modèle causal théorique connu, besoin de résultats statistiques) et les modèles non-paramétriques à la modélisation prédictive (flexibilité, performance) [@shmueli_explain_2010; @bzdok_statistics_2018]. La modélisation descriptive, quand à elle, requiert à la fois un modèle flexible (puisque, par définition de cette approche de modélisation, les relations ne sont pas nécéssairement connues) et interprétable (puisque l'objectif final est l'extraction de connaissances à partir des relations que le modèle a capturées), deux propriétés à priori difficilement conciliables au regard de ce qui est écrit ci-dessus. Consciente du potentiel des modèles non-paramétriques pour la génération de connaissances (au delà de leur potentiel prédictif indiscutable), la communauté des scientifiques des données a developpé un ensemble d'outils visant à interpréter les associations que ces modèles capturent. La prochaine section présente le concept et quelques outils d'interprétation des modèles statistiques non-paramétriques.\
+
+### L'interprétation des modèles statistiques non-paramétriques {#model-interpretation}
+
+L'interprétation des modèles statistiques est un élément fondamental du processus de modélisation, en particulier en modélisation explicative et descriptive. L'interprétation des modèles peut être définie comme l'extraction de connaissances pertinentes à partir d'un modèle statistique concernant des relations soit contenues dans les données soit apprises par le modèle [@murdoch_definitions_2019]. Au niveau de l'interprétabilité, on distingue deux grandes catégories de modèles [@murdoch_definitions_2019] : les modèles permettant de comprendre naturellement et directement les relations qu'ils ont capturées, et les modèles nécéssitant une phase supplémentaire d'interprétation à postériori de leur génération, avec des outils spécifiques, pour extraire de l'information sur les relations qu'ils ont capturées.\
+
+La première catégorie de modèles (modèles directement interprétables) est constituée dans l'ensemble des modèles paramétriques. Ces modèles sont transparents : les coefficients de la fonction (ainsi que d'autres métriques telles que les intervalles de confiance) sont les outils d'interprétation du modèle, à partir desquelles les connaissances sont extraites.\
+
+La deuxième catégorie de modèles (modèles nécéssitant une phase supplémentaire d'interprétation) est constituée dans l'ensemble des modèles non-paramétriques. Ces modèles ont l'avantage d'être en capacité de capturer des relations et interactions complexes mais l'inconvénient de ne pas délivrer directement les relations qu'ils ont capturées, à tel point qu'il sont souvent considérés comme des boites noires [@bzdok_statistics_2018]. Aussi, un ensemble d'outils dont l'objectif est d'extraire des informations sur les relations que le modèle a capturées a été développé depuis une vingtaine d'années [@molnar_interpretable_2019].\
+
+Parmi les outils d'interprétation à postériori des modèles, on distingue deux grandes familles : les méthodes indépendantes du modèle interprété (dites "model-agnostic") et les méthodes spécifiques à un modèle donné (dites "model-specific") [@molnar_interpretable_2019]. Les méthodes agnostiques peuvent elle-mêmes être subdivisées en deux classes : les méthodes globales et méthodes locales [@murdoch_definitions_2019]. Les méthodes globales décrivent la manière dont les variables indépendantes affectent la variable dépendante en moyenne, tandis que les méthodes locales visent à décrire l'effet des variables indépendante sur une observation individuelle (ou un groupe d'observations). Enonçons et expliquons le fonctionnement de deux des outils d'interprétation "model-agnostic" les plus anciens et utilisés (et utilisés en particulier dans les travaux de cette thèse) : l'importance des variables par permutation et les graphiques de dépendance partielle.\
+
+L'importance des variables par permutation (*permutation feature importance*) est une méthode introduite en 2001 par Breiman [@breiman_random_2001]. Cette méthode renseigne sur "l'importance" de chaque variable indépendante dans le modèle en mesurant l'augmentation de l'erreur de prédiction du modèle après avoir permuté les valeurs de la variable. Une variable est "importante" si la permutation aléatoire de ses valeurs augmente l'erreur du modèle, car dans ce cas, le modèle s'est appuyé sur la variable pour la prédiction. A l'inverse, une variable est "sans importance" si la permutation aléatoire de ses valeurs ne modifie pas l'erreur de prédiction du modèle, car dans ce cas, le modèle n'a pas considéré la variable pour la prédiction. Un exemple de graphique d'importance des variables est fourni à la figure \@ref(fig:example-vip).\
+
+```{r example-vip, fig.cap="Exemple de graphique d'importance des variables extrait de (ref:molnar). Le modèle statistique sous-jacent prédit un nombre de vélos loués en fonction d'un ensemble de paramètres météorologiques et socio-économiques. Le graphique montre que la variable la plus importante est la température. Par extension, on peut donc émettre l'hypothèse que la température est le facteur principal impactant la location de vélos.", fig.scap="Exemple de graphique d'importance des variables", out.width="0.7\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/importance-bike-1.png")
+```
+
+Les graphiques de dépendance partielle (*partial dependence plots* (PDP)), de leur côté, ont été introduits en 2001 par Friedman [@friedman_greedy_2001]. Cette méthode renseigne sur la relation fonctionnelle entre une variable indépendante et la variable dépendante. La relation fonctionnelle est calculée en fixant tour à tour chacune des valeurs de la variable indépendante d'intérêt pour toutes les observations, puis en calculant la valeur de la variable dépendante ainsi prédite par le modèle. Un graphique de dépendance partielle peut montrer si la relation entre la variable dépendante et indépendante est linéaire, monotone ou plus complexe. On peut utiliser la même méthode avec deux variables indépendantes : dans ce cas, le graphique renseigne sur l'effet de l'interaction entre ces deux variables indépendantes sur la variable dépendante. Un exemple de graphique de dépendance partielle est fourni à la figure \@ref(fig:example-pdp).\
+
+```{r example-pdp, fig.cap="Exemple de graphiques de dépendance partielle des variables extrait de (ref:molnar). Le modèle statistique sous-jacent prédit un nombre de vélos loués en fonction d'un ensemble de paramètres météorologiques et socio-économiques. Le graphique montre que la relation capturée par le modèle entre le nombre de vélos prédits et respectivement la température (à gauche), l'humidité (au milieu) et la vitesse du vent (à droite) est non-linéaire", fig.scap="Exemple de graphique de dépendance partielle des variables", out.width="0.7\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/pdp-bike-1.png")
+```
+
+Au delà de ces deux exemples, il existe une myriade d'outils d'interprétation à postériori des modèles statistiques [@molnar_interpretable_2019] ; et le secteur est en plein développement avec l'intérêt croissant pour l'interprétation des modèles non-paramétriques [@murdoch_definitions_2019]. Ces outils permettent d'interpréter un modèle ayant potentiellement capturé des relations complexes et non-hypothétisées, et donc d'étudier le comportement du sytème complexe sous toutes ses formes : contribution absolue et relative de ses différentes composantes, relations fonctionnelles, importance et effets des interactions, etc. Ces problématiques sont, typiquement, celles en jeu dans l'étude des systèmes biologiques [@yu_study_2021].\
+
+Notons enfin que, au même titre que les modèles statistiques, chaque outil d'interprétation possède un lot d'hypothèses d'utilisation et de limites, et qu'il est ainsi important de bien en comprendre le fonctionnement intrinsèque afin de l'utiliser à bon escient et d'en extraire de l'information et de la connaissance pertinente [@molnar_interpretable_2019; @zhao_causal_2021].
+
+## Notes conclusives
+
+Un modèle statistique est un outil permettant d'associer des données, à savoir des informations mesurables du monde qui nous entoure. Associer des données peut servir différents enjeux scientifiques : tester une théorie scientifique (expliquer), mieux comprendre un phénomène d’intérêt (décrire), prédire de nouvelles valeurs d'un évènement (prédire). Selon l'enjeu, l'ensemble du processus de modélisation statistique diffère : pour un même système étudié, le "meilleur" modèle explicatif sera différent du "meilleur" modèle prédictif, lui-même différent du "meilleur" modèle descriptif [@shmueli_explain_2010].\
+
+<!-- \begin{landscape} -->
+
+<!-- ```{r table-modeles, results="asis", echo = F} -->
+<!-- df1 <- read.csv("tables/table_modeles.csv", check.names = FALSE) -->
+<!-- df1[,1] <- gsub("\\(","\n(",df1[,1] ) -->
+
+<!-- df1 %>% -->
+<!--   mutate_all(linebreak) %>% -->
+<!--   kable( format = "latex", booktabs = T, escape = F) %>%  -->
+<!--   kable_styling(full_width = TRUE,latex_options =c("striped", "hold_position")) %>% -->
+<!--   column_spec(1, bold = T) %>% -->
+<!--   kable_styling(latex_options =c("hold_position"),font_size = 8) -->
+<!-- ``` -->
+
+<!-- \end{landscape} -->
+
+Les premiers modèles statistiques, historiquement, servent principalement l'approche hypothético-déductive de la génération de connaissance scientifique - à savoir, tester une théorie scientifique. Aujourd'hui, l'avènement des données volumineuses, des méthodes statistiques non-paramétriques (qui sont en capacité de "trouver" de manière autonome des associations complexes entre variables, parfois difficilement hypothétisables) et des outils permettant d'interpréter les associations capturées par ces modèles, offrent des perspectives nouvelles pour mieux prédire, mais aussi comprendre, les systèmes complexes tels que le système vectoriel. Afin d'exploiter la puissance de la modélisation statistique - c'est à dire, exploiter pleinement son potentiel, sans pour autant le surévaluer [@holzinger_general_2022] - il est essentiel de maitriser les fondements mêmes de la génération de connaissance scientifique, et de connaitre les étapes du processus de modélisation statistique ainsi que les outils de science des données qui existent. 

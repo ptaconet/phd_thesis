@@ -1,0 +1,494 @@
+\newtcolorbox{lightcyanbox}{
+  breakable,
+  colback=lightcyan,
+  colframe=lightcyan,
+  coltext=black,
+  boxsep=5pt,
+  arc=5pt}
+  
+\newtcolorbox{lightgreenbox}{
+  breakable,
+  colback=lightgreen,
+  colframe=lightgreen,
+  coltext=black,
+  boxsep=5pt,
+  arc=5pt}
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=1,nup=1,pagecommand={}]{pagesgarde.pdf}
+\endgroup
+
+# Contexte scientifique : Paludisme, transmission résiduelle et enjeux de la thèse {#chapitre-1}
+
+Dans ce chapitre, nous introduisons tout d'abord certaines notions d'entomologie médicale essentielles à la compréhension de la thèse (cycle de la transmission du paludisme, cycle biologique et comportement trophique des vecteurs du paludisme, liens environnement-vecteur). Dans un second temps, nous présentons le concept et les outils de lutte anti-vectorielle, ainsi que leurs limites actuelles ; ce qui nous conduit finalement au concept de transmission résiduelle du paludisme. Dans une dernière partie, nous énonçons les enjeux de la thèse et précisons l'organisation générale du manuscrit. 
+
+## Paludisme et lutte anti-vectorielle
+
+### Fardeau du paludisme dans le monde et en Afrique 
+
+Environ la moitié de la population mondiale est exposée au risque de paludisme [@who_2021] (figure \@ref(fig:map-global-malaria-countries)). En 2020, le paludisme était endémique dans 85 pays [@who_2021] et était l’une des quatre maladies infectieuses (avec la tuberculose, le sida et le covid-19) ayant causé le plus de décès au niveau mondial [@le_monde_covid-19_2020]. Cette année-là, l'OMS estimait le nombre de cas de paludisme à 241 millions (59 cas / 1000 personnes à risque), et le nombre de décès attribuables à la maladie à 627 000 (15 décès pour 100 000 personnes à risque).\
+
+```{r map-global-malaria-countries, fig.cap="Pays d'endémicité palustre en 2000 et leur statut en 2020 (ref:who)", fig.scap="Pays d'endémicité palustre en 2000 et leur statut en 2020", out.width="0.9\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/map_global_malaria_countries.png")
+```
+
+Le poids du paludisme dans le monde est inégalement réparti, à la fois géographiquement et démographiquement. Ainsi par exemple, en 2020, 95 % des cas et 96 % de la mortalité étaient concentrés en Afrique sub-saharienne ; et les enfants de moins de 5 ans, tranche de la population la plus vulnérable, représentaient 77 % de la mortalité [@who_2021].\
+
+La morbidité et mortalité liées au paludisme au cours de ces vingt dernières années en Afrique et dans le monde a connu trois phases (figure \@ref(fig:malaria-african-trends)). La période 2000 - 2015 a été marquée par une réduction forte et continue de la maladie. L’incidence du paludisme a diminué de 27 % sur cette période, et la mortalité de 52 %. Entre 2015 et 2019, les progrès ont stagné. Sur cette période, l’incidence n’a diminué que de 2 % entre 2015 et 2019 et la mortalité de 16 %. Enfin, l'année 2020 a été marquée par une augmentation significative des cas et de la mortalité, en partie liés à la pandémie de covid-19 qui a perturbé les services sanitaires [@who_2021].\
+
+```{r malaria-african-trends, fig.cap="Morbité (à gauche) et mortalité (à droite) annuelle liées au paludisme dans la région Afrique de l'OMS entre 2000 et 2020 (ref:who)", fig.scap="Morbité et mortalité annuelle liées au paludisme dans la région Afrique de l'OMS entre 2000 et 2020", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/malaria_africa_trends.png")
+```
+
+### L'agent pathogène : *Plasmodium*
+
+Le paludisme humain est une maladie infectieuse à transmission vectorielle faisant intervenir trois protagonistes : l'homme^[dans ce manuscrit, nous employons le terme "homme" pour désigner l’être humain en général, selon la définition du dictionnaire Le Robert] (dit hôte) est infecté par un protozoaire parasite (dit agent infectieux) du genre *Plasmodium* qui lui a été transmis par un moustique (dit vecteur) du genre *Anopheles*. Les rôles de *Plasmodium* et *Anopheles* dans la maladie ont été découverts respectivement en 1880 et 1898 [@cox_history_2010]. Dans les prochaines sections, nous résumons le cycle biologique du parasite et du vecteur, et apportons quelques précisions supplémentaires, d'importance pour la thèse, sur les vecteurs.\
+
+#### Diversité et distribution
+
+Parmi les 156 espèces de *Plasmodium* décrites, six causent le paludisme chez l'humain : *Plasmodium falciparum*, *Plasmodium vivax*, *Plasmodium ovale*, *Plasmodium malariae*, *Plasmodium knowlesi* et *Plasmodium cynomolgi*. La plus pathogène des six espèces, *P. falciparum*, est à l'origine de la très grande majorité des cas de paludisme enregistrés en Afrique [@who_2021] (figure \@ref(fig:global-pfpr-2019)). Hors Afrique, c’est *P. vivax* qui prédomine [@who_2021].\
+
+```{r global-pfpr-2019, fig.cap="Taux d'incidence du paludisme à Plasmodium falciparum en 2019 (ref:weiss)", fig.scap="Taux d'incidence du paludisme à Plasmodium falciparum en 2019", out.width="1.1\\linewidth", fig.align="left", echo=F}
+knitr::include_graphics(path = "figure/global_incidence_rate_2019.jpg")
+```
+
+#### Cycle biologique
+
+Le cycle biologique de *Plasmodium* fait intervenir deux hôtes : un moustique femelle du genre *Anopheles* et un être humain (figure \@ref(fig:cycle-tr-palu)). Le cycle chez l'anophèle commence lorsque celui-ci prend un repas sanguin sur un humain infecté, porteur de gamétocytes. Le parasite entame alors dans l'estomac de l'anophèle une phase de multiplication sexuée aboutissant à la migration des sporozoïtes jusqu'aux glandes salivaires du moustique. Ce premier cycle, chez l'anophèle, est appelé cycle sporogonique (ou extrinsèque) et dure environ une dizaine de jours selon l’espèce plasmodiale et la température [@15172]. Lors d'une prochaine piqûre une fois le cycle sporogonique effectué, l'anophèle alors infectieux injecte les sporozoïtes à l'homme. Ces derniers migrent dans le foie pour s'y multiplier (phase exo-érythrocytaire, 8 à 10 jours), puis sont libérés dans le sang sous forme de mérozoïtes qui pénètrent dans les globules rouges. S'ensuit une phase de multiplication des mérozoïtes dans les hématies, produisant de nouvelles cellules qui sont à leur tour libérées dans le sang et qui infecteront des érythrocytes sains (phase érythrocytaire). C'est cette libération qui entraîne les symptômes caractéristiques des accès palustres (frissons, chaleur et sueurs). Une partie des parasites peut également subir un processus de différenciation, aboutissant à la formation de gamétocytes mâles et femelles. Lors d’un repas de sang sur l'homme dès lors infectieux, un moustique anophèle femelle peut ingérers ces gamétocytes : le cyle recommence alors.\
+
+```{r cycle-tr-palu, fig.cap="Cycle de développement et de reproduction des Plasmodium spp. (ref:foo)", fig.scap="Cycle de développement et de reproduction des Plasmodium spp.", out.width="0.8\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/cycle_transmission_palu_v2.pdf")
+```
+
+### Le vecteur : *Anopheles*
+
+#### Diversité et distribution
+
+Sur les plus de 3000 espèces de moustiques (*Diptera : Culicidae*) recensées à ce jour, environ 500 font partie du genre *Anopheles*, dont une soixantaine est effectivement vectrice de la maladie. En Afrique sub-saharienne, on trouve au total environ 150 espèces d’anophèles, dont une trentaine vectrice de *Plasmodium*. Dans cette région, les principales espèces vectrices sont *An. arabiensis*, *An. gambiae s.s.* et *An. coluzzii* du complexe Gambiae, et *An. funestus* du groupe Funestus [@sinka_dominant_2010; @sinka_global_2012] (figure \@ref(fig:distrib-vectors)).\
+
+```{r distrib-vectors, fig.cap="Distribution spatiale d'An. gambiae s.l. et An. funestus en Afrique sub-saharienne (ref:moyes)", fig.scap="Distribution spatiale d'An. gambiae s.l. et An. funestus en Afrique sub-saharienne", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/distrib_vectors.png")
+```
+
+#### Cycle biologique
+
+Le cycle biologique de l’anophèle (figure \@ref(fig:cycle-biologique-anophele)) comprend quatre stades : oeuf, larve, nymphe et âge adulte. Le stade larvaire (œuf, larve, nymphe) se déroule en milieu aquatique et dure de 1 à 3 semaines en fonction de l’espèce et de la température ; quant au stade adulte, il se déroule en milieu aérien et la durée de vie de l’anophèle femelle peut aller jusqu’à 4 semaines [@holstein_biologie_1952]. Le stade adulte est marqué par une phase d’accouplement qui a lieu dans les 24 à 48 h suivant l’émergence. L’anophèle femelle ne copule en principe qu’une seule fois et stocke les spermatozoïdes dans une spermathèque jusqu’à sa mort. Une fois accouplée, l’anophèle femelle part à la recherche d’un hôte afin de prendre un repas de sang essentiel à la maturation des follicules ovariens. La piqûre est suivie d’une phase de repos au cours de laquelle la femelle digère le sang. Enfin, la femelle gravide cherche un site d’oviposition et y pond entre 40 et 100 œufs à la surface de l’eau. Après la ponte, la femelle cherche à prendre un nouveau repas sanguin afin d'effectuer une nouvelle oviposition ; et reproduit ce cycle (recherche de repas de sang, piqûre, repos, ponte) jusqu’à sa mort. Ce cycle est appelé gonotrophique et dure 2 à 5 jours en fonction, en particulier, de la température et de l'espèce [@gillies_duration_1953; @tchuinkam_bionomics_2010; @shapiro_quantifying_2017].\
+
+```{r cycle-biologique-anophele, fig.cap="Cycle biologique de l'anophèle (ref:carnevale)", fig.scap="Cycle biologique de l'anophèle", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/carnevale.png")
+```
+
+#### Comportement d'alimentation
+
+La transmission de *Plasmodium* entre l’anophèle et l’homme s’effectue donc lorsque le vecteur prend un repas de sang sur l'hôte *via* la piqûre. Le comportement de piqûre (dit comportement trophique) de l’anophèle ainsi que son comportement de repos suivant la piqûre sont primordiaux dans l’étude de la transmission du paludisme. Quatre paramètres du comportement trophique et de repos des anophèles sont particulièrement déterminants :
+
+- l'*anthropophilie* : propension d'un vecteur à piquer les humains (à l'opposé de zoophilie, désignant la propension à piquer les animaux) ;
+- l'*endophagie* : propension d'un vecteur à piquer à l’intérieur des maisons (à l'opposé d'exophagie, désignant la propension à piquer à l'extérieur des habitations) ;
+- l'*endophilie* : propension d'un vecteur à se reposer, après la piqûre, à l’intérieur des maisons (à l'opposé d'exophilie, désignant la propension à se reposer à l'extérieur des habitations) ;
+- l'*activité précoce ou tardive* : propension d'un vecteur à piquer précocément ou tardivement dans la nuit, par rapport aux horaires habituellement observés (voir ci-dessous).\
+
+#### Elements de bionomie
+
+Bien que le cycle biologique de tous les anophèles soit identique, les différentes espèces (ainsi que les différents individus au sein d'une même espèce) exhibent souvent des préférences écologiques ou trophiques sensiblement différentes. Ci-après, nous donnons quelques éléments de bionomie (gites larvaires et comportements préférentiels) des 4 principales espèces d'anophèles vectrices en Afrique sub-saharienne. Ces éléments sont intégralement extraits de synthèses bibliographiques sur la bionomie des vecteurs effectuées à l'échelle de l'Afrique sub-saharienne,  effectuées par @sinka_dominant_2010 (gites larvaires préférentiels + comportements trophiques) et @sherrard-smith_mosquito_2019 (comportement trophique).\
+
+*An. gambiae s.s.* et *An coluzzii* sont des espèces majoritairement associées aux gites larvaires respectivement temporaires et semi-permanents, globalement d'eaux douces peu profondes et ensoleillées. Ainsi, les larves d'*An. gambiae s.s.* sont typiquement retrouvées dans les gites se remplissant avec les précipitations, telles que les flaques d'eau, les empreintes de sabot ou les ornières ; et *An. coluzzii* pond typiquement dans les rizières ou zones inondées contenant de la végétation flottante et immergée, telles que les bas-fonds et zones marécageuses. Les deux espèces ont été décrites comme hautement anthropophiles et majoritairement endophages et endophiles. L'activité de piqûre de ces espèces se concentre au milieu de la nuit avec une tendance à la piqûre plutot tardive (figure \@ref(fig:courbes-agressivite-anopheles)). Malgré ces grandes tendances, ces espèces présentent une certaine plasticité phénotypique dans leur comportement de piqûre et de repos.\
+
+```{r courbes-agressivite-anopheles, fig.cap="Courbes d’agressivité horaire nocturne pour trois espèces majeures d'anophèles en Afrique (ref:sherrardsmith)", fig.scap="Courbes d’agressivité horaire nocturne pour trois espèces majeures d'anophèles en Afrique", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/courbes_agressivite_vecteurs.png")
+```
+
+*An. arabiensis* est une espèce associée aux environnements de savanes et forêts clairsemées. Les gites larvaires d'*An. arabiensis* ressemblent à ceux d'*An. gambiae s.s.* : petits bassins d'eau douce temporaires, ensoleillés, clairs et peu profonds ; bien que l'espèce ait également été observée dans d'autres gites larvaires plus profonds ou turbides. *An. arabiensis* est considérée davantage zoophage, exophage et exophile qu'*An. gambiae s.s.*. Cependant, l'espèce montre un large éventail de comportements de piqûre et de repos en fonction des zones géographiques, constituant ainsi une espèce au comportement a piori plus plastique encore qu'*An. gambiae*. *An. arabiensis* pique en moyenne plus tôt dans la nuit qu'*An. gambiae*. Les courbes d'agressivité diffèrent cependant selon le site de piqûre, les vecteurs exophages étant actifs relativement plutôt précocément et les vecteurs endophages relativement plus tardivement (figure \@ref(fig:courbes-agressivite-anopheles)).\
+
+*An. funestus*, de son côté, est une espèce majoritairement associée aux grandes étendues d'eau douces, permanentes ou semi-permanentes, contenant une végétation émergente ou flottante, comme les marécages, les grands étangs et les bords de lacs. C'est une espèce décrite comme hautement adaptable, ce qui lui permet d'occuper et de maintenir une distribution spatiale large. *An. funestus* est considérée hautement anthropophile. L'espèce est majoritairement endophage, et présente un comportement de piqûre relativement tardif (figure \@ref(fig:courbes-agressivite-anopheles)). Par rapport aux autres espèces de vecteurs dominantes en Afrique, *An. funestus* présente des schémas comportementaux assez stables (généralement anthropophile et endophile) dans l'ensemble de son aire de répartition.\
+
+### Le système vectoriel
+
+Pour que la transmission du paludisme puisse s'effectuer, hôte, vecteur et agent infectieux doivent interagir dans un environnement favorable [@reisen_landscape_2010]. La triade vectorielle (système composé de l'agent pathogène, du vecteur et de l'hôte), complétée de l’environnement dans lequel elle évolue et de l’ensemble des interactions entre les acteurs et l’environnement, forme le *système vectoriel* [@rodhain_microbe_2015] (figure \@ref(fig:systeme-vectoriel)). Comme nous allons le voir plus loin (section \@ref(enjeux-objectifs-these)), l’analyse des intéractions dans le système vectoriel est au cœur de l’étude du risque de transmission du paludisme, et plus largement des maladies à transmission vectorielle. 
+
+```{r systeme-vectoriel, fig.cap="Système vectoriel : agent pathogène, vecteur, hôte, environnement (ref:fontenille)", fig.scap="Le sytème vectoriel", out.width="0.7\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/systeme_vectoriel.png")
+```
+
+De part son impact sur les traits de vie de chacun des protagonistes de la triade vectorielle, l'environnement (pris au sens large du terme : météorologie, paysage, facteurs socio-culturels, etc.) conditionne considérablement les dynamiques épidémiologiques, notamment spatio-temporelles, des maladies vectorielles [@reisen_landscape_2010]. Ainsi par exemple, des traits de vie des anophèles tels que l'émergence, la croissance, la survie, la dispersion, ou encore l'activité (notamment trophique) peuvent être impactés par des facteurs environnementaux météorologiques (températures, précipitations, humidité, etc.), paysagers (utilisation et occupation du sol, etc.), anthropiques (interventions de lutte contre les vecteurs, etc.), etc.^[Les liens entre environnement et traits de vie des anophèles sont plus largement détaillés dans les chapitres 4 et 5 du manuscrit]. Il en découle que certains indicateurs entomologiques de la transmission tels que la densité agressive des vecteurs (nombre de piqûres / homme / nuit) sont, à priori, largement dépendants des conditions environnementales [@moiroux_modelling_2013; @moiroux_spatio-temporal_2014]. La figure \@ref(fig:complex-system-anopheles) expose par exemple un ensemble de facteurs ayant été identifiés, dans la bibliographie, comme pouvant impacter les densités agressives des anophèles ('m.a. vecteur'), ainsi que les relations à priori existantes entre ces facteurs [@moiro2012].
+
+```{r complex-system-anopheles, fig.cap="Modèle conceptuel du système biologique \\{densités agressives des anophèles - environnement\\} (ref:moiroux)", fig.scap="Modèle conceptuel du système \\{densités agressives des anophèles - environnement\\}", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/systeme_complexe_abondance_vecteurs.png")
+```
+
+
+<!-- La distribution spatio-temporelle des vecteurs est étroitement liée à l'environnement [@stresman_beyond_2010], qui conditionne l'emergeance de l'espèce (comme nous l'avons expliqué). Plus largement, l'environnement impacte de nombreux traits de vie des vecteurs : émergeance, croissance, survie, dispersion, activité (notamment trophique), etc. Donnons ici quelques exemples d'impact de l'environnement sur les traits bioécologiques des vecteurs. -->
+
+<!-- La température affecte les traits de vie du moustique, à chaque étape de son cycle de vie (croissance larvaire, survie des adultes, etc.). L'impact des températures sur les traits de vie des moustiques n'est pas linéaire : par exemple, le taux de mortalité journalier de plusieurs espèces d'anophèles adultes suit une relation unimodale avec la température de l'air, avec un taux de survie optimal des adultes aux alentours de 25 °C [@beck-johnson_effect_2013; @mordecai_optimal_2013; @shapiro_quantifying_2017-1]. Au dessous ou en deçà de ce sueil, la survie de l'anophèle diminue, et par voie de conséquence l'abondance des anophèles. De leur côté, les précipitations remplissent ou créent les gites larvaires et expliquent ainsi, en partie, la saisonnalité de l'abondance de certaines espèces d'anophèles. La fréquence des précipitation, leur abondance, leur durée, sont donc des paramètres essentiels pour expliquer les densités des vecteurs. Là aussi, les relations ne sont pas nécéssairement linéaires : par exemple, des précipitations excessives peuvent détruire les larves en développement (et à fortiori diminuer l'abondance des vecteurs adultes) en lessivant les habitats aquatiques [@shaman_using_2002; @paaijmans_effect_2008]. Notons aussi que les conditions météorologiques à un instant donné peuvent impacter l'abondance des vecteurs sur plusieurs générations par des effets mécaniques de dynamique des populations [@curriero_cross_2005]. -->
+
+### Lutte anti-vectorielle 
+
+La lutte contre le paludisme s'oriente autour de trois axes : i) prévention, ii) diagnostic des cas suspects et iii) traitement des cas confirmés. Le diagnostic et le traitement visent respectivement à identifier la présence de *Plasmodium* dans le corps humain et à traiter les cas confirmés. La prévention, en amont, vise à réduire le risque de transmission ou les conséquences de la maladie si l'infection a lieu. Trois méthodes de prévention existent : la chimiothérapie préventive, la vaccination, et la lutte anti-vectorielle [@who_2021]. Attardons-nous sur la lutte anti-vectorielle, seule des trois méthodes ciblant le moustique vecteur.\
+
+#### Concept
+
+La lutte anti-vectorielle (LAV) consiste en un ensemble d’outils et de méthodes visant à empêcher la transmission des parasites depuis le vecteur vers l’humain. Dans leur immense majorité, ces outils ont pour objectif de limiter la probabilité (i) soit qu'un contact entre l’anophèle et l’humain se réalise (cad. la piqûre, ou encore l'intéraction homme-vecteur), (ii) soit qu'un moustique atteigne l'âge épidémiologiquement dangereux, (iii) soit les deux. Les leviers d'action sont multiples : réduire la densité des vecteurs, réduire leur longévité, ou empêcher physiquement le contact homme-vecteur. Pour cela, toutes sortes d’outils de lutte anti-vectorielle existent.
+
+#### Principaux outils de LAV {#lav-principaux-outils}
+
+Comme présenté précédemment, les principaux vecteurs du paludisme en Afrique ont été historiquement décrits comme majoritairement endophages, endophiles et nocturnes. C’est sur la base de ces traits comportementaux qu’ont été élaborés les deux principaux outils de lutte anti-vectorielle utilisés aujourd’hui dans la lutte contre la paludisme [@who_2021] : la moustiquaire Imprégnée d’Insecticide à Longue Durée d’Action (MIILDA) et les Pulvérisations Intra-Domiciliaires d’insecticide à effet rémanent (PID).\
+
+La MIILDA est un rideau de tulle imprégné d’insecticide dont on entoure en général les lits. La MIILDA offre une double barrière face aux vecteurs : 
+
+- barrière physique : le rideau de tulle offre une protection individuelle contre les vecteurs pour les personnes utilisant la moustiquaire, en empêchant le vecteur en recherche de repas de sang d’entrer en contact avec l’hôte
+- barrière chimique : l’insecticide dont la MIILDA est imprégnée a un effet à la fois repulsif (à distance) et létal (pour les vecteurs entrant en contact avec la moustiquaire).
+
+Cette barrière chimique réduit donc la longévité des vecteurs sensibles à l'insecticide, et ainsi sa probabilité d’atteindre l’âge epidémiologiquement dangereux. Par ailleurs, en réduisant la longévité des vecteurs individuellement, les MIILDA réduisent leur densité de population globale, et protègent donc théoriquement également les non-utilisateurs de moustiquaires dans la communauté [@killeen_exploring_2007; @hawley_community-wide_2003]. Cet effet de protection, appelé "communautaire", se manifeste au delà d'un certain seuil d'utilisation des MIILDA dans une communauté donnée (les exercices de modélisation mathématique avancent un seuil situé entre 35 % et 65 % en fonction des spécificités écologiques locales [@killeen_preventing_2007]).\
+
+La MIILDA a été l'outil de LAV phare du programme mondial de lutte contre le paludisme *Roll back malaria*, lancé par l'OMS en 2000. Ainsi, au niveau mondial, 2,3 milliards de moustiquaires imprégnées d’insecticide ont été vendues par les producteurs entre 2004 et et 2020 [@who_2021] ; et une grande partie de ces moustiquaires a été distribuée aux populations exposées au risque de paludisme par le biais des différents Programmes Nationaux de Lutte contre le Paludisme (PNLP)^[Organismes nationaux chargés de mettre en oeuvre les politiques de lutte contre le paludisme]. On estime en 2020 que 65% des maisons en Afrique sub-Saharienne étaient équipées d’au moins une moustiquaire et que 43 % de la population dormait sous une moustiquaire [@who_2021]. L'efficacité des MIILDA a été largement documentée et prouvée : on estime qu’elle a permis d’éviter environ 450 millions de cas de paludisme et 1 million de décès associés entre 2000 et 2015 [@bhatt_effect_2015].\
+
+<!-- Son rapport coût-efficacité, sa simplicité d’utilisation, et la compréhension de son mode d’action par les utilisateurs, en ont fait l’outil phare de la lutte anti-vectorielle.\ -->
+
+Les PID sont, après la MIILDA, le deuxième outil de LAV le plus communément utilisé [@who_2021]. La méthode des PID consiste à pulvériser un insecticide sur les murs intérieurs d'une habitation, afin de réduire la longévité (et donc la densité) des vecteurs venant se reposer sur les murs intérieurs de l’habitation après la piqûre. Elle vise donc les vecteurs endophiles. En 2020, 5,3 % de la population africaine à risque était protégée par les PID [@who_2021].\
+
+```{r milda-pid, fig.cap="Installation d'une moustiquaire imprégnée (gauche) et pulvérisations intra-domiciliaire d'insecticide (droite) (crédit photo : Jean-Jacques Lemasson et Vincent Robert)", fig.scap="Installation d'une moustiquaire imprégnée et pulvérisations intra-domiciliaire d'insecticide", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/milda_pid.png")
+```
+
+Une myriade d’outils et méthodes de lutte anti-vectorielle existent en sus de la MIILDA et des PID [@wilson_importance_2020] (la figure \@ref(fig:vc-tools) en présente certains), mais restent à ce jour utilisés en proportion bien moindre : les répulsifs individuels, la lutte anti-larvaire, les pulvérisations spatiales extérieures, la lutte génétique, les grillages de fenêtres, etc.
+
+```{r vc-tools, fig.cap="Exemples d'outils de LAV utilisés contre la transmission des maladies vectorielles, triés par catégories (basés ou non sur les insecticides) et stade de développement du vecteur ciblé (ref:wilson)", fig.scap="Exemples d'outils de lutte anti-vectorielle", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/vc_tools.png")
+```
+
+## Transmission résiduelle du paludisme : problématique, définition, enjeux
+
+### Limites actuelles de la LAV
+
+Ces outils, MIILDA en tête, ont donc été et restent les principaux artisans de la diminution de l’incidence du paludisme à large échelle. Cependant, les niveaux toujours soutenus de transmission et la récente stagnation - voire augmentation dans certaines régions - du nombre de cas de paludisme dans des régions pourtant couvertes par ces outils, questionne : quelles en sont les limites ? Pourquoi cette stagnation ? Plusieurs hypothèses sont généralement avancées :
+
+- *Fraction de la population de vecteurs ciblés.* Ces outils présentent certaines limites intrinsèques. Comme expliqué précédemment, les MIILDA et les PID ciblent, par définition, les vecteurs endophages, endophiles, et anthropophages. Le corollaire à cette observation est que tout vecteur exophage, exophile, ou zoophage leur échappe. Aussi, dans les zones où les vecteurs montrent de tels comportements, ces outils sont à priori peu efficaces [@killeen_characterizing_2014].
+
+- *Taux de possession et d’utilisation.* Ces outils ne sont efficaces que s’ils sont disponibles et utilisés. Bien qu’assez triviale, cette assertion peut expliquer en partie les niveaux toujours élevés de transmission. Comme énoncé précedemment, la couverture en outils de LAV et leur utilisation est loin d'être universelle. Par ailleurs, les taux de possession et utilisation de moustiquaires sont très variables selon les sous-régions, pays, et à des échelles spatiales plus fines encore [@bertozzi-villa_maps_2021] (figure \@ref(fig:itn-access-use)). Notons, sur la figure \@ref(fig:itn-access-use), l'évolution de la possession et utilisation des moustiquaires à l'échelle de l'Afrique : les taux moyens ont fortement augmenté entre 2000 et 2017 mais déclinent depuis cette année-ci.
+
+```{r itn-access-use, fig.cap="Evolution du taux de possession et d'utilisation de moustiquaires par pays en Afrique (ref:bertozzi)", fig.scap="Evolution du taux de possession et d'utilisation de moustiquaires par pays en Afrique", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/itn_access_use2.png")
+```
+
+- *Altération de la composition spécifique des vecteurs.* Ces outils sont susceptibles d’altérer la composition spécifique des vecteurs, en réduisant, à terme, la part des vecteurs endophiles, endophages, anthropophages, nocturnes et en favorisant les espèces exophages, exophiles, zoophages, et piquant précocément ou tardivement [@russell_increased_2011; @gatton_importance_2013; @sougoufara_shift_2016; @mwangangi_shifts_2013; @derua_change_2012]. Ces vecteurs, non ciblés par les MIILDA ou les PID, seront alors susceptibles de transmettre le paludisme. 
+
+- *Développement de mécanismes de résistance aux insecticides.* Enfin, on observe que les vecteurs au départ ciblés par ces outils développent des mécanismes de résistance aux insecticides leur permettant d'éviter ou de contourner leurs effets léthaux [@riveron_insecticide_2018; @killeen_characterizing_2014; @gatton_importance_2013; @manguin_residual_2013; @corbel_distribution_2013].
+
+Parmi les différentes limites et problématiques sus-mentionnées, le développement de résistances aux insecticides dans les populations vectorielles est particulièrement important et probablement, impactant. En effet, les résistances menacent directement l'efficacité des principaux outils de lutte anti-vectorielle. La section suivante précise les différentes formes de résistance décrites dans la littérature, présente brièvement les mécanismes impliqués dans le développement des résistances, et décrit succinctement leur distribution spatio-temporelle en Afrique.  
+
+### Résistances des anophèles aux insecticides
+
+On reconnaît deux formes principales de résistances des vecteurs aux insecticides : les résistances physiologiques et les résistances comportementales [@lockwood_evolution_1984; @sokhna_changes_2013].\
+
+#### Résistances physiologiques
+
+La résistance physiologique fait référence à un ensemble de mécanismes qui permettent au moustique de survivre à un contact avec l'insecticide [@davidson_insecticide_1957]. Les bases moléculaires et génétiques de la résistance physiologique sont bien connues : sous la pression des insecticides, les mutations qui permettent aux vecteurs de survivre sont naturellement sélectionnées et se propagent ensuite dans les générations successives [@martinez-torres_molecular_1998; @labbe_evolution_2017].\
+
+Plusieurs mécanismes de résistance physiologique aux insecticides ont été décrits, notamment biochimiques et morphologiques. Les modifications de la cible physiologique de l’insecticide - forme de résistance physiologique qui va être étudiée dans la suite de cette thèse - provoquent une réduction de la sensibilité aux insecticides en raison de mutations ponctuelles sur les gènes codant pour les protéines cibles [@davies_ddt_2007; @oreilly_modelling_2006]. La mutation la plus commune décrite chez les membres du complexe *Gambiae* est la mutation dite "kdr" ("knock-down resistance"). Cette mutation induit une résistance aux pyréthrinoïdes et aux organochlorés, insecticides les plus largement utilisés dans la lutte anti-vectorielle. On distingue 2 formes principales pour cette mutation : la mutation L1014F (ou "kdr-ouest") - historiquement détectée et largement répandue en Afrique de l'Ouest - et la mutation L1014S (ou "kdr-est") - historiquement détectée et largement répandue en Afrique de l'Est [@martinez-torres_molecular_1998; @ranson_identification_2000]. Une autre mutation dite "ace-1" (G119S) induit chez les anophèles une résistance aux carbamates, et dans une moindre mesure, aux organochlorés [@weill_unique_2004].\
+
+Bien que les premières traces de résistances physiologiques chez les anophèles aient été observées bien avant les distributions massives des MIILDA [@corbel_distribution_2013], on note une corrélation temporelle forte entre le déploiement à large échelle des outils de lutte anti-vectorielle (figure \@ref(fig:itn-access-use)) et la généralisation des résistances physiologiques chez les vecteurs du paludisme depuis les années 2000 (figure \@ref(fig:dev-res-phy)). La problématique des résistances physiologiques aux insecticides concerne maintenant la quasi-totalité des populations d'anophèles dans la sous-région ouest-africaine, et en particulier dans les zones d'étude de cette thèse - au Burkina Faso et en Côte d’Ivoire [@moyes_evaluating_2020] (figure \@ref(fig:dev-res-phy-map)).\
+
+```{r dev-res-phy, fig.cap="Distribution spatiale des études confirmant une résistance aux insecticides chez les anophèles entre 1990 et 2005 (à gauche) et entre 2005 et 2020 (à droite) (source : IR Mapper www.irmapper.com)", fig.scap="Distribution spatiale de l'émergence et expansion des résistances physiologiques des vecteurs aux insecticides", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/dev_res_phy.png")
+```
+
+```{r dev-res-phy-map, fig.cap="Distribution spatiale de la résistance à la deltaméthrine dans les populations d'An. gambiae s.l. (ref:moyes)", fig.scap="Distribution spatiale de la résistance à la deltaméthrine dans les populations d'An. gambiae s.l.", out.width="0.5\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/dev_res_phy_map.png")
+```
+
+#### Résistances comportementales {#behavioural-resistance}
+
+La résistance comportementale consiste en des modifications dans le comportement du moustique lui permettant de prévenir ou réduire les conséquences négatives des insecticides [@carrasco_behavioural_2019]. La résistance peut être qualitative (modifications qui empêchent ou limitent le contact avec l'insecticide) ou quantitative (modifications qui arrêtent, limitent ou réduisent l'action de l'insecticide une fois le contact établi) [@carrasco_behavioural_2019]. A ce jour, les mécanismes de résistance comportementale décrits dans la littérature sont principalement qualitatifs et consistent en des évitements spatiaux, temporels ou trophiques de l’insecticide. En particulier, dans les populations d'anophèles, les mécanismes de résistance qualitative comportementale suivants ont été décrits après la mise à l'échelle des outils de LAV à base d'insecticides [@manguin_residual_2013] : i) augmentation des comportements exophages ou exophiles (évitement spatial), ii) augmentation des comportements de piqûre précoce ou tardive (évitement temporel), iii) augmentation des comportements zoophages (évitement trophique).\
+
+Contrairement à la résistance physiologique, les mécanismes biologiques qui sous-tendent les résistances comportementales sont encore mal connus [@main_genetic_2016 ; @carrasco_behavioural_2019 ; @manguin_residual_2013 ; @killeen_characterizing_2014]. En particulier, il reste à comprendre si les changements de comportement reflètent des adaptations évolutives en réponse à la pression induite par les insecticides utilisés dans la LAV, comme pour les résistances physiologiques (*résistance constitutive*) ou sont des manifestations d'une plasticité phénotypique préexistante qui se déclenche face à l'insecticide ou en réponse à une variation environnementale qui réduit la disponibilité des hôtes humains (*résistance inductible*) ; ces mécanismes n’étant pas mutuellement exclusifs [@manguin_residual_2013]. Ces considérations peuvent avoir des implications importantes en matière d’efficacité sur le long terme des outils de LAV actuels. En effet, la résistance inductible pourrait impliquer que les vecteurs retrouvent rapidement leurs comportements de base lorsque les interventions de LAV sont modifiées, tandis que la résistance constitutive (héréditaire), qui pourrait impliquer que les vecteurs sensibles soient peu à peu remplacés par des vecteurs résistants, pourrait éroder progressivement et durablement l'efficacité des outils de LAV actuels. Certaines études récentes tendent à montrer qu’il pourrait y avoir une composante héréditaire à ces comportements résistants chez *An. arabiensis* [@govella_heritability_2021].\
+
+Les résistances comportementales sont à ce jour, dans l'ensemble, moins étudiées que les résistances physiologiques (mécanismes biologiques sous-jacents moins compris, distributions spatio-temporelles moins rapportées, etc.) [@carrasco_behavioural_2019]. A notre connaissance, une seule revue systématique des données existantes à l'échelle de l'Afrique a été effectuée [@sherrard-smith_mosquito_2019]. Cette étude rapporte, entre autres, les variations spatiales et temporelles des taux d'endophagie (et donc exophagie) des vecteurs : elle montre notamment qu'à l'échelle de l'Afrique, la proportion des piqûres de moustiques effectuées à l'extérieur des habitations a augmenté de presque 10 % entre 2003 et 2018 (figure \@ref(fig:dev-res-comp)), et qu'une telle augmentation de l'exophagie pourrait résulter en un accroissement significatif de l'incidence du paludisme à l'échelle du continent (+ 10,6 millions de cas annuels).\
+
+```{r dev-res-comp, fig.cap="Distribution temporelle (en haut) et spatiale (en bas) du taux d'endophagie des anophèles en Afrique (ref:sherrardsmith)", fig.scap="Distribution spatio-temporelle du taux d'endophagie des anophèles en Afrique", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/dev_res_comp.png")
+```
+
+### Transmission résiduelle du paludisme
+
+Les différentes limites des principaux outils de LAV aujourd’hui utilisés expliquent donc que la transmission continue de s'effectuer malgré la mise en oeuvre de ces interventions. La transmission qui persiste après avoir atteint une couverture universelle complète en MIILDA et/ou PID est appelée *transmission résiduelle* du paludisme [@killeen_characterizing_2014].\
+
+On peut envisager deux scenarii d'évolution de l'intensité de transmission résiduelle suite à l'introduction de MIILDA ou PID [@killeen_characterizing_2014]. Dans les deux scénarii, dans un premier temps l'intensité de la transmission diminue, jusqu'à atteindre un palier bas, sans disparaitre totalement à cause des limites inhérentes aux outils. Dans un second temps : 
+
+- soit **l'intensité de la transmission reste stable** (scenario 1), car :
+  - les outils de LAV restent largement utilisés ;
+  - les résistances comportementales des vecteurs sont induites (la fraction de vecteurs échappant aux outils de LAV reste donc stable)
+
+- soit **l'intensité de la transmission réaugmente** (rebond de la transmission) (scénario 2), à cause de : 
+  - une diminution progressive des taux d'utilisation des outils de LAV (par exemple, à cause d'une réduction des financements publics, ou de réticenses de la population à utiliser les interventions) ;
+  - et/ou une augmentation progressive de la prévalence des vecteurs physiologiquement résistants ;
+  - et/ou une augmentation progressive de la prévalence des vecteurs comportementalement résistants (dans ce scénario, les résistances comportementales sont donc constitutives) ;
+  - et/ou une modification progressive de la composition spécifique des vecteurs, vers des espèces davantage exophages ou piquant précocement ou tardivement.
+
+```{r tr-schema, fig.cap="Concept de transmission résiduelle du paludisme (adapté de (ref:killeen))", fig.scap="Concept de transmission résiduelle du paludisme", out.width="0.9\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/tr_schema.png")
+```
+
+Ces différentes problématiques concernant la transmission résiduelle du paludisme nous amènent ainsi à la présentation des enjeux et objectifs de la présente thèse.
+
+## Enjeux, objectifs, organisation de la thèse {#enjeux-objectifs-these}
+
+### Mesurer et caractériser, comprendre, prédire le risque le risque de transmission résiduelle du paludisme
+
+Pour éviter les rebonds de transmission résiduelle, limiter leur impact, et plus largement redynamiser le progrès de la lutte contre le paludisme, plusieurs pistes sont proposées par la communauté des acteurs de la lutte contre le paludisme. En particulier, il est préconisé de concevoir de nouvelles interventions et méthodes de lutte, d'adapter les interventions au contexte local, et de cibler et prioriser le déploiement des interventions [@who_2020_world_nodate; @who_2021]. Afin de tendre vers ces objectifs opérationnels, il est d'une part nécessaire d'appronfondir certaines connaissances fondamentales sur les déterminants de la transmission résiduelle (par exemple, les mécanismes biologiques sous-jacents aux résistances comportementales). D'autre part, pour optimer et prioriser les interventions sur un territoire d'intérêt, il est important d'acquérir une connaissance fine du risque de transmission résiduelle, en particulier, de ses composantes, de son intensité, et de sa distribution spatio-temporelle sur ce territoire. Nous proposons ci-après trois approches, constituant autant d'enjeux de la thèse, permettant de générer des connaissances essentielles à ces effets. Ces approches visent respectivement à i) mesurer et caractériser le risque de transmission résiduelle, ii) comprendre ce risque, et iii) prédire ce risque. 
+
+#### Approche n°1 : Mesurer et caractériser le risque {#measure-risk}
+
+Le risque de transmission résiduelle peut être défini comme la probabilité qu'un anophèle entre en contact avec un humain (autrement dit, probabilité de contact homme-vecteur), en zone couverte par les MIILDA ou PID. Bien que le simple contact avec l’humain ne soit pas suffisant pour transmettre le parasite (il faut par exemple, en sus, que l'anophèle soit infectieux, que la piqûre soit suffisamment longue, etc.), nous admettrons cette définition du risque de TR pour la suite de ce manuscrit. Le contact homme-vecteur se produit lorsque les anophèles sont à la recherche d'un repas de sang et que simultanément les hommes ne sont pas protégés par les moustiquaires. La probabilité de ce contact dépend donc en partie du comportement de l'anophèle - ses horaires et sites d'activités de recherche de repas de sang - et de celui de l'humain - son utilisation ou absence d'utilisation de moustiquaire, ses horaires d'utilisation de moustiquaires, ses habitudes nocturnes. En mesurant les comportements horaires anophéliens et humains au sein d'une même unité spatio-temporelle, il est possible de quantifier la probabilité de l'intéraction entre l'anophèle et l'humain : autrement dit, le risque de transmission résiduelle [@Garrett-Jones_1964; @killeen_characterizing_2014; @killeen_quantifying_2006].\
+
+**L'approche descriptive du risque de transmission résiduelle (*mesurer et caractériser le risque*) consiste donc à quantifier la probabibilité de contact homme-vecteur et caractériser les sites et horaires où s'effectue ce contact, en zone couverte par les MIILDA.**\
+
+Une méthode permettant l’étude des interactions comportementales entre les populations humaines et vectorielles en zone couverte par les MIILDA a été décrite par @killeen_quantifying_2006 et améliorée par @geissbuhler_interdependence_2007. Cette méthode requiert la collecte de données fines sur les comportements humains (possession, utilisation, et horaires d'utilisation, de moustiquaires) et vectoriels (abondances horaires des piqûres de vecteurs). Ces données sont ensuite introduites dans un modèle mathématique calculant l'exposition humaine horaire à la piqûre d'anophèle.\
+
+Ces données et cette approche permet de dégager de précieuses informations concernant la transmission résiduelle sur un territoire d'intérêt : taux de possession et utilisation globale des moustiquaires par la population, niveau de protection conféré par les moustiquaires, site (intérieur ou extérieur des habitations) et horaire (soir, nuit, matin) où la transmission résiduelle s'effectue, hétérogénéité spatio-temporelle du risque de transmission résiduelle. Sur la base de ces informations et connaissances, il sera possible d'élaborer des plans de gestion et outils efficaces : par exemple, programmer une campagne de distribution de moustiquaires (si les taux de possession sont faibles) ou d'information, éducation, communication à leur utilisation (si les taux d'utilisation sont faibles), ou encore déployer des interventions de LAV complémentaires à la MIILDA qui ciblent la part résiduelle de la transmission (cad. qui visent les vecteurs impliqués dans le risque de transmission résiduelle).\
+
+#### Approche n°2 : Comprendre le risque {#explain-risk}
+
+Si l'approche descriptive présentée dans la section précédente permet de mesurer la probabilité de contact hôte-vecteur, elle ne permet pas de comprendre les raisons sous-jacentes de l'intensité et de la variabilité spatio-temporelle de cette intéraction. **L'approche explicative du risque de transmission résiduelle proposée ici consiste ainsi à identifier les déterminants de l'intensité et de l'hétérogénéité spatio-temporelle de la probabibilité de contact homme-vecteur, en zone couverte par les MIILDA.**\
+
+En géographie, le risque est souvent défini comme *«la probabilité d'occurrence de dommage compte tenu des interactions entre facteurs d'endommagement (aléas) et facteurs de vulnérabilité. On peut ainsi résumer cette définition par une formule : risque = aléa × vulnérabilité^[http://geoconfluences.ens-lyon.fr/glossaire/risque-s, consulté le 2022-01-12]»*. Le risque de transmission résiduelle du paludisme (selon la définition proposée dans la section précédente) fait intervenir deux protagonistes : l’anophèle et l’homme. Les facteurs d’aléa peuvent être définis comme ceux directement liés au vecteur, et les facteurs de vulnérabilité comme ceux directement dépendants de l’homme. Ainsi, les facteurs d’aléa sont par exemple :
+
+- *Abondance journalière des vecteurs* : la densité environnante de vecteurs augmente à priori la probabilité pour un homme d'entrer en contact avec un vecteur ;
+- *Résistances physiologiques des vecteurs* : les vecteurs résistants aux insecticides ont une longévité accrue, augmentant ainsi à priori à la fois la probabilité pour ces vecteurs (qui vivront plus longtemps) de transmettre le parasite, et la densité globale des vecteurs ;
+- *Résistances comportementales des vecteurs* : les vecteurs exophages ou piquant précocement ou tardivement échappent à la protection conférée par les MIILDA et augmentent donc à priori la probabilité de contact homme-vecteur.\
+
+Les facteurs de vulnérabilité sont par exemple :
+
+- *Possession et utilisation de moustiquaire* : La probabilité de posséder et utiliser une moustiquaire réduit à priori la probabilité de contact homme-vecteur ;
+- *Horaires d'utilisation des moustiquaires* : Les horaires d'utilisation des moustiquaires modulent à priori la probabilité de contact homme-vecteur.
+- *Qualité de l'habitat* : Des facteurs tels que l'utilisation de grillages au fenêtres empêchant les vecteurs d'entrer dans les maisons modulent à priori la probabilité de contact homme-vecteur.\
+
+Comprendre le risque de transmission résiduelle consiste à améliorer les connaissances sur les systèmes {environnement - vecteur} et {environnement - hôte} du système vectoriel : identifier les déterminants (environnementaux, génétiques, socio-économiques, etc.) de chacune de ces composantes du risque et la manière dont ils impactent la composante. En d'autre termes, il s'agit d'approfondir les connaissances fondamentales sur les déterminants du risque : 
+
+- Caractériser la niche écologique des vecteurs ;
+- Caractériser la niche "d'activité" des vecteurs en recherche d'hôte ;
+- Comprendre les conditions d'émergence et de développement des résistances aux insecticides au sein d'une population de vecteurs ;
+- Comprendre les conditions de possession et d'utilisation des moustiquaires par la population ;
+- etc.\
+
+Un des enjeux (et difficultés) de cette approche est son caractère holistique : pour chaque composante de risque, il ne s'agit pas uniquement d'étudier si et comment un facteur donné impacte cette composante, mais plutôt de comprendre de quelle manière l'ensemble des potentiels facteurs impacte de manière complexe, en conditions "réelles" (cad. de terrain), cette composante de risque. Cette connaissance holistique des déterminants des différentes composantes du risque peut permettre d'identifier les leviers d'actions les plus pertinents pour diminuer le risque de transmission résiduelle.\
+
+<!-- ```{r tr-components, fig.cap="Le risque de transmission résiduelle du paludisme en un lieu et moment donnés décomposé en facteurs d’aléas (liés au vecteur) et de vulnérabilité (dépendants de l’humain). Chacun de ces facteurs, ainsi que leurs intéractions, définit de manière complexe le risque local de transmission résiduelle en tout point de l'espace et du temps. Ces facteurs sont eux-mêmes modulés par l'environnement dans lequel les populations, humaines et vectorielles, évoluent.", fig.scap="Risque de transmission résiduelle", out.width="0.8\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/composantes_risque_tr.pdf") -->
+<!-- ``` -->
+
+<!-- Notons que la connaissance précise des relations au sein des systèmes environnement-vecteur et environnement-hôte permet également de prédire l’évolution à long terme du risque de transmission en fonction de l’évolution de l’environnement (changements climatiques et anthropiques, modifications du paysage, etc.).\ -->
+
+Cette analyse peut se réaliser à l'aide de données (sur les composantes de risque à expliquer et leurs déterminants potentiels) et de méthodes de modélisation statistique qui seront détaillées dans le chapitre 2 de ce manuscrit. De manière générale, les enjeux sont ici d'identifier, pour chaque composante du risque : i) ses déterminants (quels facteurs influencent les intensités observées et la variabilité spatio-temporelle ?), ii) l’importance relative de chaque déterminant dans le comportement de la composante de risque (quels sont les déterminants qui influencent le plus la composante ?), iii) l’effet respectif (relation fonctionnelle) de chaque déterminant sur la composante du risque (si la valeur d’un des déterminants change, comment va changer la valeur de la composante du risque ?), et iv) l’existence, la nature et l’effet de potentielles intéractions entre les déterminants (comment les intéractions entre les déterminants impactent-elles la composante de risque ?).
+
+<!-- La fouille de données (ou modélisation explicative) peut aider  . Dans cette mathode, il s'agit tout d'abord d'identifier les potentiels déterminants de chacune des composantes de risque étudiée (étape 1). Dans un second temps, il faut recueillir des données sur ces potentiels déterminants. Enfin, le croisement de ces données (sur) et des données entomologiques et de comportement humain doit permettre de comprendre le lien entre l’environnement et chaque composante du risque étudiée. Il s'agit ainsi d'identifier : i) ses déterminants (quels facteurs façonnent les intensités observées et la variabilité spatio-temporelle ?), ii) l’importance relative de chaque déterminant dans le comportement de la composante de risque (quels sont les déterminants qui influencent le plus la composante ?), iii) l’effet respectif (relation fonctionnelle) de chaque déterminant sur la composante du risque (si la valeur d’un des déterminants change, comment va changer la valeur de la composante du risque ? ), et iv) l’existence, la nature et l’effet de potentielles intéractions entre les déterminants (comment les intéractions entre les déterminants façonnent-elles la composante de risque ?). C -->
+
+#### Approche n°3 : Prédire le risque {#predict-risk}
+
+Les deux approches précédentes (décrire et comprendre le risque) permettent d'accroitre les connaissances sur les intéractions (systèmes) hôte-vecteur, hôte-environnement, et vecteur-environnement ; ces connaissances permettant à leur tour de définir des caractéristiques pour de nouveaux outils de LAV et d'envisager des interventions adaptées au contexte local. Mais une fois ces interventions définies, comment savoir où et quand les déployer sur l'ensemble du territoire ? Prédire spatio-temporellement le risque de transmission résiduelle permet de cibler et prioriser les lieux et moments pour le déploiement des actions de gestion. Cette troisième approche consiste à estimer les valeurs des composantes du risque de transmission (abondance des vecteurs, taux de vecteurs résistants, etc.), voire du risque en lui-même (nombre de piqures / homme ou probabilité de contact homme-vecteur), en tout point de l’espace et du temps pour lesquels les observations « terrain » de ces composantes ne sont pas disponibles.\
+
+**L'approche prédictive du risque de transmission résiduelle (*prédire le risque*) consiste donc à prédire ou anticiper la probabibilité de contact homme-vecteur en tout point de l'espace et du temps.**\
+
+Concrètement, cette approche consiste à générer des cartes (éventuellement saisonnières) pour chaque composante du risque (par exemple, cartes de la distribution de l’abondance des vecteurs), ou un système d’alerte précoce qui permettra d’anticiper à courte ou moyenne échéance, dans l’espace et dans le temps, les composantes du risque. Ces outils permettront de prioriser les zones d’intervention pour d'éventuels outils de LAV complémentaires aux MIILDA, et d’anticiper précocement le besoin (éventuellement ponctuel) en ces interventions. Notons que les granularités (résolutions) spatiales et temporelles de la prédiction (ou les échéances d’anticipation) sont à définir en fonction de plusieurs caractéristiques et contraintes : dynamiques spatio-temporelles observées pour la composante de risque, échelles opérationnelles envisageables pour le déploiement des mesures, disponibilité et granularité des données environnementales, etc.\
+
+Les liens entre les différentes composantes du risque et l’environnement permettent leur prédiction spatio-temporelle. L’estimation de la valeur d'une composante de risque en tout point de l’espace et du temps se réalise en deux étapes : i) l’apprentissage des relations qui existent entre la composante de risque étudiée et l’environnement (sur le même principe que l’analyse explicative - à la différence près que, dans l'analyse prédictive, il n'est pas nécessaire d'expliciter ces liens) et ii) l’extrapolation de cet apprentissage en tous points de l’espace et du temps pour lesquels les données environnementales sont disponibles. Cette approche nécessite donc la collecte de données représentatives des composantes du risque à prédire (entomologiques et environnementales notamment) et peut se réaliser là aussi grâce à des méthodes de modélisation statistique.\
+
+\
+
+Nous avons résumé dans le tableau ci-dessous les trois approches proposées (mesurer, comprendre, prédire le risque) : enjeux, questions, données nécessaires, approches d'analyse des données, exemple de connaissances ou outils potentiellement générés, exemple d'enjeux opérationnels.\
+
+```{r table-approches-tr, fig.cap="Enjeux et objectifs des trois approches théoriques pour décrire, comprendre et prédire le risque de transmission résiduelle du paludisme", fig.scap="Enjeux et objectifs des trois approches théoriques pour décrire, comprendre et prédire le risque de transmission résiduelle du paludisme", out.width="1\\linewidth", fig.align="center", echo=F}
+    knitr::include_graphics(path = "tables/table_approches_tr.pdf")
+```
+
+### Enjeu de la thèse et organisation du manuscrit
+
+Cette thèse propose d'étudier, en implémentant en partie les approches décrites précédemment, le risque de transmission résiduelle du paludisme dans deux zones d'étude situées au Burkina Faso et en Côte d'Ivoire. Chaque zone recouvre environ la surface d'un district sanitaire rural ouest-africain (environ 2500 km$^2$). Ainsi, l'échelle spatiale d'étude est dite "paysagère" : autrement dit, nous travaillons à l'échelle du *village* dans ces zones. L'enjeu d'ensemble est de montrer en quoi ces différentes approches apportent des éléments complémentaires permettant de proposer des stratégies de prévention adaptées aux contextes locaux.\
+<!-- Dans cette thèse, nous nous focalisons plus particulièrement sur les vecteurs du paludisme, les anophèles.\ -->
+
+Ce travail fera très largement appel à des méthodes avancées et non triviales issues de la science des données, en particulier la modélisation statistique. Aussi, à ces enjeux scientifiques s’en ajoute un davantage méthodologique, consistant à détailler les différentes manières dont la modélisation statistique peut servir la recherche scientifique ; et plus particulièrement à préciser son intérêt et potentiel dans l’étude des systèmes biologiques complexes tel que le système environnement-vecteur en conditions naturelles.\
+
+Les travaux de thèse s’articulent autour de quatre articles. Au total, deux de ces articles ont été rédigés en tant qu'auteur principal, et les deux autres ont été co-rédigés. Parmi les deux articles rédigés en auteur principal, l'un a été accepté et l'autre devrait être soumis prochainement. Les deux articles co-rédigés ont été acceptés. Tous les articles sont en anglais et sont donc préfacés dans ce manuscrit d’une introduction et d'un résumé en français.\
+
+Le manuscrit se compose de six chapitres faisant suite à ce premier chapitre introductif.\
+
+Le **chapitre \@ref(data-mining)** (***Contexte méthodologique : Étude des systèmes complexes et modélisation statistique***) a pour objectif de présenter et justifier la forme de raisonnement scientifique et l'approche méthodologique utilisée dans les principaux travaux de la thèse (chapitres 4 et 5). Nous y introduisons les différentes manières d'appréhender l'étude des systèmes biologiques complexes, et le rôle que peut tenir la modélisation statistique dans ce contexte. Nous élaborons sur les questions suivantes :
+
+- Comment aborder l'étude des systèmes biologiques complexes tel que le système environnement-vecteur ? Quelles sont les deux approches existantes pour ce faire, et en quoi sont-elles complémentaires ? 
+- A quoi sert la modélisation statistique ? En quoi cet ensemble d’outils et de méthodes permet-il d'appréhender les systèmes complexes, et au sens plus large, certains enjeux majeurs de la recherche scientifique (tester, consolider, créer des connaissances scientifiques ; prédire) ?
+- Quelles sont les différentes étapes d'un travail de modélisation statistique ?
+- En quoi les développements récents en science des données offrent-ils de nouvelles perspectives pour approfondir la compréhension des liens et intéractions dans les systèmes biologiques complexes, tels que le système environnement-vecteur ?\
+
+Le **chapitre \@ref(data-collection-preparation)** (***Zones d'étude et préparation des données environnementales télédétectées***) présente le projet dans lequel s'inscrit la thèse, les zones d’étude, et les travaux de production de certaines données environnementales utilisées dans les chapitres 4 et 5 (données paysagères et météorologiques produites à partir d'images satellitaires d'observation de la Terre).\
+
+Les chapitres 4 à 6 constituent le coeur de la thèse.\
+
+Au **chapitre \@ref(data-mining-abundances)** (***Modélisation des dynamiques spatio-temporelles des abondances des vecteurs***) (article n°1, auteur principal, publié), nous étudions la composante du risque "Abondance journalière des vecteurs" (autrement dit, la niche écologique des vecteurs). Nous expliquons (approche n°2) et évaluons la prédictibilité (approche n°3) des dynamiques spatio-temporelles des abondances journalières des principales espèces d’anophèles présentes dans nos deux zones d’études, en les modélisant avec des données environnementales issues de produits satellitaires d'observation de la Terre. Nous apportons des éléments de réponse aux questions suivantes :
+
+- Les densités agressives des vecteurs sont-elles hétérogènes dans l’espace et dans le temps dans nos zones d’étude ?
+- Quels sont les déterminants des densités agressives pour chaque espèce majeure de vecteurs, et comment les impactent-ils ?
+- Est-on en mesure de prédire les densités agressives dans l'espace et dans le temps ?
+- Les déterminants considérés dans l’étude suffisent-ils à expliquer et prédire l’abondance des vecteurs et leur hétérogénéité spatio-temporelle dans nos zones d’étude ? Quels facteurs additionnels, non considérés dans l’étude, peuvent expliquer l'hétérogénéité des abondances ?\
+
+Au **chapitre \@ref(data-mining-resistances)** (***Modélisation des dynamiques spatio-temporelles des résistances physiologiques et comportementales des vecteurs***) (article n°2, auteur principal, à soumettre), nous étudions les composantes du risque "Résistances physiologiques des vecteurs" et "Résistances comportementales des vecteurs" (autrement dit, les conditions d'émergence et de développement de résistances des vecteurs aux insecticides). Nous expliquons (approche n°2) et évaluons la prédictibilité (approche n°3) des dynamiques spatio-temporelles des résistances physiologiques et des comportements des anophèles dans nos deux zones d'étude. En utilisant un nombre important de variables environnementales potentiellement explicatives des résistances, nous modélisons la probabilité individuelle de résistance physiologique des vecteurs ainsi que certains traits de leur comportement de piqûre (exophagie, agressivité précoce, agressivité tardive), afin d’apporter des éléments de réponse aux questions suivantes :
+
+- Les résistances physiologiques et comportementales des vecteurs sont-elles hétérogènes dans l’espace et dans le temps dans nos zones d’étude ?
+- Quels sont les déterminants des résistances physiologiques et comportementales pour chaque espèce majeure de vecteurs, et comment les impactent-ils ?
+- Est-on en mesure de prédire les résistances physiologiques et comportementales dans l'espace et dans le temps ?
+- Les déterminants considérés dans l’étude suffisent-ils à expliquer et prédire les résistances des vecteurs et leur hétérogénéité spatio-temporelle dans nos zones d’étude ? Quels facteurs additionnels, non considérés dans l’étude, peuvent expliquer l'hétérogénéité des résistances ?\
+
+Le **chapitre \@ref(complementary-studies)** (***Etudes complémentaires : contributions à des travaux de modélisation liés à la transmission du paludisme***) (articles n°3 et 4, co-auteur, publiés) rassemble les deux études complémentaires auxquelles nous avons contribué dans le cadre de la thèse. Ces deux études concernent la zone d'étude située au Burkina Faso. Le premier article complémentaire (*Modélisation de l'exposition humaine à la piqûre d'anophèles*) vise à mesurer et caractériser la transmission résiduelle (approche n°1) dans la zone d'étude. Le deuxième article complémentaire (*Modélisation des dynamiques spatio-temporelles des cas de paludisme*) présente une étude visant à expliquer et prédire la distribution spatio-temporelle des cas de paludisme dans la zone d'étude, en utilisant des produits satellitaires d'observation de la Terre - comme pour les chapitres 4 et 5. Cette étude ne traite donc pas directement d'entomologie médicale, mais complémentairement aux études précédentes, permet d'illustrer la diversité des utilisations possibles des données satellitaires et modèles statistiques pour la gestion du paludisme sur le terrain.\
+
+<!-- L’exercice de modélisation des résistances des anophèles apportera également des éléments de réponses aux questions spécifiques suivantes :  -->
+
+<!-- - Quelle est la contribution respective de l’agriculture et de la lutte anti-vectorielle dans le développement des résistances physiologiques sur nos territoires d’étude ? -->
+<!-- - Les résistances comportementales augmentent-elles en réponse à la lutte anti-vectorielle sur nos zones d'étude ? -->
+<!-- - Les comportements des vecteurs sont-ils influencés par les conditions micro-climatiques pendant la recherche de repas de sang ? -->
+<!-- - A quelle vitesse les vecteurs s’adaptent-ils ? Quelle stratégie de protection aux insecticides (résistance comportementale ou résistance physiologique) apparaît et se répand le plus rapidement dans une population de vecteurs ? -->
+<!-- - Existe-t-il des associations entre les résistances physiologiques et les résistances comportementales ? -->
+
+Enfin, au **chapitre \@ref(discussion)** (***Discussion générale***), nous discutons l’ensemble des résultats. Nous proposons certaines stratégies pour la gestion du risque de transmission du paludisme sur nos deux zones d’étude. En particulier, nous faisons des propositions pour l'amélioration (i) des méthodes actuelles de lutte anti-vectorielle, (ii) de l’utilisation de la science et ingénierie des (géo-)données en général, et de la modélisation statistique en particulier, pour la recherche et le contrôle du paludisme, et (iii) des outils de surveillance et prévention du risque de transmission du paludisme à échelle locale en milieu rural ouest-africain.
+
+
+
+
+
+
+
+
+
+<!-- ### Cadre conceptuel pour l’étude du risque de transmission résiduelle -->
+
+<!-- Risque de TR = probabilité de contact homme vecteur (intéraction hote vecteur) -->
+
+<!-- décrire ce risque pour .... -->
+<!-- comprendre ce risque pour ... -->
+<!-- prédire ce risque pour ... -->
+
+
+<!-- probabilité de contact homme-vecteur =  -->
+
+
+<!-- Le risque de transmission résiduelle (probabilité qu’un anophèle entre en contact avec un humain et lui transmette le parasite) en un lieu et site donnés est donc fonction de nombreuses composantes liées au vecteur, au parasite, et à l'hôte : abondances journalières et horaires des vecteurs, taux de moustiques infectieux, prévalence des résistances physiologiques et comportementales dans la population de vecteurs, possession et utilisation des moustiquaires par les populations humaines, etc. Ces composantes du risque de transmission résiduelle sont elles-mêmes dépendantes de nombreux facteurs environnementaux, socio-culturels, etc. Aussi, l'on comprend en quoi le risque de transmission résiduelle du paludisme est lié, au moins en partie, à l'environnement dans lequelle les populations, vectorielles et humaines, évoluent. -->
+
+<!-- ### Factorisation et formalisation mathématique du risque de transmission résiduelle du paludisme -->
+
+<!-- Le risque de transmission résiduelle peut être défini comme la probabilité qu’un anophèle porteur de Plasmodium entre en contact avec un humain, en zone couverte par les MIILDA. Bien que le simple contact avec l’humain ne soit pas suffisant pour transmettre le parasite (il faut par exemple, en sus, que la piqûre soit suffisamment longue), nous admettrons cette définition du risque de TR pour la suite de ce manuscrit.\ -->
+
+
+<!-- Le risque de transmission résiduelle dépend de plusieurs facteurs liés au vecteur ou au comportement humain (équation 1). Ces mêmes facteurs dépendent de l'environnement (équation 2). On a donc une  -->
+
+<!-- La transmission résiduelle fait intervenir les trois protagonistes du cycle du paludisme : l’anophèle, le parasite, et l’humain. Décomposons le risque de transmission résiduelle du paludisme afin d’ appréhender le rôle et la responsabilité de chacun des acteurs. En géographie, le risque est souvent défini comme *la probabilité d'occurrence de dommage compte tenu des interactions entre facteurs d'endommagement (aléas) et facteurs de vulnérabilité *[de la population]*. On peut ainsi résumer cette définition par une formule : risque = aléa × vulnérabilité* (ref géoconfluences). Dans notre cas, les facteurs d’aléa peuvent être définis comme ceux directement liés au vecteur, et les facteurs de vulnérabilité comme ceux directement dépendants de l’humain. On peut dégager, à minima, les facteurs d’aléa et de vulnérabilité suivants : \ 
+
+Mathématiquement, on peut traduire ces deux dernières phrases par les deux équations suivantes :\
+
+(1) $\mathrm{Y_{x,y,t}} = {F_1}(X_{x,y,t})$ \ 
+
+(2) $\mathrm{X_{x,y,t}} = {F_2}(Z_{x,y,t})$ \
+
+où :\
+
+- $\mathbf{Y_{x,y,t}}$ = risque de transmission résiduelle du paludisme en un temps *t* et un site de coordonées géographique *x,y*
+- $\mathbf{x} = \langle x_{1}, x_{2}, \dots, x_{n}\rangle$ ; où chaque $x$ représente une composante de la transmission résiduelle (abondance des vecteurs, résistances des vecteurs, etc.)
+- $\mathbf{z} = \langle z_{1}, z_{2}, \dots, z_{n}\rangle$ ; où chaque $z$ représente une composante de l'environnement (température, paysage, etc.)
+
+Le risque de transmission résiduelle est donc directement lié au conditions environnementales. 
+
+
+
+-->
+
+<!-- L’objectif ultime de la prévention de la transmission est de diminuer ce risque, en réduisant la probabilité de contact homme-vecteur sur ce territoire grâce à des interventions adéquates et ciblées (dans l’espace et dans le temps). Proposer des stratégies de gestion du risque (conceptualisation et déploiement d’interventions ciblées) requiert l’étude préalable du risque de transmission résiduelle. Il est possible d'envisager au moins trois types d’études, apportant des informations et connaissances complémentaires pour tendre vers cet objectif de gestion :\ -->
+
+<!-- **Caractériser et quantifier le risque**\ -->
+<!-- *Définition et description de l’étude.* Caractériser et quantifier le risque de transmission résiduelle revient à décrire, le plus exhaustivement possible, ce risque sur le territoire. En particulier, il est important *i)* d’évaluer l’intensité absolue des différentes composantes du risque de TR, *ii)* d’évaluer l’hétérogénéité spatio-temporelle de ces différentes composantes, *iii)* de caractériser et quantifier l’exposition humaine horaire à la piqûre d’anophèle : la proportion de piqures d'anopèles que les MIILDA protègent, ainsi que les sites (intérieur ou extérieur des habitations) et horaires (soir, nuit, matin) où s’effectue la transmission résiduelle. -->
+
+<!-- *Méthode.* Cette étude requiert le recueil de données sur les facteurs d’aléa et de vulnérabilité, couvrant le plus exhaustivement possible (dans l’espace et dans le temps) le territoire d’étude. Les sites et périodes d’échantillonnage doivent être représentatifs de la diversité des conditions (entomologiques, épidémiologiques, socio-culturelles, environnementales, etc.) à priori rencontrées sur le territoire. La visualisation de ces données (sous forme de tableaux, cartes, graphiques) permet ensuite de caractériser l’intensité et la distribution spatio-temporelle des facteurs de risque. L’étude de l’exposition humaine horaire à la piqûre d’anophèle se fait par l’analyse croisée des données horaires de comportement humain (horaires d’entrée / sortie des habitations et utilisation des moustiquaires) et de comportement des anophèles (densités agressives horaires). -->
+
+<!-- *Intérêt pour la gestion.* L’évaluation de l’intensité des facteurs de risque permet de prendre connaissance du niveau de risque global de TR et donc de l’urgence et la nécessité d’agir. Elle permet également d’émettre des hypothèses sur les facteurs de risque potentiellement les plus impactants. L’étude de l’hétérogénéité spatio-temporelle des facteurs de risque permet d’appréhender la nécessité d’adopter une démarche de prévention ciblée dans l’espace et le temps. Enfin, l’étude de l’exposition humaine horaire à la piqûre d’anophèle permet de définir le type d’intervention (complémentaire à la MIILDA) le plus approprié : notamment, les vecteurs qui doivent être en priorité ciblés par les interventions (exophages ou endophages, etc).\ -->
+
+<!-- **Expliquer le risque**\ -->
+<!-- *Définition et description de l’étude.* Expliquer le risque revient à comprendre l’origine de l’intensité du risque sur le territoire et des éventuelles variabilités spatio-temporelles observées. Pour cela, il est nécessaire de préciser et accroître les connaissances fondamentales sur les composantes du risque (écologie vectorielle, comportements humains relatifs à l’utilisation des moustiquaires, etc.) : comment les facteurs environnementaux, socio-économiques, culturels, etc., façonnent-ils chaque composante du risque ? Il s’agit donc ici d’étudier les relations entre l’environnement (au sens large du terme) et le système {vecteur, pathogène, hôte}. Le démarche doit ici être holistique : pour chaque composante de risque, il ne s'agit pas uniquement d'étudier si un facteur environnemental précis module cette composante, mais plutôt de comprendre de quelle manière l'ensemble de l'environnement définit de manière complexe, en conditions "réelles" (cad. de terrain), cette composante de risque.\ -->
+<!-- *Méthode.* Cette étude requiert tout d’abord une analyse bibliographique des potentiels déterminants environnementaux de chacune des composantes de risque étudiées, puis le recueil de données sur ces potentiels déterminants. Ensuite, l’analyse croisée de ces données environnementales et des données recueillies pour la caractérisation du risque doit permettre de comprendre finement le lien entre l’environnement et chaque composante du risque étudiée. Il s'agit ainsi d'identifier, pour chaque composante du risque : *i)* ses déterminants environnementaux (quels facteurs environnementaux façonnent les intensités observées et la variabilité spatio-temporelle ?), *ii)* l’importance relative de chaque déterminant dans le comportement de la composante de risque (quels sont les facteurs environnementaux qui influencent le plus la composante ?), *iii)* l’effet respectif (relation fonctionnelle) de chaque déterminant sur la composante du risque (si la valeur d’un des déterminants change, comment va changer la valeur de la composante du risque ? ), et *iv)* l’existence, la nature et l’effet de potentielles intéractions entre les déterminants (comment les intéractions entre les déterminants façonnent-elles la composante de risque ?). Cette analyse peut se réaliser à l'aide de méthodes statistiques de fouille de données.\ -->
+<!-- *Intérêt pour la gestion.* C’est sur la base de ces connaissances fines des relations entre environnement et vecteur, hôte, pathogène, que pourront être développées ou déployées des interventions efficaces, qui cibleront la part résiduelle de la transmission. Ces connaissances permettront également de prédire l’évolution à long terme du risque de transmission en fonction de l’évolution de l’environnement.\ -->
+
+<!-- **Prédire et anticiper le risque**\ -->
+<!-- *Définition et description de l’étude.* Prédire et anticiper le risque revient à estimer les valeurs des composantes du risque en tout point de l’espace et du temps pour lesquels les observations « terrain » de ces composantes ne sont pas disponibles. Concrètement, il s’agit de produire des cartes (éventuellement saisonnières) pour chaque composante du risque (par exemple, de la distribution de l’abondance des vecteurs), ou un système d’alerte précoce qui permettra d’anticiper à courte ou moyenne échéance, dans l’espace et dans le temps, les composantes du risque.\ -->
+<!-- *Méthode.* Le dépendance des différentes composantes du risque à l’environnement permet leur prédiction spatio-temporelle. En effet, l’estimation de la valeur de la composante de risque en tout point de l’espace et du temps se réalise en deux étapes : *i)* l’apprentissage des relations qui existent entre la composante de risque étudiée et l’environnement (sur le même principe que l’analyse explicative) et *ii)* l’extrapolation de cet apprentissage en tous points de l’espace et du temps pour lesquels les données environnementales sont disponibles. Cette étude peut se faire en utilisant les données collectées pour les phases de description et d’explication du risque, et grâce à des méthodes de fouille de données.\ -->
+<!-- *Intérêt pour la gestion.* Prédire et anticiper le risque présentent une valeur opérationnelle forte. Les cartes ou systèmes d’alerte précoces développés permettront de prioriser les zones d’intervention, et d’anticiper précocement le besoin (éventuellement ponctuel) en ces interventions. Notons que les granularités (résolutions) spatiales et temporelles de la prédiction (ou les échéances d’anticipation) sont à définir en fonction de plusieurs caractéristiques et contraintes : dynamiques spatio-temporelles observées pour la composante de risque, échelles opérationnelles envisageables pour le déploiement des mesures, disponibilité et de la granularité des données disponibles, etc.\ -->
+
+<!-- La figure ci-dessous résume ainsi le parcours depuis la collecte des données jusqu’à la conceptualisation d’outils permettant une gestion efficace du risque de transmission résiduelle du paludisme sur un territoire d’intérêt.\ -->
+
+<!-- ```{r tr-data-to-wisdom, fig.cap="Parcours (simplifié) du recueil des données à la gestion ciblée de la transmission résiduelle du paludisme. Entre le premier et le second, l’analyse des données permet de générer la connaissance scientifique essentielle à l’élaboration des outils de gestion.", fig.scap="De la donnée à la gestion", out.width="0.9\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/data_to_wisdom_tr.pdf") -->
+<!-- ``` -->
+
+
+
+
+
+
+<!-- #### Concevoir de nouvelles interventions et méthodes -->
+
+<!-- La MIILDA a été développée sur le constat que les vecteurs étaient décrits comme principalement endophages, les PID principalement endophiles.  -->
+<!-- mais on en voit les limites -->
+<!-- il faut donc  -->
+
+<!-- Pa -->
+
+<!-- Pour concevoir de nouvelles interventions et méthodes de lutte complémentaires à la MIILDA, l'enjeu scientifique principal est donc **d'améliorer les connaissances fondamentales sur les déterminants des facteurs (d'aléa) du risque de transmission résiduelle du paludisme**, (déterminants environnementaux, génétiques, etc.)ou d'autres composantes () -->
+
+
+
+
+<!-- #### #### Concevoir de nouvelles interventions et méthodes -->
+<!-- Déployer des interventions adaptées au contexte local -->
+
+<!-- -  -->
+
+
+<!-- #### Cibler le déploiement des interventions -->
+
+
+<!-- = déployer des interventions qui ont un impact, au regard du faciès entomologique, épidémiologique, environnemental du territoire considéré. -->
+
+<!-- par exemple, sur un territoire avec des vecteurs endophiles -> ou avec des vecteurs endophages -> ou où la pop n'utilise pas les moustiquaires -> l'enjeu est donc de diagnostiquer le risque de TR -->
+
+<!-- enjeux : **diagnostiquer le risque de TR sur le territoire** () -->
+
+<!-- concevoir de nouvelles interventions (définir des caractéristiques pour de nouvelles intervention, outils de lAV) = exploiter les vulnérabilités des vecteurs. -->
+<!--  enjeux : Pour cela, il s'agit d'améliorer les connaissances fondamentales sur les déterminants des facteurs (d'aléa) du risque de transmission résiduelle du paludisme -->
+
+<!-- cibler le déploiement des interventions = dans un contexte de ressources limitées, déployer la bonne intervention, au bon endroit, au bon moment.  -->
+
+<!-- les dymaniques des facteurs de risque sont variables dans l'espace et dans le temps, impliquant que le risque varie lui aussi -->
+
+<!-- enjeu : **être en mesure de prédire le risque à des échelles spatio-temporelles opérationnelles (adaptée aux prises de décision politiques et d’aménagement)** -->
+
+
+
+<!-- chacune des pistes d'amélioration et enjeux associés décrits ci-dessus peut faire l'objet d'études -->
+
+<!-- cette thèse se propose donc  -->
+
+<!-- objectif général : Proposer des approches permettant d'**étudier le risque de transmission résiduelle sur un territoire d'intérêt** dans le but de le **réduire ou le contenir**.  -->
+
+<!-- les enjeux spécifiques correspondent aux trois enjeux  :  -->
+
+<!-- **diagnostiquer le risque de TR sur le territoire**, **d'améliorer les connaissances fondamentales sur les déterminants des facteurs de risque de transmission résiduelle du paludisme**, et de **évaluer la prédictibilité des facteurs de risque de transmission résiduelle** -->
+
+
+<!-- **suggérer des interventions qui soient adaptées au contexte local** et de **cibler le déploiement de ces interventions** -->
+
+
+
+<!-- Pour atteindre cet objectif, plusieurs questions de recherche se posent : -->
+
+<!-- - quel est le niveau de protection conféré par les outils conventionnels en place sur le territoire (MIILDA et/ou PID) ? où et quand la TR s'effectue-t-elle ? -->
+<!-- enjeu : diagnostiquer le risque de TR  -->
+
+<!-- - quels sont les déterminants des facteurs du risque de TR ?  -->
+<!-- enjeu : améliorer les connaissances fondamentales sur les déterminants de certains facteurs de risque de transmission résiduelle du paludisme. -->
+
+<!-- - est - il possible de prédire ou anticiper l'intensité des facteurs de risque en tout point de l'espace et du temps ?  -->
+<!-- enjeu : évaluer la prédictibilité de ces mêmes facteurs de risque de la TR -->

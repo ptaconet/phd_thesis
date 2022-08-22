@@ -1,0 +1,18 @@
+Approche,Mesurer et caractériser le risque de TR,Expliquer le risque de TR,Prédire le risque de TR
+Définition courte,Quantifier l'intensité du contact homme-vecteur et caractériser les sites et horaires où s'effectue ce contact,Comprendre de quelle manière l’environnement impacte chaque composante du risque (et in-fine le risque lui-même),Prédire les composantes du risque en tout point de l’espace et du temps (et in-fine le risque lui même) 
+Objectifs,,,
+Questions,"Quel niveau de protection à la piqûre d'anophèle les moustiquaires offrent-elles ?
+A quel endroit (intérieur ou extérieur des maisons) et moment de la journée (soir, nuit ou matin) les populations sont-elles principalement exposées aux piqûres d’anophèles ?
+L'exposition à la piqûre est-elle variable selon les âges, les saisons, et les villages ?
+","Les composantes du risque sont-elles hétérogènes dans l’espace et dans le temps ? 
+Quels sont les déterminants environnementaux de chaque composante du risque ? ",Peut-on prédire correctement la variabilité spatio-temporelle des composantes du risque ?
+Données nécessaires,"Abondances horaires des piqûres d’anophèles
+Taux de possession, d’utilisation, et horaires d’utilisation des moustiquaires par les populations humaines","
+Environnement (météorologie, paysage, ",idem expliquer le risque
+Méthodes,Modélisation mathématique de l’exposition humaine à la piqûre,Modélisation statistique explicative,Modélisation statistique prédictive
+Connaissance / outils en sortie,"Taux de possession et utilisation globale des moustiquaires par la population
+Niveau de protection offert par les moustiquaires
+Sites et horaires où la transmission résiduelle s'effectue
+Hétérogénéité spatio-temporelle du risque de transmission résiduelle",,"Cartes saisonnières pour chaque composante du risque
+Système d’alerte précoce"
+Actions de gestion,,,Ciblage du déploiement des outils de LAV

@@ -1,0 +1,90 @@
+# Article n°2 - Modélisation des dynamiques spatio-temporelles des résistances physiologiques et comportementales des vecteurs {#data-mining-resistances}
+
+<!-- #### Introduction à l'article -->
+
+L'étude exposée dans le chapitre précédent nous a permis de préciser certaines caractéristiques de la niche écologique des principales espèces vectrices du paludisme dans nos deux zones d'étude. Dans cette seconde étude, nous nous intéressons aux résistances, physiologiques et comportementales, des vecteurs aux insecticides. Les objectifs, conceptuellement, sont similaires : approfondir les connaissances sur les déterminants de la prévalence des résistances physiologiques et comportementales des anophèles dans nos zones d'étude ; et évaluer la prédictibilité de la présence de ces résistances chez les vecteurs. Pour cela, au même titre que pour l'étude précédente nous faisons appel à la modélisation statistique dans une approche holistico-inductive. Nos variables explicatives sont nombreuses, variées et fines : lutte anti-vectorielle, disponibilité de l'hôte et micro-climat pendant la recherche de repas de sang, etc. L'enjeu ici est double : capturer et interpréter des associations potentiellement complexes et non-hypothétisées entre environnement et résistances des vecteurs, et quantifier précisement l'impact de certaines variables - en particulier celles liées à la lutte anti-vectorielle, principal déterminant supposé du développement des résistances. Aussi, nous faisons appel à la fois à des modèles non-paramétriques et paramétriques. Cette étude est présentée sous la forme d'un article scientifique entièrement rédigé au moment de l'écriture de ce manuscrit. Dans ce chapitre, nous résumons puis intégrons l'article en l'état.
+
+## Résumé de l'article 
+
+Les objectifs principaux de cette étude étaient i) d'approfondir les connaissances sur les déterminants des résistances physiologiques et comportementales des anophèles dans nos zones d'étude, et ii) d'évaluer la prédictibilité de ces résistances chez les anophèles dans l'espace et dans le temps. Plus spécifiquement, les questions soulevées étaient les suivantes : 
+
+- Quelle est la contribution respective de l’agriculture et de la lutte anti-vectorielle dans le développement des résistances physiologiques sur nos territoires d’étude ?
+- Quels sont les méchanismes biologiques qui sous-tendent les résistances comportementales ? 
+- Les comportements des vecteurs sont-ils influencés par des conditions environnementales (météorologiques, paysagères) pendant la recherche de repas de sang ?
+- Les résistances physiologiques influencent-elles les résistances comportementales ?
+- Quel mécanisme de résistance aux insecticides (comportemental ou physiologique) apparaît et se répand le plus rapidement dans une population de vecteurs ?
+- Les résistances des vecteurs sont-elles hétérogènes dans l'espace et dans le temps à fine échelle spatiale ? 
+- A quel niveau peut-on expliquer et prédire la prévalence des résistances des vecteurs dans l'espace et dans le temps ? 
+
+Nous avons modélisé six indicateurs de résistance des vecteurs, dont trois de résistance comportementale et trois de résistance physiologique, pour chaque espèces d'anophèle et dans chaque zone d'étude : la probabilité pour un moustique capturé de piquer à l'extérieur (exophagie), la probabilité pour un moustique capturé de piquer précocément (avant que 50 % de la population humaine soit déclarée comme étant sous une moustiquaire le soir) (activité précoce) ou tardivement (après que 50 % de la population humaine soit déclarée comme étant hors d'une moustiquaire le matin) (activité tardive), et les probabilités pour un moustique capturé de porter un allèle résistant pour chacune des mutations kdr-w, kdr-e, et ace-1 (les modèles de résistance physiologiques ont été générés uniquement dans la zone de Diébougou, les données n'étant pas exhaustives dans la zone de Korhogo). Les variables explicatives, principalement environnementales, appartenaient à sept groupes : lutte anti-vectorielle, disponibilité de l'hôte humain au moment de la recherche de repas de sang, conditions micro-climatiques au moment de la recherche de repas de sang, conditions météorologiques précédant la capture (mois précédant et jour de capture), conditions paysagères, résistance des vecteurs, abondance des vecteurs. Nous avons modélisé chaque indicateur de résistance à l'aide de deux modèles statistiques : un modèle paramétrique d'une part (GLMM binomial) afin de mesurer statistiquement l'impact de certaines variables explicatives d'intérêt (notamment celles liées à la LAV); et un modèle non-paramétrique d'autre part (forêt alétoire) pour maximiser les chances de capturer des associations entre variables potentiellement complexes. Nous avons calculé les performances explicatives et prédictives des modèles et avons interprété les modèles à l'aide des *partial dependence plots* et des informations plus classiques en sortie des GLMM binomiaux (coefficients, p-values, intervalles de confiances).\
+
+Nous avons observé que pour une espèce et un indicateur de résistance donnés, la proportion de vecteurs résistants était, dans l'ensemble, relativement stable dans l'espace (entre les villages) et dans le temps (entre les missions de captures entomologiques) ; bien que de légères variations fussent présentes. Les GLMM ont capturé de nombreuses associations statistiquement significatives entre les variables environnementales et celles représentant les résistances des vecteurs. Dans l'ensemble, les puissances explicatives et prédictives des modèles étaient cependant relativement faibles ; en particulier pour les modèles de résistances comportementales. Sur la base des associations entre variables capturées par les modèles et de leurs puissances explicatives et prédictives, nous avons émis plusieurs hypothèses sur les déterminants des résistances physiologiques et comportementales des vecteurs sur nos zones d'étude. En particulier : 
+
+- Nous avons conjecturé que le développement de la mutation kdr-e chez les anophèles dans la zone de Diébougou était davantage causé par les insecticides utilisés dans la LAV que ceux utilisés en agriculture ; 
+- Nous avons capturé de nombreuses associations entre les résistances physiologiques et les variables climatiques (sur le mois précédant la collecte et pendant la collecte), ce qui peut traduire un coût biologique de ces mutations génétiques pour les vecteurs, à la fois en terme de 'fitness' et d'activité ; 
+- Sans relever d'indices forts d'un caractère génétique et héréditaire des comportements des vecteurs (résistance constitutive), certains résultats vont malgré tout dans ce sens ;
+- Nous avons noté que certaines espèces d'anophèles semblaient adapter - modéremment - certains comportements de piqûre en fonction des conditions environnementales au moment de la recherche d'hôte (disponibilité de l'hôte et micro-climat) ;
+- Nous avons cependant conjecturé que dans l'ensemble, les comportements de piqûre des anophèles n'étaient que marginalement déterminés par les conditions environnementales immédiates au moment de la recherche de repas de sang (cf. les faibles puissances explicatives et prédictives des modèles statistiques) ;
+- Nous n'avons pas trouvé de phénotype comportemental (parmi ceux étudiés) associé à un génotype pour l'une des mutations de la cible (à savoir, pas de lien significatif entre résistances physiologiques et résistances comportementales).\
+
+Dans cette étude, nous avons donc tenté de mieux comprendre les déterminants de l'intensité et de l'hétérogénéité spatio-temporelle des résistances physiologiques et comportementales des vecteurs du paludisme, à fine échelle spatio-temporelle. Nous avons principalement (i) montré que les résistances (à la fois physiologiques et comportementales) étaient assez homogènes dans l'espace (entre les villages) et dans le temps (entre les saisons) à nos échelles d'étude, et (ii) émis l'hypothèse qu'à ces échelles spatio-temporelles, les résistances des vecteurs semblaient n'être que marginalement influencées par des facteurs environnementaux autres que ceux liés à l'utilisation d'insecticides dans la lutte antivectorielle. Afin d'éviter les rebonds de transmission, il y a donc urgence à repenser l'utilisation des insecticides dans la lutte anti-vectorielle.
+
+## Texte intégral de l'article
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header dans le pdf -->
+\includepdf[pages=-,nup=1,pagecommand={}]{article_resistances.pdf}
+\endgroup
+
+
+<!-- ## Objectifs de l'étude -->
+
+<!-- Dans la lignée de l'étude du chapitre 5, cette étude avait pour objectif de mieux comprendre les déterminants environnementaux des résistances physiologiques et comportementales des anophèles sur nos zones d'étude. Afin de guider la discussion, les questions suivantes étaient spécifiquement soulevées en introduction :  -->
+
+<!-- - Quelle est la contribution respective de l’agriculture et de la lutte anti-vectorielle dans le développement des résistances physiologiques sur nos territoires d’étude ? -->
+<!-- - Les résistances comportementales augmentent-elles en réponse à la lutte anti-vectorielle sur nos zones d'étude ? -->
+<!-- - Les comportements des vecteurs sont-ils influencés par les conditions micro-climatiques pendant la recherche de repas de sang ? -->
+<!-- - A quelle vitesse les vecteurs s’adaptent-ils ? Quelle stratégie de protection aux insecticides (résistance comportementale ou résistance physiologique) apparaît et se répand le plus rapidement dans une population de vecteurs ? -->
+<!-- - Existe-t-il des associations entre les résistances physiologiques et les résistances comportementales ? -->
+
+
+<!-- Les liens hypothétiques entre ces composantes environnementales et les résistances physiologiques et comportementales des vecteurs sont décrits dans le chapitre 1. Les protocoles de recueil des données sont décrits dans le chapitre 3. Dans ce chapitre, nous décrivons la méthode de modélisation et discutons les résultats.  -->
+
+<!-- ## Matériel et méthode -->
+
+<!-- ### Variables à expliquer et variables explicatives -->
+
+<!-- Basés sur les observations décrites au chapitre 1, nous avons extrait les variables statistiques suivantes : (tableau variables) -->
+
+<!-- Pour chaque poste de capture, nous avons agrégé (en les moyennant) chacune de ces variables micro-climatiques à l'échelle horaire, afin de correspondre à la résolution temporelle, horaire elle aussi, des captures entomologiques. -->
+
+<!-- ### Modélisation statistique -->
+
+
+<!-- ## Résultats -->
+
+<!-- ### Distribution spatio-temporelle des résistances physiologiques et comportementales des anophèles -->
+
+<!-- ***Exophagie***. Dans la zone de Korhogo, les taux d'exophagie étaient de 56 % pour *An. gambiae s.s.* et de 69 % pour *An. funestus*. Les taux d'exophagie d'*An. gambiae s.s.* variaient peu, tant temporellement (entre les enquêtes entomologiques) que spatialement (entre les villages) (Temporal Standard Deviation (TSD) (voir la légende du Tableau 2 pour la définition) = ± 2 %, Spatial Standard Deviation (SSD) (voir la légende du Tableau 2 pour la définition) = ± 7 %). Les taux d'exophagie d'*An.funestus* étaient distribués de façon plus hétérogène dans le temps et l'espace (DST = ± 7 %, DSS = ± 16 %). Dans la zone de Diebougou (BF), les taux d'exophagie étaient de 44 % pour *An. coluzzii*, 44 % pour *An. gambiae s.s.* et 35 % pour *An. funestus.* Pour ces trois espèces, les taux d'exophagie varient assez sensiblement entre les enquêtes entomologiques (DST = ± 5 %, ± 7 %, ± 6 % respectivement) et les villages (DST = ± 9 %, ± 12 %, ± 8 % respectivement).\ -->
+
+<!-- ***Agressivité précoce et tardive***. Dans la zone de Korhogo (CI), les taux de piqûres précoces (c'est-à-dire les taux de piqûres reçues avant que 50 % de la population ne soit sous sa moustiquaire la nuit) étaient de 3 % pour *An. gambiae s.s.* et de 13 % pour *An. funestus*. Les taux de piqûres précoces étaient globalement stables entre les enquêtes et les villages pour *An. gambiae s.s.* (TSD = ± 1 %, SSD = ± 2 %) et étaient distribués de manière plus hétérogène pour *An. funestus* (TSD = ± 6 %, SSD = ± 12 %). Les taux de piqûres tardives (c'est-à-dire les taux de piqûres reçues après que 50% de la population ait enlevé sa moustiquaire le matin) étaient inférieurs aux taux de piqûres précoces : 1% pour *An. gambiae s.l.* et *An. funestus* (seulement 4 piqûres tardives pour An. funestus) et étaient globalement stables entre les enquêtes et les villages (DST = ± 0% et DSS = ± 1% pour *An. gambiae s.s.*). Dans la zone de Diébougou (BF), les taux de piqûres précoces étaient respectivement de 2 %, 3 % et 1 % pour *An. coluzzii*, *An. gambiae s.l.* et *An. funestus*. Les taux de piqûres précoces étaient globalement stables entre les enquêtes (DST = ± 1% pour les trois espèces) et dans une certaine mesure plus hétérogènes entre les villages (DST = ± 2 %, ± 3 %, ± 4 % respectivement). Les taux de piqûres tardives étaient respectivement de 3 %, 1 % et 12 % pour *An. coluzzii*, *An. gambiae s.s.* et *An. funestus*. Ils étaient distribués de façon plus hétérogène que les taux de piqûres précoces, tant entre les enquêtes (DST = ± 3 % pour les trois espèces) qu'entre les villages (DST = ± 3 %, ± 5 %, ± 10 % respectivement).\ -->
+
+<!-- ***Mutations kdr-e, kdr-w, ace-1***. Dans la zone de Diébougou, Les fréquences alléliques de la mutation kdr-w étaient de 90 % pour *An. gambiae s.s.* et de 59 % pour *An. coluzzii.* Elles variaient dans une certaine mesure entre les enquêtes et les villages (pour *An. gambiae s.s.* : TSD = 8 %, SSD = 9 % ; pour *An. coluzzii* : TSD = 5 %, SSD = 8 %). Les fréquences alléliques de la mutation kdr-e étaient de 4 % pour *An. gambiae s.s.* et de 17 % pour *An. coluzzii*. Pour *An. gambiae s.s.*, elles variaient relativement peu entre les enquêtes et les villages (TSD = SSD = 4 %) et pour *An. coluzzii*, elles ont varié de manière plus sensible (TSD = 8 %, SSD = 10 %). Les fréquences alléliques de la mutation ace-1 étaient de 21 % pour *An. gambiae s.s.* et de 2 % pour *An. coluzzii*. Pour *An. gambiae s.s.*, elles variaient sensiblement entre les enquêtes et les villages (DST = 6 %, DSS = 8 %), et pour *An. coluzzii* elles étaient globalement stables et faibles (DST = DSS = 1 %). \ -->
+
+<!-- ```{r dataviz-resistances, fig.cap="", fig.scap="", out.width="0.7\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/dataviz_resistances.pdf") -->
+<!-- ``` -->
+
+<!-- \newpage -->
+<!-- \blandscape -->
+<!-- Variables explicatives utilisées pour la modélisation statistique des dynamiques spatio-temporelles des résistances physiologiques et comportementales des anophèles -->
+<!-- ```{r} -->
+<!-- # library(openxlsx) -->
+<!-- # data <- read.xlsx("figure/Table1.xlsx", fillMergedCells=F, check.names = FALSE) -->
+<!-- # ft <- flextable(data) -->
+<!-- # ft <- autofit(ft) -->
+<!-- # ft -->
+<!-- ``` -->
+<!-- \elandscape -->
+

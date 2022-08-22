@@ -1,0 +1,306 @@
+# Article n°1 - Modélisation des dynamiques spatio-temporelles des abondances des vecteurs {#data-mining-abundances}
+
+  <!-- #### Introduction à l'article -->
+
+Dans cette première étude, nous nous intéressons aux déterminants environnementaux de la présence et de l'abondance des espèces vectrices du paludisme dans nos zones d'étude. Comprendre de quelle manière l'environnement impacte la distribution et la densité des anophèles, et pouvoir prédire ces densités à fine échelle spatio-temporelle, peut en effet aider à concevoir et déployer des interventions de LAV efficaces (voir section \@ref(explain-risk)). L'étude présentée dans ce chapitre avait ainsi pour objectif d'affiner les connaissances sur les liens entre environnement et nombre de contacts hommes-vecteurs et d'évaluer la prédictibilité spatio-temporelle des densités agressives, dans nos deux zones d'étude. Pour cela, nous étudions le système {environnement - abondance des vecteurs} dans une approche holistico-inductive, avec un processus de modélisation statistique en deux étapes. Nous exploitons pleinement la granularité spatio-temporelle des données environnementales à notre disposition et le potentiel descriptif et prédictif des modèles statistiques non-paramétriques pour expliquer et évaluer la prédictibilité des densités agressives des vecteurs dans nos zones d'étude. Pour la zone de Diébougou (BF), cette étude a fait l'objet d'une publication scientifique en tant qu'auteur principal (https://doi.org/10.1186/s13071-021-04851-x), que nous résumons puis intégrons dans ce chapitre. Dans une troisième partie (section \@ref(repro-article-korhogo)), nous présentons et discutons les résultats dans la zone d'étude de Korhogo (CI).\
+
+
+<!-- ```{r couv-art1, fig.cap="Couverture de la publication", fig.scap="Couverture de la publication", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/article1_couverture.png") -->
+<!-- ``` -->
+
+<!-- \pagebreak -->
+
+## Résumé de l'article {#summary-article-2}
+
+Les objectifs principaux de cette étude étaient i) d'approfondir les connaissances sur les déterminants environnementaux (en particulier météorologiques et paysagers) des densités agressives des anophèles dans la zone de Diébougou, et ii) d'évaluer la prédictibilité des densités agressives des anophèles dans l'espace et dans le temps.\
+
+Nous avons modélisé les densités agressives des vecteurs dans la zone de Diébougou en fonction des conditions météorologiques et paysagères à proximité des points de capture. La variable à expliquer était le nombre de contacts homme-vecteur par homme et par nuit de capture. Nous avons constitué des variables explicatives météorologiques à partir des données de météorologie précédant les collectes entomologiques, des variables paysagères à partir des données d'occupation du sol et du réseau hydrographique théorique, et des variables liées à l'attractivité et la pénétrabilité des habitations à partir des données de localisation des habitations. Les variables paysagères ont été calculées dans des zones tampon de rayon variable autour de chaque point de capture, et les variables météorologiques ont été calculées dans tous les intervalles de temps possibles entre 0 et 6 semaines avant les dates de collecte. Nous avons modélisé les densités agressives des vecteurs en deux étapes, apportant des informations complémentaires sur la bio-écologie des anophèles. Dans un premier temps, nous avons calculé les coefficients de corrélation de Spearman entre l'abondance des vecteurs et chaque variable environnementale prise aux différentes zones tampons (pour les variables paysagères) et intervalles de temps (pour les variables météorologiques) ; dans l'objectif d'identifier les périodes (précédant la capture) et espaces (autour du point de capture) pour/dans lesquels nos variables environnementales influençaient au plus les densités agressives. Dans un second temps, nous avons entraîné puis interprété des modèles multivariés d'apprentissage automatique (fôrets aléatoires) afin d'identifier i) l'importance relative des variables environnementales dans l'abondance des vecteurs et ii) l’effet respectif (relation fonctionnelle) de chaque variable environnementale sur l'abondance des vecteurs. Nous avons également évalué la capacité des modèles multivariés à prédire sur de nouveaux villages, par validation croisée. Pour des raisons à la fois d'ordre statistique et biologique, nous avons modélisé séparément la probabilité de présence des vecteurs (probabilité de contact homme-vecteur) et l'abondance des vecteurs (nombre de contacts homme-vecteurs dans les sessions de capture avec au moins un contact). De plus, nous avons modélisé séparément les trois espèces majeures d'anophèles identifiées sur le terrain (*An. gambiae s.s.*, *An. coluzzii*, *An. funestus*), car les déterminants environnementaux de la présence / abondance de chacune peuvent différer.\
+
+Nous avons observé que les densités agressives étaient, sans surprise, très hétérogènes dans le temps (entre les saisons) et dans l'espace (entre les villages). Dans l'analyse bivariée (coefficients de corrélation), les variables météorologiques et paysagères étaient souvent statistiquement significativement corrélées avec la présence ou l'abondance des vecteurs ; et les coefficients de corrélation variaient fréquemment selon la distance, spatiale (pour les variables paysagères) ou temporelle (pour les variables climatiques), au point de capture. Dans l'analyse multivariée, de nombreux seuils et associations non-linéaires ont été révélés par les modèles d'apprentissage automatique, tant pour les variables météorologiques que pour les variables du paysage. Les modèles multivariés présentaient de bonnes puissances prédictives, indiquant que dans l'ensemble, les déterminants de l'abondance des vecteurs ont été identifiés.\
+
+L'interprétation des modèles nous a permis de formuler des hypothèses sur la bioécologie des principales espèces vectrices du paludisme dans la zone de Diébougou. Nous avons conjecturé que les conditions météorologiques (températures, précipitations) affectaient tous les stades de vie des moustiques capturés (larves, adultes) à des niveaux variables selon l'espèce et le paramètre météorologique. La météorologie avait parfois un impact plus important encore sur les périodes précédant la durée de vie de la génération échantillonnée. Des gites larvaires préférentiels pour chaque espèce ont été proposés : *An. funestus*, *An. coluzzii* et *An. gambiae s.s.* semblaient être distribués le long d'un gradient de persistance des sites de reproduction, de permanent à temporaire, confirmant la littérature. Par ailleurs, le niveau d'ouverture du paysage semblait impacter significativement les densités agressives des vecteurs (les milieux ouverts favorisant la probabilité et l'abondance des piqûres, et inversement), ce qui pourrait représenter un problème majeur au regard du rétrécissement progressif des surfaces de savane et de forêt au Burkina Faso.\
+
+Dans cette étude, nous avons approfondi nos connaissances sur les liens complexes entre environnement et abondance des vecteurs du paludisme, à fine échelle spatio-temporelle, en utilisant conjointement des données entomologiques issues de collectes sur le terrain et des données issues des images satellitaires d'observation de la Terre, dans un cadre de modélisation statistique avancé. Ce travail pose les bases pour le développement d'outils opérationnels pour améliorer et optimiser la lutte contre la transmission du paludisme à l'échelle locale, tels que des plans d'action de lutte antivectorielle, des cartes saisonnières de la distribution des vecteurs à l'échelle du village, ou encore des systèmes d'alerte précoce pour la détection des épidémies de paludisme.
+
+## Texte intégral de l'article {#full-article-1}
+
+*Les figures additionnelles sont disponibles après l'article (section \@ref(add-fig)) ainsi que dans la version en ligne de l'article (https://doi.org/10.1186/s13071-021-04851-x)*
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=-,nup=1,pagecommand={}]{s13071-021-04851-x.pdf}
+\endgroup
+
+### Figures additionnelles {#add-fig}
+
+*Voir la version en ligne de l'article pour les figures tailles réelles (https://doi.org/10.1186/s13071-021-04851-x)*
+
+```{r add-file-1, fig.cap="Figure additionnelle n°1 : Summary of the meteorological conditions around the sampling points. Average meteorological conditions in a 2 km radius buffer zone around the collection points (weekly aggregation). Vertical red lines indicate the dates of the entomological surveys. Ribbons indicate the mean ± one standard deviation considering all the sampling points.", fig.scap="Article n°1 - Figure additionnelle n°1", out.width="0.8\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/add_file_1.pdf")
+```
+
+```{r add-file-2, fig.cap="Figure additionnelle n°2 : Summary of the landscape conditions around the sampling points. Average percentage of surface occupied by each land cover class in the various buffer zones (250 m, 500 m, 1 km, 2 km radii) around the collection points. Error bars indicate the mean ± one standard deviation considering all the sampling points.", fig.scap="Article n°1 - Figure additionnelle n°2", out.width="0.8\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/add_file_2.pdf")
+```
+
+```{r add-file-3, fig.cap="Figure additionnelle n°3 : Pictures representative of the main land cover classes in the Diébougou area. Pictures were taken in November 2018.", fig.scap="Article n°1 - Figure additionnelle n°3", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/add_file_3.pdf")
+```
+
+```{r add-file-4, fig.cap="Figure additionnelle n°4 : Model evaluation plots for the presence models. A1, A2, A3 are precision–recall curves for the presence models of respectively An. funestus, An. gambiae s.s. and An. coluzzii. Precision–recall curves show the precision and the recall of the models for different probability thresholds of the “presence” class. Precision is the proportion of presence identifications that was actually correct, while recall is the proportion of actual presence observations that were identified correctly. The horizontal dashed line represents the baseline (i.e. random or no-skill) classifier. A precision–recall curve above the horizontal line indicates a better-than-no-skill classifier. The higher the area between the precision–recall curve and the horizontal line, the better the classifier. Plots B1, B2, B3 are observed vs. predicted presence probabilities for each out-of-sample village. The y-axis represents the sum over the 8 sampling points/village/ survey (4 points by village * 2 places (interior and exterior)). Overall, the plots A1, A2, A3 show that the models had good predictive accuracies (precision–recall curves are higher than the baseline curve, particularly for An. funestus and An. coluzzii). The plots B1, B2, B3 show that the models predicted well the spatiotemporal trends of presence/absence of bites (lines of predicted presence probabilities are generally close to lines of observed probabilities), although they usually slightly overestimated the probabilities of being bitten (predicted presence probability > observed presence probability).", fig.scap="Article n°1 - Figure additionnelle n°4", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/add_file_4.pdf")
+```
+
+```{r add-file-5, fig.cap="Figure additionnelle n°5 : Model evaluation plots for the abundance models. A1, A2, A3 are violin plots of the distribution of the residuals for the abundance models of respectively An. funestus, An. gambiae s.s. and An. coluzzii, by observed counts of bites (4 classes: 1 bite, 2–3 bites, 4–10 bites, > 10 bites). Black dots indicate the median value. B1, B2, B3 are observed vs. predicted number of bites/village/entomological surveys. The y-axis represents the sum of bites over the 8 sampling points/village/survey (4 points by village * 2 places (interior and exterior)) on a logarithmic scale. The absence of a dot indicates that no vector was collected. MAE = mean absolute error; n = number of observations. Overall, the plots A1, A2, A3 show that the models predicted well small observed counts of bites (1 bite, 2–3 bites) (cf. small MAEs, small residuals), which represent the vast majority of observations (high n). Larger counts (4–10 bites, > 10 bites) tended to be underestimated by the models, especially for An. funestus and An. gambiae s.s. However, large counts (> 10 bites) represented few observations (small n). The plots B1, B2, B3 confirm these observations, and additionally show that general trends of biting rates over time were well predicted by the models (lines of predicted abundance are generally close to lines of observed abundance).", fig.scap="Article n°1 - Figure additionnelle n°5", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/add_file_5.pdf")
+```
+
+\pagebreak
+
+Ci-dessous : Article n°1 - Figure additionnelle n°6 : Feature selection for the multivariate models. The figure shows the Spearman correlation coefficient between the explanatory variables and each response variable (presence and abundance of An. funestus, An. gambiae s.s. and An. coluzzii). Based on these results, variables were retained for the multivariate models according to the following criteria: we first excluded variables that were poorly correlated with the response variable (i.e. correlation coefficients less than 0.1 or p-values greater than 0.2 at all time associations or buffer radii considered), except for variables related to the presence of water —i.e. possible breeding sites—that were all retained whatever their correlation. Then, for each meteorological (resp. landscape) variable, we retained the time lag interval (resp. buffer radius) showing the higher absolute correla- tion coefficient value. We finally excluded collinear variables (i.e. Pearson correlation coefficient between the variables > 0.7) based on empirical knowledge.\
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=-,nup=1,pagecommand={}]{add_file_6.pdf}
+\endgroup
+
+## Reproduction de l'analyse dans la zone d'étude de Korhogo {#repro-article-korhogo}
+
+Nous avons reproduit l'analyse dans la zone d'étude de Korhogo selon les méthodes décrites dans l'article. Sans entrer dans le niveau de détail de l'article, la section ci-après présente les résultats ainsi qu'une discussion, en détaillant notamment les principales similitudes et différences par rapport aux résultats obtenus dans la zone de Diébougou.
+
+#### Résultats
+
+##### Distribution spatio-temporelle des densités agressives des anophèles.
+
+Dans la zone de Korhogo (CI), un total de 2048 nuits-homme de capture a été réalisé (32 villages * 8 enquêtes entomologiques * 4 points de collecte * 2 lieux). 57722 anophèles ont été collectés. Les principales espèces/complexes trouvés étaient *An. gambiae s.l.* et *An. funestus* (respectivement 56267 (97% de tous les anophèles collectés) et 714 (1%) individus collectés). Parmi les 56267 *An. gambiae s.l.* collectés, 3922 (7%) ont été identifiés à l'espèce : 3726 (95% des individus identifiés à l'espèce) étaient des *An. gambiae s.s.* et 196 (5%) étaient des *An. coluzzii*. Par conséquent, dans la suite de cette étude, nous considérerons les *An. gambiae s.l.* collectés dans la zone de Korhogo comme des *An. gambiae s.s.*\
+
+*An. gambiae s.s.* et *An. funestus* étaient présents (cad. au moins un anophèle capturé) dans respectivement 64 % et 6 % des nuits-homme de capture. La distribution des densités agressives sur les sessions positives (cad. au moins un contact homme-vecteur) était très asymétrique, comme dans la zone de Diébougou (pour *An. gambiae s.s.* : médiane = 18, écart-type = 65, max. = 505 ; pour *An. funestus* : médiane = 2, écart-type = 12, max. = 84). La figure \@ref(fig:map-bitingrates-ci) présente les distributions spatio-temporelles des densités agressives des principales espèces d'anophèles dans la zone de Korhogo (pendant de la fig. 1 de l'article). La carte montre des dynamiques temporelles pour *An. gambiae s.s.* relativement similaires à celles de la zone de Diébougou : l'espèce était davantage abondante durant ou en fin de saison pluvieuse (septembre, octobre) qu'en saison sèche, où elle était malgré tout présente. Au niveau spatial, notons i) une certaine hétérogénéité de la distribution, et ii) que l'espèce était présente dans quasiment tous les villages à toutes les enquêtes entomologiques (sauf la 7ème), contrastant avec la zone de Diébougou où l'espèce était absente de plusieurs villages. La distribution spatio-temporelle d'*An. funestus* était très déséquilibrée : l'écrasante majorité des individus (93 %) a été collectée lors de la première enquête entomologique, et presque la moitié des individus (42 %) a été collecté dans un seul village.\
+
+```{r map-bitingrates-ci, fig.cap="Distribution spatio-temporelle des densités agressives des principales espèces d'anophèles dans la zone de Korhogo (voir légende complète dans la figure 1 de l'article en section (ref:article1) )", fig.scap="Distribution spatio-temporelle des densités agressives des principales espèces d'anophèles dans la zone de Korhogo", out.width="1.1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/map_bitingrates_ci.png")
+```
+
+##### Modélisation bivariée.
+
+La figure \@ref(fig:spbuffer-ci) montre les variables paysagères qui étaient significativement corrélées (coefficient de corrélation de Spearman (cc) > 0.1 et p.value < 0.2) avec la présence et l'abondance des espèces d'anophèles (pendant de la fig. 3 de l'article). Comme à Diébougou, la présence et l'abondance d'*An. funestus* était corrélée à davantage de variables paysagères que celle d'*An. gambiae s.s.*, et les coefficients de corrélation les plus élevés avec les variables paysagères étaient observés pour *An. funestus*.
+
+```{r spbuffer-ci, fig.cap="Coefficient de corrélation de Spearman entre entre les densités agressives des anophèles et les variables paysagères dans la zone de Korhogo (voir légende complète dans la figure 3 de l'article en section (ref:article1))", fig.scap="Coefficient de corrélation de Spearman entre entre les densités agressives des anophèles et les variables paysagères dans la zone de Korhogo", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/spatialbuffer_ci.pdf")
+```
+
+La présence d'*An. funestus* était positivement corrélée avec la longueur des rivières et au % de surface occupé par les zones rizicoles, dans la zone tampon de 2 km de rayon. Elle était également corrélée avec le % de surface occupé par les forêts ripicoles et les zones forestières (non ripicoles), dans toutes les zones tampon. L'abondance de l'espèce était positivement corrélée avec la longueur des rivières, les surfaces rizicoles, les surfaces marécageuses, les forêts ripicoles, et les zones forestières (non ripicoles), dans diverses tailles de zone tampon en fonction de la classe d'occupation du sol. L'abondance d'*An. funestus* était négativement corrélée avec le % de surface occupé par les plantations dans la zone tampon de 2 km de rayon, et avec à la distance à la rivière la plus proche (autrement dit, l'abondance était plus importante quand le point de capture était proche d'une rivière).\
+
+La présence d'*An. gambiae s.s.* était positivement corrélée avec le % de surface en eaux permanentes, en zones marécageuses, et en zones agricoles dans la zone tampon d'1 km de rayon. La présence ainsi que l'abondance de l'espèce étaient également corrélée avec le % de surface occupée par les zones rizicoles, dans toutes les zones tampon pour la présence et dans les zones tampons d'1 et 2 km de rayon pour l'abondance. La présence et l'abondance d'*An. gambiae s.s.* était négativement corrélées avec le % de surface occupé par les forêts ripicoles, dans les zones tampons d'1 et 2 km de rayon pour la présence et dans la zone de 2 km pour l'abondance. L'abondance de l'espèce était négativement corrélée avec le % de surface occupée par les zones forestières dans la zone tampon de 2 km de rayon, et avec la distance à la lisière du village (autrement dit, l'abondance était plus importante dans les habitations situées proches de la lisière du village que dans celles situées proches du centre du village). La présence de l'espèce était négativement corrélée avec le % de surface occupée par les savanes ligneuses, dans les zones tampons de plus de 250 m de rayon.\
+
+Notons que les valeurs absolues des coefficients de corrélation entre la présence / abondance des espèces et les variables paysagères étaient, dans l'ensemble, moins élevées dans la zone de Korhogo que dans la zone de Diébougou.\
+
+La figure \@ref(fig:ccm-ci) montre les variables météorologiques qui étaient significativement corrélées (coefficient de corrélation de Spearman (cc) > 0.1 et p.value < 0.2) avec la présence et l'abondance des espèces d'anophèles (*cross-correlation maps*, ou CCM) (pendant de la fig. 4 de l'article). Comme à Diébougou, les coefficients de corrélation entre la présence/abondance des espèces et les variables météorologiques étaient plus élevés pour *An. gambiae s.s.* que pour *An. funestus*.
+
+```{r ccm-ci, fig.cap="Coefficient de correlation de Spearman entre entre les densités agressives des anophèles et les variables météorologiques dans la zone de Korhogo (sous forme de cross-correlation maps) (voir légende complète dans la figure 4 de l'article en section (ref:article1))", fig.scap="Coefficient de correlation de Spearman entre entre les densités agressives des anophèles et les variables météorologiques dans la zone de Korhogo (sous forme de cross-correlation maps)", out.width="1.1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/ccm_ci.pdf")
+```
+
+La présence et l'abondance d'*An. funestus* étaient positivement corrélées avec le cumul des précipitations précédant la date de capture, à presque tous les 'lags' temporels - ce qui contraste avec la zone de Diébougou où les corrélations d'*An. funestus* avec les précipitations étaient négatives. La présence et l'abondance de l'espèce étaient négativement corrélées avec les températures diurnes, là aussi à presque tous les lags temporels précédant la date de capture. Les corrélations entre la présence ou l'abondance d'*An. funestus* et les températures nocturnes précédant la date de capture étaient faibles ou non-significatives.\
+
+La présence et l'abondance d'*An. gambiae s.s.* était positivement, fortement corrélées (plus encore qu'à Diébougou) avec le cumul des précipitations précédant la date de capture, à tous les lags temporels. Parmi tous les lags, c'est le cumul des précipitations enregistré entre les semaines 1 à 6 précédant la capture qui présentait le coefficient de corrélation le plus élevé avec la présence de l'espèce ; et le cumul des précipitations enregistré entre les semaines 2 à 6 précédant la capture qui présentait le coefficient de corrélation le plus élevé avec l'abondance de l'espèce. La présence d'*An. gambiae s.s.* était également positivement corrélée avec les températures nocturnes précédant la date de capture à tous les lags temporels, et le coefficient de corrélation maximum était entre 5 et 6 semaines avant la capture. La présence et l'abondance d'*An. gambiae s.s.* était négativement corrélée avec les températures diurnes précédant la date de capture, à tous les lags temporels. Le coefficient de corrélation maximum entre les températures diurnes et la présence/abondance de l'espèce était entre 0 et 2-3 semaines avant la date de capture. Notons que les CCM (*Cross-Correlation Maps*) d'*An. gambiae s.s.* dans les zones de Korhogo et Diébougou étaient, une à une, très semblables : si les valeurs absolues des coefficients de corrélation étaient globalement légèrement supérieures dans la zone de Korhogo, les lags temporels présentant les coefficients de corrélation les plus élevés étaient quasiment identiques pour 5 des 6 CCMs.\
+
+Notons qu'à l'inverse des variables paysagères, les valeurs absolues des coefficients de corrélation entre la présence / abondance des espèces et les variables météorologiques étaient, dans l'ensemble, plus élevés dans la zone de Korhogo que dans la zone de Diébougou (en particulier pour *An. gambiae s.s.*).
+
+##### Modélisation multivariée.
+
+La *Precision-Recall area under the curve* (PR-AUC) des modèles de présence était de 0.52 (baseline=0.09) et 0.91 (baseline=0.64) pour *An. funestus* et *An. gambiae s.s.* respectivement. La spécificité et la sensitivité des modèles au seuils optimaux de probabilité de présence étaient de 53 % et 98 % pour *An. funestus* et de 88 % et 61 % pour *An. gambiae s.s.* Ces résultats indiquent de bonnes puissance prédictives pour les modèles de présence, comme dans la zone de Diébougou. De même, comme dans la zone BF, les modèles d'abondance refletaient bien les tendances des abondances observées. Les figures d'évaluation des modèles multivariés de présence et d'abondance dans la zone de Korhogo (pendant des 'supplementary file' 4 et 5 de l'article) sont présentées dans les figures \@ref(fig:evaluation-plot-ci-presence) et \@ref(fig:evaluation-plot-ci-abundance).\
+
+```{r evaluation-plot-ci-presence, fig.cap="Evaluation de la puissance prédictive des modèles de présence des anophèles dans la zone de Korhogo (voir légende complète dans la figure additionnelle 5 (Figure S5) de l'article en section (ref:article1))", fig.scap="Evaluation de la puissance prédictive des modèles de présence des anophèles dans la zone de Korhogo", out.width="1.1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/modelevaluation_ci_presence.pdf")
+```
+
+```{r evaluation-plot-ci-abundance, fig.cap="Evaluation de la puissance prédictive des modèles de d'abondance des anophèles dans la zone de Korhogo (voir légende complète dans la figure additionnelle 5 (Figure S5) de l'article en section (ref:article1))", fig.scap="Evaluation de la puissance prédictive des modèles d'abondance des anophèles dans la zone de Korhogo", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/modelevaluation_ci_abundance.pdf")
+```
+
+Les figures \@ref(fig:pdp-ci-gambiae) et \@ref(fig:pdp-ci-funestus) montrent les graphiques d'interprétation des modèles de forêt aléatoire (variables d'importances et les plots de dépendance partiels) pour la présence et l'abondance des deux espèces (pendant des fig. 5-6-7 de l'article).\
+
+```{r pdp-ci-funestus, fig.cap="Graphiques d'interprétation des modèles de forêt aléatoires pour An. funestus dans la zone de Korhogo (voir légende complète dans la figure 5 de l'article en section (ref:article1))", fig.scap="Graphiques d'interprétation des modèles de forêt aléatoires pour An. funestus dans la zone de Korhogo", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/pdp_funestus_ci.pdf")
+```
+
+Les variables les plus importantes dans le modèle de présence d'*An. funestus* étaient les trois variables descriptives de la météorologie enregistrée pendant les semaines précédant la capture : cumul des précipitations (relation linéaire positive), températures diurnes moyennes (relation négative entre 25°C et 35°C, et plafonnant entre 35° et 45°), et températures nocturnes moyennes. Les variables les plus importantes dans le modèle d'abondance de cette espèce étaient : le % de surface occupé par les forêts ripicoles (relation nulle entre 0% et 5%, positive entre 5% et 10%, et nulle entre 10% et 12%), la longueur totale des rivières dans la zone tampon de 2 km de rayon autour des points de capture (relation nulle entre 4 km et 10 km de rivières, positive entre 10 km et 13 km, et nulle entre 13 km et 16 km), et les températures diurnes moyennes (relation linéaire négative entre 27°C et 31°C et nulle entre 31°C et 39°C).\
+
+Les prédicteurs secondaires dans le modèle de présence d'*An. funestus* étaient des variables paysagères : % de surface occupé par les forêts ripicoles (relation positive linéaire), % de surface occupé par les rizicultures (relation positive linéaire), la longueur totale des rivières dans la zone tampon de 2 km de rayon autour des points de capture (relation positive linéaire). Les prédicteurs secondaires dans le modèle d'abondance étaient : le % de surface occupé par les rizicultures (relation positive), la distance à la rivière la plus proche (relation négative), et le % de surface occupé par les forêts ripicoles (relation positive).\
+
+
+```{r pdp-ci-gambiae, fig.cap="Graphiques d'interprétation des modèles de forêt aléatoires pour An. gambiae s.s. dans la zone de Korhogo (voir légende complète dans la figure 5 de l'article en section (ref:article1))", fig.scap="Graphiques d'interprétation des modèles de forêt aléatoires pour An. gambiae s.s. dans la zone de Korhogo", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/pdp_gambiaess_ci.pdf")
+```
+
+Les variables les plus importantes dans les modèles de présence et d'abondance d'*An. gambiae s.s.* étaient les trois variables descriptives de la météorologie enregistrée pendant les semaines précédant la capture : dans l'ordre, cumul des précipitations entre 1-2 et 6 semaines précédant la capture, températures diurnes moyennes entre 0 et 2-3 semaines précédant la capture, et températures nocturnes moyennes (entre 5 et 6 semaines et entre 0 et 1 semaine pour les modèles de présence et d'abondance respectivement). La probabilité de présence augmentait logarithmiquement avec les précipitations, et l'abondance augmentait linéairement avec les précipitations. La nature des relations avec les températures était relativement similaire à celle d'*An. gambiae s.s.* dans la zone de Diébougou. Notons que l'importance des précipitations était particulièrement élevée dans le modèle d'abondance d'*An. gambiae s.s.*, dominant largement l'importance de toutes les autres variables.\
+
+Les prédicteurs secondaires dans le modèle de présence d'*An. gambiae s.s.* étaient le % de surface occupé par les savanes ligneuses (relation négative entre 0% et 5% puis nulle entre 5% et 25%), le % de surface occupé par les rizicultures (relation positive entre 0% et 10% puis nulle entre 10% et 15%), et le % de surface occupé par les zones agricoles (relation nulle entre 0% et 50% puis positive entre 50% et 60%). Les prédicteurs secondaires dans le modèle d'abondance étaient le % de surface occupée par les rizières (relation positive entre 0% et 15% puis nulle entre 15% et 25%), le % de surface occupé par les forêts ripicoles (relation négative entre 0% et 3% puis nulle entre 3% et 10%), et le % de surface occupé par les forêts (relation négative linéaire).\
+
+
+#### Discussion
+
+Dans la zone de Korhogo, le cumul des précipitations était la variable la plus importante à la fois dans les modèles de présence et d'abondance d'*An. gambiae s.s* ; et dans les deux modèles les variables de températures complétaient le trio de tête des varibles d'importance. Ces observations, similaires à celles effectuées dans la zone de Diébougou, montrent que dans la zone de Korhogo comme sur celle de Diébougou i) *An. gambiae s.s.* était attaché aux gites larvaires temporaires, remplis par les précipitations et ii) ses traits de vie (développement, survie) étaient fortement impactés par les conditions météorologiques. Le % de surface occupé par les zones rizicoles était respectivement la seconde et première variable paysagère la plus importante dans les modèles de présence et d'abondance de l'espèce, montrant ainsi que les rizicultures abritaient très probablement une forte densité de larves d'anophèles. Cette hypothèse est confirmée par une étude de terrain menée par l'équipe du projet REACT dans la zone de Korhogo visant à caractériser les gites larvaires d'*Anopheles* spp [@zogo_identification_2019]. La surface en savanes ligneuses, négativement corrélée avec la probabilité de présence d'*An. gambiae s.s.*, était la variable paysagère la plus importante dans le modèle d'abondance de l'espèce ; corroborant les observations effectuées dans la zone de Diébougou et les hypothèses sur l'importance de l'ouverture des milieux sur la densité agressive des vecteurs.\
+
+Les cross-correlations maps d'*An. gambiae s.s.* montrent que, comme dans la zone de Diébougou, les conditions météorologiques dans la zone de Korhogo impactaient fortement tous les stades de développement de l'espèce, et qu'elles avaient parfois eu un impact plus important encore sur les périodes précédant la durée de vie de la génération échantillonnée. Les CCMs d'*An. gambiae s.s.* dans les deux zones d'étude (Diébougou et Korhogo) se ressemblaient fortement, indiquant probablement des dynamiques de population de l'espèce très similaires sur ces deux zones - et peut-être, par extension, sur l'ensemble des zones de la sous-région présentant des conditions climatiques similaires).\
+
+Dans la zone de Korhogo, à la différence de Diébougou, les variables les plus importantes dans le modèle de présence d'*An. funestus* étaient toutes trois météorologiques. Ainsi, contrairement aux observations effectuées dans la zone de Diébougou, la distribution spatio-temporelle d'*An. funestus* dans la zone de Korhogo semblait être principalement conditionnée par les conditions météorologiques. Par contre, quand *An. funestus* était présent, son abondance semblait dépendre fortement des conditions paysagères (deux des trois variables les plus importantes du modèle d'abondance de l'espèce étaient paysagères), comme à Diébougou. En particulier, l'espèce semblait particulièrement attachée aux zones aquatiques semi-permanentes (trois des six variables les plus importantes du modèle d'abondance de l'espèce, dont les deux premières, étaient liées à des rivières inondées en saison des pluies). Les bords des rivières et autres zones aquatiques semi-permanentes semblaient donc constituer, comme à Diébougou, des gites larvaires préférentiels pour *An. funestus*.\
+
+Les modèles multivariés prédisaient correctement la présence et l'abondance des espèces. Comme à Diébougou, les principaux déterminants de la présence et de l'abondance des principales espèces d'anophèles ont ainsi probablement été intégrés dans les modèles et identifiés.\
+
+Nous noterons pour terminer que les densités agressives moyennes ainsi que la proportion de sessions positives (avec au moins une piqûre) étaient très largement supérieures dans la zone de Korhogo que dans celle de Diébougou, bien que ces deux zones soient éloignées de 300 km seulement à vol d'oiseau. Des différences à la fois dans les régimes météorologiques et dans l'utilisation/occupation du sol de ces deux zones pourraient expliquer ces contrastes. Les précipitations plus abondantes et les températures diurnes maximum moins élevées à Korhogo qu'a Diébougou (voir section \@ref(meteo-data)) peuvent impliquer, respectivement, des gites larvaires temporaires plus nombreux ou persistants et des taux de mortalité moins élevés dans la première zone que dans la seconde. Au niveau paysager, les gites larvaires permanents (zones rizicoles, barrages les irriguant) étaient plus abondants à Korhogo qu'à Diébougou, et les milieux 'fermés' (savanes ligneuses notamment) - qui réduisent *à priori* les densités agressives (voir article) - y étaient moins abondants (voir section \@ref(landcover-data)). Ces différences, marquant par ailleurs un niveau d'anthropisation du territoire plus important à Korhogo qu'à Diébougou, pourraient ainsi également expliquer en partie les différences de densités agressives observées.\
+
+#### Conclusion
+
+dans la zone de Korhogo, la distribution spatio-temporelle des vecteurs du paludisme, hétérogène, semblait être fortement déterminée et contrainte par les conditions météorologiques - plus encore que dans la zone de Diébougou. Les rizières, les rivières et les gites temporaires remplis par les précipitations semblaient constituer les gites larvaires des anophèles, comme cela a été confirmé par [@zogo_identification_2019]. Les densités agressives des vecteurs étaient largement supérieures à Korhogo qu'à Diébougou. Des différences notables entre les deux territoires dans les régimes météorologiques et dans le niveau d'anthropisation pourraient expliquer ces différences. Comme dans la zone de Diébougou, la bonne prédictibilité des densités agressives des vecteurs dans la zone de Korhogo ouvre la voie au développement des outils opérationnels de gestion du risque de transmission décrits dans l'article (plans d'action de lutte antivectorielle, cartes saisonnières de la distribution des vecteurs à l'échelle du village, systèmes d'alerte précoces). Par ailleurs, les similitudes à la fois dans les CCMs, dans l'importance relative des prédicteurs dans les modèles multivariés, et dans la nature des relations capturées par ces mêmes modèles, ouvre des perspectives intéressantes quand à la transposabilité des modèles prédictifs de présence et abondance des anophèles dans la sous-région, hors des zones d'étude du projet REACT.
+
+
+<!-- ##### Discussion -->
+
+<!-- ## Objectifs de l'étude -->
+
+<!-- En un lieu et moment donnés, le risque de transmission résiduelle du paludisme est directement lié à l'abondance des anophèles, elle-même liée aux conditions environnementales (voir section \@ref(interaction-environnement-densite)). L'hétérogénéité des conditions environnementales provoque donc une hétérogénéité -->
+
+<!-- comme expliqué en section n, l'environnement impacte de manière complexe les vecteurs. mieux comprendre la nature fine de ces relations permet d'approfondir les connaissances sur la niche écologique des vecteurs, et donc de réflechir à des mesures de LAV appropriées.  -->
+
+<!-- les produits satellitaires, toujours plus fins, offrent un moyen d'appréhender cela. L'enjeu est d'utiliser des méthodes qui permettront d'en tirer une information pertinente.  -->
+
+<!-- Dans cette étude, nous étudions les dynamiques spatio-temporelles des densités anophéliennes sur nos zones d'étude. Les objectifs spécifiques sont les suivants : -->
+
+<!-- - approfondir les connaissances sur la niche écologique et les déterminants environnementaux des densités agressives des principales espèces vectrices du paludisme dans deux zones rurales ouest-afraines -->
+<!-- - évaluer la prédictibilité des abondances journalières des anophèles dans l'espace et dans le temps, dans ces deux zones -->
+
+
+<!-- La granularité spatio-temporelle des données paysagères et météorologiques à notre disposition permet de  -->
+
+<!-- Cette étude avait pour objectif principal d'approfondir les connaissances sur les liens entre l'environnement et les densités agressives des anophèles sur nos zones d'études, et d'ainsi préciser les connaissances sur certaines propriétés de la niche écologique des vecteurs : gites larvaires, taux de développement et survie, distance de vol, capacités de dispersion, etc.  -->
+
+<!-- ## Matériel et méthodes -->
+
+<!-- ### Variables dépendantes et variables indépendantes -->
+
+<!-- Nous avons modélisé les densités agressives des vecteurs en fonction des conditions météorologiques et paysagères à proximité des points de capture.  -->
+
+<!-- #### Variables dépendantes -->
+
+<!-- La variable à expliquer/prédire était le nombre de contacts homme-vecteur par nuit et poste de capture. La méthode de collecte des données entomologiques (capture sur sujet humain) nous a permis de mesurer la présence et l'abondance des anophèles agressifs dans l'espace et dans le temps. En effet, l'atterrisage sur les jambes humaines est l'évènement comportemental qui précède la piqûre. Pour éviter d'exposer les collecteurs de moustiques à la piqûre infectieuse, nous avons utilisé le contact homme-vecteur comme un proxy de la piqûre, et à sont tour, la probabilité/abondance de piqûres comme un proxy de -->
+<!-- la présence/abondance globale de vecteurs agressifs au moment et lieu de la collecte. -->
+
+<!-- #### Variables indépendantes -->
+
+<!-- Les variables explicatives ont été extraites des données de météorologie précédant les collectes entomologiques (cf. section \@ref(meteo-data)), d'occupation du sol (cf. section \@ref(landcover-data)), du réseau hydrographique théorique (cf. section \@ref(hydro-data)), et de localisation des habitations (cf. section \@ref(pop-data)). Ces variables ont été définies au regard de leur influence potentielle sur la densité des vecteurs (voir section \@ref(interaction-environnement-densite)).\ -->
+
+<!-- *Variables extraites des données d'occupation du sol*. Nous avons calculé le pourcentage de l'aire occupé par chaque classe d'occupation du sol dans plusieurs zones tampons autour de chaque point de capture : 250 m, 500 m, 1 km, 2 km. Nous avons séléctionné 2 km comme rayon maximum afin de minimiser les chevauchements entre les zones tampons provenant de différents villages et parce que la dispersion locale des anophèles au-delà de cette distance peut être considérée comme négligeable [@gillies_anophelinae_1968; @takken_dispersal_1998; @service_mosquito_1997; @clarke_risk_2002].\ -->
+
+<!-- *Variables extraites des données de météorologie précédant les collectes entomologiques*. Nous avons agrégé, pixel par pixel, les données de précipitation, de température diurne, et de température, à l'échelle hebdomadaire (cumul des précipitations sur 7 jours et moyenne des températures diurnes et nocturnes sur 7 jours). Cette granularité temporelle nous a semblé représenter un compromis raisonnable entre l'information à l'échelle journalière - qui pourrait être trop fine pour appréhender le lien entre météorologique et abondance des vecteurs - et des échelles plus larges (quinzaine ou mois), qui empêcheraient de comprendre l'influence de la météorologie sur chacun des stades de vie (aquatiques, aériens) du vecteur. A ce stade, nous avions donc une valeur de température diurne, de température nocturne, et de précipitation, par pixel de 1 km et par jour, pour les 42 jours précédant chaque collecte entomologique. Nous avons ensuite calculé les précipitations cumulées et les températures moyennes pour tous les intervalles de temps possibles disponibles dans les données (entre 0 et 1 semaine avant les dates de collecte, entre 0 et 2 semaines, entre 1 et 2 semaines, etc.). Nous avons finalement extrait les valeurs moyennes de ces données dans une zone tampon de 2 km autour de chaque point de capture.\ -->
+
+<!-- *Variables extraites des données de localisation des habitations*. Nous avons également introduit des variables liées à l'attractivité et la pénétrabilité des habitations : i) l'indice d'agrégation de Clark et Evans [@clark_distance_1954], pour décrire le degré de regroupement des ménages dans chaque village ; et ii) la distance entre chaque point de capture entomologique et la lisière du village (définie comme le polygone minimum qui englobe toutes les habitations). -->
+
+<!-- *Variables extraites des données de réseau hydrographique théorique*. Nous avons calculé deux indicateurs supplémentaires liés à la présence d'eau, à partir du réseau hydrographique théorique : la longueur totale des rivières dans chaque zone tampon (250 m, 500 m, 1 km, 2 km), et la distance de chaque point de collecte à la rivière la plus proche.\ -->
+
+<!-- Nous avons également intégré la méthodes de lutte anti-vectorielle et la position du captureur en tant que variables confondantes, mais leur effet n'a pas été discuté dans cette étude.  -->
+
+<!-- Le tableau ci-dessous résume les variables explicatives.  -->
+
+<!-- ### Modélisation statistique -->
+
+<!-- Nous avons mené la modélisation statistique en deux étapes.  -->
+
+<!-- La première étape avait pour objectif de comprendre les distances, spatiales et temporelles, auxquelles respectivement le paysage et la météorologie affectent la densité vecteurs. Comme nous allons le voir par la suite, capturer ces informations permet d'émettre des hypothèses sur plusieurs aspects de la bio-écologie des vecteurs :   Pour cela, nous avons calculé les coefficients de correlation de Spearman entre les densités agressives et les variables environnementales prises aux différentes tailles de zones tampon (pour les variables paysagères) et 'lags' temporels (pour les variables météorologiques).  -->
+
+<!-- Les détails méthodologiques (évaluation des modèles) sont donnés dans l'article.  -->
+
+<!-- La deuxième étape avait pour objectif de capturer l'effet de l'environnement sur les a nature des relations entre l'en, et d'évaluer la prédictibilité de la présence et de l'abondance des vecteurs dans l'espace et dans le temps.  -->
+
+<!-- Ces deux analyses statistiques apportent donc des informations complémentaires pour la compréhension du lien environnement - abondances des vecteurs :  -->
+
+<!-- ## Résultats -->
+
+<!-- ### Distribution spatio-temporelle des densités agressives des anophèles -->
+
+<!-- Les figures \@ref(fig:map-bitingrates-bf) et \@ref(fig:map-bitingrates-ci) montrent les distributions spatiales et temporelles des densités agressives des principales espèces d'anophèles respectivement dans les zones de Diébougou et Korhogo. -->
+
+<!-- ```{r map-bitingrates-bf, fig.cap="Carte des densités agressives des principales espèces d'anophèles pour chaque village et enquête entomologique dans la zone de Diébougou (BF). Unité : nombre moyen de piqûres/homme/ nuit. Les points bleus indiquent l'absence de piqûres dans le village pour l'enquête considérée. Fond de carte : OpenStreetMap", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/map_bitingrates_bf.png") -->
+<!-- ``` -->
+
+<!-- Ces cartes révèlent une certaine hétérogénéité spatio-temporelle des densités agressives des anophèles. Dans la zone de Diébougou, **An. funestus** a été collecté dans quelques villages seulement, principalement à la fin de la saison des pluies (novembre) et en saison sèche froide (décembre, janvier). L'espèce a quasiment disparu pendant la saison sèche chaude (mars) et au début de la saison des pluies (mai). *An coluzzii* et *An gambiae s.s.* ont été collectés dans la pluspart des villages au début et à la fin de la saison des pluies (mai, novembre). Ces espèces ont également été collectées toute l'année dans certains villages, en particulier ceux situés près des barrages ou de la rivière Bougouriba. **An. coluzzii** était particulièrement abondant au début de la saison des pluies (mai), tandis qu'**An. gambiae s.s.** était aussi abondant au début qu'à la fin de la saison des pluies (mai, novembre). -->
+
+
+<!-- <!-- ```{r map-bitingrates-ci, fig.cap="Carte des densités agressives des principales espèces d'anophèles pour chaque village et enquête entomologique dans la zone de Korhogo (CI)", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- <!-- knitr::include_graphics(path = "figure/map_bitingrates_ci.png") -->
+<!-- <!-- ``` -->
+
+<!-- Dans la zone de Korhogo, -->
+
+<!-- (à l'exception d'*An. funestus* dans IC, pour lequel la grande majorité (93 %) des individus a été collectée lors de la première enquête entomologique, et presque la moitié des individus (42 %) a été collectée dans un seul village) -->
+
+
+
+<!-- ### Modélisation bivariée -->
+
+
+<!-- ### Modélisation multivariée -->
+
+
+
+<!-- ## Discussion -->
+
+<!-- Cette étude a également permis de montrer de quelle manière il est possible d'exploiter efficacement les granularités spatiales et temporelles des produits satellitaires d'observation de la Terre.  -->
+
+
+<!-- ## Zone de Korhogo -->
+
+<!-- Nous avons réutilisé la méthode de l'article précédent pour étudier les mêmes dynamiques spatio-temporelles des abondances des anophèles dans la zone de Korhogo. Les résultats ainsi qu'une courte discussion sont reportés ci-après. -->
+
+<!-- ### Résultats -->
+
+<!-- **Carte des densités agressives des deux principales espèces d'anophèles collectées pour chaque village et enquête** -->
+
+
+
+
+<!-- ```{r spbuffer-bf, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/spatialbuffer_bf.pdf") -->
+<!-- ``` -->
+
+<!-- **Coefficient de corrélation de spearman entre les densités agressives des vecteurs et les variables météorologiques (cross-correlation maps)** -->
+
+<!-- <!-- ```{r ccm-ci, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- <!-- knitr::include_graphics(path = "figure/ccm_ci.pdf") -->
+<!-- <!-- ``` --> 
+
+<!-- ```{r ccm-bf, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/ccm_bf.pdf") -->
+<!-- ``` -->
+
+<!-- blablabla -->
+
+<!-- **Capacités explicatives et prédictives des modèles multivariés** -->
+
+<!-- **Figures d'interprétation des modèles de forêts aléatoires pour *An. gambiae s.s.*** -->
+
+<!-- ```{r pdp-ci-gambiae, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/pdp_gambiaess_ci.pdf") -->
+<!-- ``` -->
+
+<!-- ```{r pdp-bf-gambiae, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/pdp_gambiaess_bf.pdf") -->
+<!-- ``` -->
+
+<!-- **Figures d'interprétation des modèles de forêts aléatoires pour *An. funestus*** -->
+
+<!-- ```{r pdp-ci-funestus, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/pdp_funestus_ci.pdf") -->
+<!-- ``` -->
+
+<!-- ```{r pdp-bf-funestus, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/pdp_funestus_bf.pdf") -->
+<!-- ``` -->
+
+<!-- ```{r pdp-bf-coluzzii, fig.cap="", fig.scap="", out.width="1\\linewidth", fig.align="center", echo=F} -->
+<!-- knitr::include_graphics(path = "figure/pdp_coluzzii_bf.pdf") -->
+<!-- ``` -->

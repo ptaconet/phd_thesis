@@ -1,0 +1,199 @@
+
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=3,nup=1,pagecommand={}]{pagesgarde.pdf}
+
+# Discussion générale {#discussion}
+  
+## Rappel des principaux résultats
+
+Nous avons tout d’abord observé que les densités agressives des vecteurs étaient largement variables entre les villages et les saisons à l’échelle du district sanitaire rural, dans les deux zones d’étude. En tentant de capturer cette variabilité à l’aide de données environnementales (météorologiques et paysagères), nous avons observé que la densité agressive des vecteurs était très largement associée aux conditions environnementales : celles – ci suffisaient à prédire correctement les densités agressives entre les villages et les collectes entomologiques. Les puissances prédictives des modèles se sont avérées bonnes, indiquant à la fois que très probablement, les déterminants de l’intensité et de l’hétérogénéité spatio-temporelle des densités agressives des vecteurs ont été identifiés, et qu’il est envisageable de générer des outils de surveillance et prédiction de l’agressivité des vecteurs du paludisme dans ces zones d’étude à l’échelle du village.
+Nous avons émis de nombreuses hypothèses sur les préférences biologiques et écologiques de chaque espèce de vecteurs, dont une grande partie confirme la littérature. Nous avons conjecturé que le niveau d’ouverture du paysage jouait un rôle prépondérant dans les densités agressives. Nous avons également émis l’hypothèse que les dynamiques de populations d’un des vecteurs majeurs du paludisme, An. gambiae s.s., étaient similaires entre les deux zones. Nous avons noté que les densités agressives étaient en moyenne bien plus importantes dans la zone de Korhogo que dans celle de Diébougou, et que cela pourrait être dû à des différences dans les régimes climatiques et dans le niveau d’anthropisation du territoire entre les deux zones d’étude. 
+
+Dans la seconde étude, nous avons observé que la proportion de vecteurs résistants aux insecticides, que ce soit physiologiquement ou comportementalement, était relativement homogène entre les villages et les saisons à l’échelle du district sanitaire rural – du moins, largement plus homogène que les densités agressives. Nous avons émis l’hypothèse que la proportion de vecteurs résistants aux insecticides augmentait dans nos zones d’étude, et que cette augmentation était causée par la lutte anti-vectorielle. Nous avons émis l’hypothèse que l’environnement direct n’impactait que marginalement le comportement de piqûre des vecteurs. Nous avons également observé que les résistances physiologiques augmentaient plus rapidement que les résistances comportementales suite à l’introduction de MIILDA. 
+
+Dans la première étude complémentaire, nous avons mesuré et caractérisé la transmission résiduelle sur la zone de Diébougou. Nous avons montré que les MIILDA protégeaient à priori largement les hommes, et en particulier les enfants, de la piqûre d’anophèle, et que la transmission résiduelle s’effectuait en majorité le matin à l’intérieur des habitations. 
+
+Enfin, dans la seconde étude complémentaire, nous avons observé que les cas de paludisme sur la zone de Diébougou étaient hétérogènes entre les villages et les saisons. En utilisant des données environnementales issues d’images satellitaires, nous avons montré que nous étions en mesure d’anticiper les épidémies palustres plusieurs semaines à l’avance à l’échelle du district sanitaire.  
+
+
+A partir de ces résultats et des limites et difficultés rencontrées, que nous considérons comme autant de contributions supplémentaires, nous émettons dans la section à suivre un ensemble de recommandations
+
+
+
+A Diébougou, Nous avons observé que la composition spécifique des espèces vectrices différait entre les deux zones. A Diébougou, l'analyse de la distribution spatio-temporelle des vecteurs majeurs a mis en évidence un assemblage d'espèces étant en mesure d'exploiter une grande diversité de gîtes larvaires, de permanents à temporaires (gîtes anthropiques dépendants des précipitations). Ces espèces - An. gambiae s.s., An. coluzzii, An. funestus - étaient ainsi en mesure de s’alterner ou se compléter dans l’année, pour assurer la transmission. 
+
+Une lutte anti-larvaire ciblant les gîtes respectifs des espèces, déployée judicieusement dans le temps et dans l’espace, pourrait être  . Cette lutte pourrait prendre la 
+
+   A Korhogo, A contrario, à Korhogo une seule espèce - An. gambiae s.s. - représentait 97 % de la faune anophélienne, mais était présente toute l’année. Nos modèles ont confirmé l’attachement, par ailleurs documenté, de cette espèce aux gîtes temporaires remplis par les précipitations et aux rizières, abondantes dans cette zone et inondées toute l’année (soit par les précipitations, soit par les barrages), qui pourraient ainsi expliquer la présence annuelle de cette espèce sur la zone d’étude. Ainsi,  Korhogo, les mesures ciblant  .
+
+
+
+
+
+
+
+
+L'objectif de cette thèse était d'approfondir les connaissances sur le risque de transmission résiduelle du paludisme dans deux zones rurales ouest-africaines en implémentant trois approches : i) mesure et charactérisation du risque, ii) explication et iii) évaluation de la prédictibilité de certaines composantes du risque.
+
+
+
+Nous résumons les principales connaissances acquises 
+
+Connaissances acquises
+
+L'approche descriptive du risque a été effectuée avec des méthodes de modélisation mathématique plutot que statistiques. nous a permis de ...
+L'approche explicative, effectuée avec des méthodes de modélisation statistique descriptive, nous a permis de ...
+L'approche prédictive nous a permis de ...
+
+Durée de l'étude trop courte pour savoir si on a sur nos zones d'étude un rebond de la TR, mais au niveau des pays, on observe un rebond. 
+
+
+La complémentarité des approches implémentées pour décrire et comprendre le risque de transmission résiduelle
+
+Recommendations d'ensemble
+
+
+Une large partie de la thèse a consisté à analyser des données dans l'optique de générer des hypothèses sur la biologie et l'écologie des vecteurs du paludisme. Pour ce faire, nous avons utilisé des formes une approche particulière d'inférence logique dans les systèmes complexes, l'approche holistico-inductive, et un outil au service de cette approche, la modélisation statistique. L'avènement des "données volumineuses" et des algorithmes complexes d'apprentissage automatique pos
+
+
+## Contributions de la thèse 
+
+### Contributions méthodologiques
+
+### Contributions thématiques
+
+## Enseignements tirés des limites rencontrées
+
+## Perspectives de la thèse
+
+### Perspectives de recherche
+
+### Perspectives opérationnelles 
+
+## Apports de la modélisation statistique pour l'étude des systèmes biologiques complexes 
+
+important de comprendre les possibilités offertes par la modélisation statistique pour l'étude des systèmes complexe, afin de l'utiliser à juste titre : en tirer pleinement profit sans surestimer les capacités.
+ Nous emettons l'hypothèse qu'en plus de ces raisons, un déficit de maitrise des outils statistiques, mathématiques, informatiques - outils fondamentaux dans cette approche - est à l'origine de 
+science de nuit (extraire des hypothèses)
+l'approche hypothetico deductive est une composante importante de la méthode scientifique, et un levier d'action pour générer de la connaissance, mais est sous-utilisée dans la recherche scientifique en raison probablement du cadre moins formel qui, par définition, la compose
+
+besoin de scientifiques des données dans les labos thématiques, besoin de s'associer avec des scientifiques des données. besoin dans les formations en biologie de clarifier les possibilités des modèles, et dans l'ensemble, de revaloriser le regard des chercheurs sur l'approche inductive et holistique des systèmes complexes.
+De toute façon, l’objectif du chercheur holistico-inductif n’est pas de produire des résultats généralisables mais bien de mieux comprendre un phé- nomène d’intérêt, en espérant que la connaissance intime du phénomène qu’il acquerra au cours de sa recherche lui permettra de raffiner et d’améliorer la théorie existante
+
+<!-- ## Apports de la science des geo-données pour la recherche et la gestion des maladies vectorielles / infectieuses -->
+
+
+<!-- ## Perspectives de recherche -->
+
+<!-- ## Perspectives opérationnelles -->
+
+Cette approche, de prime abord moins formelle, laisse place à la découverte d’associations non-attendues, qui, mises en perspective avec les connaissances actuelles, peuvent faire remonter de nouvelles questions, etc. L’objectif est alors de collecter le maximum de données qui ont un lien hypothétique – ou pas – avec la variable étudiée, et d’utiliser les méthodes adéquates pour « laisser parler » les données. Si la rigueur est moindre sur le nombre de variables, elle l’est sur les méthodes utilisées et l’interprétation : que signifie une association non-attendue ? Problème méthodologique ? Association hasardeuse ? Véritable signal à approfondir ?\
+
+
+sur une étendue adaptée aux prises de décision politiques et d’aménagement.
+
+
+\> Si certaines découvertes scientifiques majeures ont été faites par raisonnement inductif^[par exemple, la théorie de l'évolution par séléction naturelle de Darwin [@kell_here_2004]. L'objectif et le travail initial de ce dernier était "uniquement" de classifier les espèces vivantes sur la planète. C'est grâce à l'organisation de ses observations, autrement dit données, que l'hypothèse de la séléction naturelle a émergé chez Darwin], aujourd'hui, constat est fait que la recherche scientifique valorise très largement le raisonnement hypothético-déductif (considéré comme le seul 'valide' pour faire avances les connaissances), et à l'inverse, incrimine le raisonnement inductif [@kell_here_2004; @yanai_hypothesis_2020]. Ainsi, par exemple, les rejets d'articles scientifiques avec pour justification qu'ils "n'ont pas d'hypothèse testée", ou qu'ils consistent en des "fishing expeditions". Cette préférence pour la déduction est probablement due au fait que dans cette forme de raisonnement, si l'axiome et l'observation sont correctes, l'inférence logique doit être correcte (toutes les baleines sont bleues, Georges est une baleine, donc George est bleue). 
+
+Two major goals in the study of biological systems are inference and prediction
+<!-- La transmission résiduelle du paludisme  -->
+
+Cependant, son potentiel est souvent sous-exploité. En cause, notamment et probablement, le manque de maîtrise i) des divers outils de fouille de données existants et ii) des méthodes et concepts d’extraction de connaissance à partir de la donnée.
+
+<!-- Dans cette thèse, nous avons proposé trois approches visant à mieux comprendre le risque de transmission résiduelle du paludisme. -->
+
+<!-- La première visait à  -->
+
+<!-- La seconde visait à  -->
+
+<!-- La troisième visait à  -->
+
+<!-- -> 4 études apportant des informations complémentaires sur la transmission résiduelle (rappeler en qq lignes ce que chacune apporte et faire le lien) -->
+<!-- -> études qui nécéssitent bcp de données, à acquérir à des granularités fines -->
+<!-- -> hétérogénéités spatio-temporelles à fine échelle nécéssite ces données fines -->
+
+<!-- des vecteurs piquant dehors, mais des populations à priori relativement bien protégées par les outils actuels -->
+<!-- une transmission malgré tout bien présente (article cas palu) -->
+
+
+<!-- ## La transmission résiduelle du paludisme : un problème complexe et multifacette -->
+
+<!-- proposition -->
+<!-- sensibilisation de la population -->
+
+
+<!-- question de l'échelle d'action : village ? district sanitaire ? -->
+<!-- collecter des données fines (spatiel, temporel, classe d'age, etc) permet d'affiner la connaissance -->
+
+<!-- ## Apport des données spatio-temporelles et de la science des données  -->
+
+<!-- diversité des usages des données : entomo, épidémio, explicatif, prédictif -->
+
+<!-- souligner la diversité des études faisables avec les données entomo et satellite -->
+
+<!-- apport méthodo de la thèse : des méthodes qui permettent de  -->
+
+<!-- modèles stats simples (coeff correlation) et complexes (iml) apportent des informations différentes et complémentaires. -->
+
+<!-- calculer le R2 ou la capacité prédictive -> bien pour avoir une vision holistique du phénomène étudié (s'il y un effet mais que le R2 est faible, alors faut-il réellement creuser dans cette direction ? car l'intervention risque de n'avoir que peu d'effet...) -->
+
+<!-- échelles spatio-temporelles d'étude et de recueil des données (recommendations) -->
+
+<!-- Ces travaux illustrent la diversité des études et informations qui peuvent être extraites des données. -->
+
+<!-- déployer des réseaux d'observation et de remontée de données (rapport au 4e article qui montre qu'on peut identifier des hots spots de malaria) -->
+
+<!-- on a bcp de connaissances. Il s'agit de mettre l'accent sur le développement d'outils (besoin d'ingénieurs). ne pas négliger le temps et les compétences que cela demande de manipuler des données et créer de gros 'pipelines" -->
+
+<!-- le 2e papier avait une portée autant scientifique que méthodo. Il s'agissait de montrer a la communauté thématique des entomologistes, les possibilités de l'interpretable ML. -->
+
+
+<!-- Les personnes sachant manipuler les données (ingénieurs, modélisateurs) seront nécéssaires. -->
+
+<!-- ## Portée opérationnelle  -->
+<!-- Dans un contexte de ressources limitées, cibler spatio-temporellement les interventions de lutte contre le paludisme (LAV, diagnostic, traitement) peut s'avérer efficace et rentable -->
+<!-- ## Ouverture, travaux futurs -->
+
+<!-- entomo recherche: -->
+<!-- - croiser données entomo et épidémio pour étudier s'il y a un impact épidémio aux résistances -->
+<!-- - étudier infectiosité des vecteurs intérieur vs extérieur -->
+<!-- - faire des études + longues -->
+<!-- - étudier drivers de zoophagie, comportement horaire, utilisation des moustiquaires -->
+
+<!-- lav: -->
+<!-- moustiquaire sans insecticide -->
+
+<!-- utilisation de la data science :  -->
+<!-- en explicatif :  -->
+<!-- utiliser d'autres outils de interpretable machine learning (interactions) -->
+
+<!-- en prédictif :  -->
+<!-- mettre des pièges qui comptent automatiquement les vecteurs voire identifient les espèces -->
+<!-- cartes de présence et abondance des vecteurs à l'échelle de la sous-region (utiliser les données genre esa landcover africa, étudier la plue value de données sentinel 1 et 2, etc. ) -->
+<!-- systèmes d'alerte précoce (comme ce qui a été fait en europe par la grece) -->
+
+<!-- appliquer les mêmes traitements à d'autres échelles spatiales (urbain -> drône) -->
+
+<!-- ### Transparence et reproductibilité des traitements de données et analyses statistiques -->
+
+<!-- Nos travaux de thèse ont nécéssité l'extraction, la préparation, et l'analyse de nombreuses données numériques. Nous avons travaillé à rendre ces traitements les plus transparents, reproductibles et génériques possibles en les automatisant **via** le développement de libraires ou codes informatiques écrits dans le langage R [@r_core_team_r_2018], un langage très largement utilisé et apprécié dans la communauté de la recherche en écologie [@lai_evaluating_2019].\ -->
+
+
+<!-- Les avantages de l'écriture de codes informatiques pour traiter et analyser les données sont multiples. Citons à minima :  -->
+
+<!-- - la transparance -->
+<!-- - la reproductibilité -->
+<!-- - la réutilisation -->
+
+<!-- Notons aussi que l'ensemble des logiciels et librairies utilisées dans nos travaux sont libres et à code source ouvert. Nous montrons ainsi qu'il est possible de réaliser des analyses complexes  -->
+
+
+<!-- Cette librairie a été réutilisée dans le cadre d'analyses ayant mené à une publication  -->
+
+<!-- Ce code a été en partie réutilisé dans deux cadres : des travaux de classification de l'occupation des sols dans des quartiers de Bouaké en côte d'Ivoire à partir d'images de drône (données non publiées). -->
+
+<!-- Ces exemples de réutilisation des codes montrent tout l'intérêt d'automatiser le traitement des données.  -->
+
+<!-- Au final, nous noterons que l'ensemble des opérations d'extraction et préparation des données a été automatisé via l'écriture d'une librairie et de codes R. Les intérêts de cette En théorie, ces codes peuvent être réutilisés sur d'autres zones géographiques et périodes d'intérêt -->
+
+

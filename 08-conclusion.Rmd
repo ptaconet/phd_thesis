@@ -1,0 +1,68 @@
+# Conclusion {-}
+
+\markboth{}{} <!-- Pour enlever le header -->
+
+Deux décennies après le lancement de programmes révolutionnaires dans la lutte contre le paludisme, celle-ci est à nouveau à un tournant de son histoire. Il y a vingt ans, l’approche préventive défendue par la communauté des acteurs de la lutte contre le paludisme était celle de la couverture universelle en un outil qui avait été éprouvé expérimentalement : la moustiquaire imprégnée d’insecticide. Si cette approche a largement fait ses preuves sur le terrain également, force est de constater qu’aujourd’hui, les limites en sont tangibles. Le paradigme d’une gestion « universelle » est donc peu à peu abandonné, et remplacé par celui d’une gestion localisée. Ces approches sont notamment soutenues par l’OMS à travers l’initiative *High burden to high impact* (« D’une charge élevée à un fort impact »).\
+
+À nouvelles approches de gestion, nouvelles perspectives de recherche. Au niveau de la prévention, l’enjeu pour les chercheurs est de mieux comprendre ce qui amène, en un lieu et un moment donnés, le moustique et l’homme à entrer mutuellement en contact. La recherche doit donc se concentrer sur les composantes et comportements respectifs de ces deux agents favorisant la probabilité de cette rencontre. C’est sur la base des connaissances dégagées sur ces éléments que pourront être prises des mesures adéquates, adaptées aux contextes et problématiques locaux.\
+
+Dans cette thèse, nous avons tenté de comprendre une partie de ces composantes du risque, du côté du vecteur, en étudiant sa bio-écologie. Nous avons pour cela travaillé à fine échelle spatiale, et nous sommes largement appuyés sur des données de tous types et des modèles statistiques variés. La science et l’ingénierie des données, disciplines grandissantes et incontournables aujourd’hui, offrent des opportunités à saisir pleinement pour la communauté des acteurs oeuvrant contre le fardeau du paludisme, scientifiques comme gestionnaires. Les données et modèles renferment un potentiel d’innovation important ; notamment, celui d’approcher la maladie plus finement – spatialement, temporellement, dimensionnellement. De part leurs potentiels à mieux décrire, expliquer et prédire les systèmes complexes, la science et l’ingénierie des données sont en capacité de servir la lutte contre la maladie sur tous les fronts : celui de la recherche mais aussi, très directement, de la gestion au jour-le-jour par tous les acteurs.\
+
+Redynamiser le progrès passera par un savant mélange de capacité à innover mais également à consolider l’existant, de projets de recherche mais également d’ingénierie, de maîtrise des nouvelles technologies sans oublier l’efficacité des plus anciennes ou des « low tech ». Les innovations sont essentielles mais quelles qu’elles soient, elles n’auront de sens que si elles sont accompagnées à minima du maintien, et idéalement du renforcement, des efforts qui ont permis la réduction spectaculaire du fléau de la maladie au début du XXI$^{ème}$ siècle. Pour n’en citer qu’un, et peut-être le principal : la volonté politique de diminuer le fardeau du paludisme.
+
+<!-- améliorer l'existance, faire du nouveau -->
+<!-- continuer la recherche fondamentale, et créer des outils -->
+
+<!-- Le paludisme est une maladie dont les causes sont maitrisées depuis plus d'un siècle, et pour laquelle le diagnostic et le traitement sont dans l'ensemble très efficaces. Pourtant, elle fait encore, en 2020, plus de 600 000 victimes par an dans le monde - et les tendances ne sont pas rassurantes.  -->
+
+<!-- En 2020, le paludisme fait encore plus de 600 000 victimes par an dans le monde - et les tendances ne sont pas rassurantes. Pourtant, il s'agit d'une maladie dont les causes sont maitrisées depuis plus d'un siècle, et pour laquelle le diagnostic et le traitement sont dans l'ensemble très efficaces.  -->
+
+<!-- Les axes d'amélioration, en plus de la prévention, doivent concerner le diagnostic et le traitement. C'est l'objet et objectif du projet REACT 2, dont la phase de terrain a débuté à la fin de cette thèse.  -->
+
+<!-- La recherche est nécéssaire afin de synthétiser les mieux comprendre les vecteurs, d'exploiter les vulnérabilités, -->
+
+<!-- Il est important que les chercheurs s'associent avec des ingénieurs, qui maitrisent les technologies - toujours plus nombreuses et complexes - et sauront avoir les idées pour constuire des outils efficaces de prévention, surveillance, contrôle. -->
+
+
+
+
+<!-- Dans la lutte contre la maladie, les technologies peuvent aider à innover : mieux comprendre les vecteurs afin d'en exploiter les vulnérabilités, construire de nouveaux outils de surveillance, contrôle, diagnostic, traitement, etc. Mais tout en innovant, il reste essentiel de conserver les bases, celles qui ont montré leur efficacité : une utilisation soutenue des moustiquaires et une volonté politique de diminuer le fardeau du paludisme, pour ne citer qu'elles. Il est fondamental de rester très vigilant à maintenir des bases, ces efforts, tout en les intensifiant si possible, et d'identifier les raisons de leurs éventuelles diminutions, afin d'agir en conséquence. La lutte contre le paludisme  d'identifier concrêtement, sur le terrain, les limites à l'utilisation des outils de prévention, diagnostic, et traitement.  Les développement technologiques demandent  chercheurs d'ingénieurs capables de  ingénieurs, travaillant ensemble à identifier les problèmes et trouver des solutions. Un système de santé local, avec une connaissance fine du territoire et des problématiques afférentes, à même de proposer des solutions pertinentes pour le terrain. Des ingénieurs travaillant à l'élaboration d'outils innovants pour la prévention . -->
+
+
+
+<!-- La recherche et l'innovation sont nécéssaires -->
+<!-- La volonté politique est la plus importante : contrairement à bien d'autres maladies, les traitements contre le paludisme existent et sont efficaces. Améliorer l'accès au diagnostic et au traitement, en plus de la prévention, est donc fondamental dans la lutte contre le paludisme. Ces axes d'amélioration ne pourront se faire sans une forte volonté politique. -->
+
+<!-- Exploiter pleinement et à bon escient les données, ou et technologies de l'information et de la communication qui sont à notre disposition -->
+
+<!-- De la recherche et des projets opérationnels (plans de gestion, systèmes d'alerte précoce) -->
+
+
+\pagebreak
+
+# Bibliographie {-}
+
+\markboth{}{} <!-- Pour enlever le header -->
+
+*Cette bibliographie inclut uniquement les références citées dans le corps du manuscrit de thèse (les références mentionnées dans les publications sont intégrées à la fin de chaque article)*\
+
+<!-- Ci dessous : pour placer la biblio avant les annexes 
+
+    \setlength{\parindent} and \setlength{\leftskip} define the hanging indentation of the bibiography entries.
+    \setlength{\parskip} defines the spacing between bibliography entries.
+    \noindent is needed in order to also have the very first bibliography entry correctly hanging indented.
+    \vspace{-2em} reduces the vertical spacing between the bibliography and the last paragraph before it (because \noindent adds a blank paragraph).
+
+-->
+
+\begingroup
+\noindent
+\vspace{-2em}
+\setlength{\parindent}{-0.4in}
+\setlength{\leftskip}{0.4in}
+\setlength{\parskip}{15pt}
+
+<div id="refs"></div>
+
+\endgroup
+

@@ -1,0 +1,392 @@
+```{r include_packages_2, include = FALSE}
+library(thesisdown)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
+library(openxlsx)
+library(magrittr)
+```
+
+\begingroup 
+\renewcommand{\headrulewidth}{0pt} <!-- Pour enlever le trait -->
+\markboth{}{} <!-- Pour enlever le header -->
+\includepdf[pages=2,nup=1,pagecommand={}]{pagesgarde.pdf}
+\endgroup
+
+# Zones d'étude et préparation des données environnementales télédétectées {#data-collection-preparation}
+
+Les travaux à suivre s'inscrivent dans le cadre d'un projet plus large, nommé REACT ; et ont conduit à la production de nombreuses données. Dans ce chapitre, nous présentons dans un premier temps les objectifs du projet REACT et les deux zones d'études du projet et de la thèse. Dans un second temps, nous décrivons les travaux de génération des données utilisées pour les études présentées dans les chapitres suivants. Enfin, nous apportons quelques précisions sur les logiciels informatiques utilisés pour manipuler les données (recueil, génération, préparation, modélisation) dans le cadre de la thèse, et présentons rapidement les codes informatiques développés pour les besoins de ces travaux.
+
+## Présentation du projet REACT et des zones d'études de la thèse {#study-areas}
+
+Les travaux de cette thèse s'inscrivent dans le cadre du projet *REACT : Gestion de la résistance aux insecticides au Burkina Faso et en Côte d’Ivoire : recherche sur les stratégies de lutte anti-vectorielle*, mené en partenariat entre l'Institut de Recherche pour le Développement (IRD, France), l'Institut de Recherche en Sciences de la Santé (IRSS, Burkina Faso) et l'Institut Pierre Richet (IPR, Côte d'Ivoire). Ce projet était financé par L'Initiative 5%. L'objectif principal de ce projet, dont la phase de terrain s'est déroulée entre les années 2016 et 2018, était d'évaluer l'impact de l'utilisation de mesures de lutte anti-vectorielles complémentaires à la MIILDA sur la transmission et l'épidémiologie du paludisme à travers un essai randomisé contrôlé (ERC). A cette fin, deux zones d'études ont été séléctionnées dans deux pays d'Afrique de l'ouest : le Burkina Faso (BF) et la Côte d'Ivoire (CI).\
+
+Ces deux pays sont situés en zone endémiques du paludisme à *P. falciparum*. Les courbes épidémiologiques des deux pays (morbidité et mortalité) suivent les tendances observées à l'échelle du continent (cf. figure \@ref(fig:malaria-african-trends)). En 2019, avant la pandémie de covid-19, le nombre de cas de paludisme était estimé à 5,9 millions au Burkina Faso et autant en Côte d'Ivoire [@who_2021]. Comme introduit dans le chapitre 1, les principales espèces d'anophèles dans ces pays sont *An. arabiensis*, *An. gambiae s.s.*, *An. coluzzii* et *An. funestus*; et dans les deux pays les résistances physiologiques des anophèles aux insecticides y sont reportées depuis plusieurs décennies (voir figure \@ref(fig:dev-res-phy)).\
+
+Chaque zone d'étude du projet REACT couvre environ la surface d'un district sanitaire (~2500 km²). Il s'agit de zones principalement rurales. Pour le projet REACT, un total de 55 villages (27 au Burkina Faso, 28 en Côte d'Ivoire) a été séléctionné au sein de ces zones pour mener l'ERC selon les critères suivants : accessibilité pendant la saison des pluies, 200 à 500 habitants par village, et distance entre les villages supérieure à 2 km. La figure \@ref(fig:study-areas) présente la localisation géographique des zones et des villages séléctionnés ; ainsi que le chronogramme de collectes de données effectuées dans le cadre du projet REACT. 
+
+```{r study-areas, fig.cap="Projet REACT : zones d'étude, villages et dates de collectes des données", fig.scap="Zones d'étude et villages du projet REACT", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/carte_zones_react.jpg")
+```
+
+La zone d'étude burkinabé du projet REACT couvre la région de Diébougou, au sud-ouest du pays, en région bioclimatique soudanienne [@cilss_2016_landscapes_nodate]. Le climat y est caractérisé par une saison sèche d'octobre à avril (incluant une période 'froide' de décembre à février et une période 'chaude' de mars à avril) et une saison pluvieuse de mai à septembre. Les amplitudes thermiques moyennes journalières sont 18-36 °C, 25-39 °C et 23-33 °C respectivement en saison sèche froide, sèche chaude et pluvieuse. Les précipitations annuelles moyennes sont de 1200 mm. Comme nous allons le voir à la section \@ref(landcover-data), la végétation naturelle est dominée par la savane arborée parsemée de forêts ripicoles. La principale activité économique est l'agriculture (culture des céréales) suivie par l'exploitation artisanale de l'or et la production de charbon et de bois [@INSD_1; @INSD_2]. Le principal outil de lutte anti-vectorielle dans la région de Diébougou est la MIILDA, distribuée universellement par le gouvernement tous les 3-4 ans depuis 2010 [@PNLP_BF]. La dernière distribution avant le projet REACT datait de juillet 2016 [@PNLP_BF], soit 6 mois avant la première mission de collecte de données entomologiques (voir ci-dessous).\
+
+La zone d'étude ivoirienne du projet REACT couvre la région de Korhogo, au nord du pays, elle aussi en région bioclimatique soudanienne [@cilss_2016_landscapes_nodate]. La saisonalité de la climatologie y est relativement similaire à celle de Diébougou (voir section \@ref(meteo-data)). Les précipitations annuelles varient de 1200 à 1400 mm, tandis que la température moyenne annuelle varie de 21 à 35 °C. La végétation naturelle est principalement un mélange de savane et de forêt ouverte (voir section \@ref(landcover-data)). La région possède une forte densité de barrages hydrauliques qui permettent de pratiquer l'agriculture tout au long de l'année. Comme pour la région de Diébougou, la principale activité économique est l'agriculture (riz, maïs, coton). De même, Le principal outil de lutte anti-vectorielle est là aussi la MIILDA, distribuée universellement par le gouvernement, comme au Burkina Faso, tous les 3-4 ans depuis 2010 [@PNLP_CI]. La dernière distribution avant le projet REACT datait de 2014.\
+
+L'essai randomisé s'est déroulé en 3 phases. La phase pré-intervention a duré environ un an et a principalement consisté à i) établir un recensement exhaustif de la population et de la localisation géographique des ménages dans les villages, ii) recueillir des données entomologiques, épidémiologiques et de comportement humain dans ces villages, iii) distribuer des MIILDA dans les villages d'étude en Côte d'Ivoire (au Burkina Faso, une distribution universelle de moustiquaires a eu lieu en juillet 2016). Environ une année après le début du projet, la phase d'intervention a consisté à implémenter les mesures de LAV complémentaires à la MIILDA (détaillées ci-après) dans certains villages, tirés au sort dans le cadre de l'essai randomisé contrôlé. Enfin, en phase post-intervention (environ 1 an), plusieurs sessions de collecte de données ont été menées selon les mêmes protocoles qu'en phase de pré-intervention. Ainsi, en comparant les données entomologiques et épidémiologiques de pré-intervention et de post-intervention, il est possible de mesurer l'impact des mesures de lutte anti-vectorielles complémentaires à la MIILDA sur la transmission (taux d'inoculation entomologique) et l'épidémiologie (prévalence et incidence) du paludisme.\
+  
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°4 : **Mesures complémentaires de LAV déployées dans le cadre du projet REACT**
+:::
+
+Les mesures complémentaires de lutte anti-vectorielle déployées dans le cadre du projet REACT étaient les suivantes : 
+
+- **Information, Education, Communication (IEC)** (testée dans les zones BF et CI). A travers des activités de sensibilisation des populations, l'objectif de cette intervention etait d’optimiser la mise en place des MILDA, l’adhésion des populations aux campagnes de lutte et l’utilisation correcte et régulière des MIILDA.
+- **Pulvérisations intra-domiciliaires** (PID) de Pirimiphos-méthyle (Actellic) appliquées sur les murs des habitations (testées dans les zones BF et CI). En complément des MIILDA qui visent les vecteurs endophages uniquement, l'objectif des PID etait de tuer les vecteurs endophiles qui auraient résisté à l'insecticide utilisé dans les moustiquaires.
+- **Lutte anti-larvaire** [@djenontin_field_2014] (testée dans la zone CI uniquement). Cette intervention visait à diminuer la population générale de vecteurs, en tuant les moustiques à leur état larvaire par l'utilisation d'insecticides d’origine bactérienne.
+- **Administration d'ivermectine** aux hôtes (testée dans la zone BF uniquement). L'ivermectine est une molécule administrée aux hôtes pour lutter contre les endoparasites. Elle diminue la longévité d’un moustique ayant pris un repas sanguin sur un hôte traité [@alout_evaluation_2014; @ouedraogo_efficacy_2015]. Dans le projet REACT, l'ivermectine a été administrée aux populations animales péri-domestiques dans le but de cibler les populations de vecteurs présentant des comportements zoophages ou opportunistes.
+
+<!-- L'impact entomologique et épidémiologiques de ces mesures de LAV complémentaires à la MIILDA a été pour partie évalué dans le cadre de travaux de thèse [@Zogo2019]. Les résultats montrent que ...\ -->
+
+::::
+
+\
+
+Les travaux de thèse à suivre utilisent en grande partie des jeux de données recueillies sur le terrain dans le cadre du projet REACT, en particulier : 
+
+- les données **entomologiques**,
+- les données de **recensement des villages** (population, localisation des habitations),
+- un jeu de données **environnementales et climatiques au cours des collectes entomologiques**,
+- un jeu de données de **comportement humain** relatives à l'utilisation des MIILDA et aux habitudes horaires de sommeil.
+
+Les données entomologiques constituent la source des variables à expliquer / prédire dans les travaux de modélisation, tandis que les autres données ont été utilisées pour caractériser l'environnement à proximité spatiale et temporelle des points de capture des vecteurs (variables explicatives / prédictives). Les protocoles de recueil de ces données sont détaillés dans les études qui les utilisent, ainsi qu'à l'annexe \@ref(data-terrain) de ce manuscrit.\
+
+Les conditions météorologiques (températures, précipitations) et paysagères (utilisation, occupation du sol) peuvent impacter l'abondance, le comportement, ou les résistances des vecteurs (voir les introductions des articles des chapitres 4 et 5 pour davantage de détails), objets d'étude de travaux de la thèse. Aussi, nous avons complété les données recueillies sur le terrain avec trois autres jeux de données environnementales, générées pour les deux zones d'étude : 
+
+- données **météorologiques** au cours des semaines précédant les collectes entomologiques,
+- données d'**occupation et utilisation des sols**,
+- données sur le **réseau hydrographique théorique**.
+
+Ces données environnementales ont été générées à partir de produits satellitaires d'observation de la Terre. En effet, les satellites sont en mesure de capturer de nombreux paramètres environnementaux en surface ou dans l'atmosphère terrestre. Les capteurs embarqués sur ces satellites mesurent le rayonnement électromagnétique réfléchi ou émis par la surface terrestre, les océans ou l'atmosphère. Ces données brutes peuvent ensuite être traitées pour en extraire des informations environnementales telles que les précipitations, les températures au sol, l'altitude ou encore l'occupation du sol. Ces données sont particulièrement intéressantes et précieuses pour caractériser l'environnement dans des zones où les observatoires ou stations météorologiques au sol sont rares, telles que les zones rurales ouest-africaines. Aussi, les images satellitaires sont très largement utilisées en géo-épidémiologie, pour expliquer ou prédire des indicateurs entomologiques ou épidémiologiques [@ebhuoma_remote_2016; @parselia_satellite_2019]. Dans la suite de ce chapitre, nous détaillons les traitements qu'il a été nécessaire de réaliser pour produire ou exploiter ces données en vue des travaux de modélisation à suivre dans les prochains chapitres.
+
+## Production des données environnementales télédétéctées
+
+### Données de météorologie {#meteo-data}
+
+<!-- Les conditions météorologiques précédant la recherche de repas de sang peuvent influencer la survie, le développement, et l'abondance des anophèles à chaque étape de leurs cycle de vie. Elles sont également susceptibles d'impacter la survie et l'activité des vecteurs résistants (voir section \@ref(interaction-environnement-vecteur)). Cette donnée est ainsi primordiale pour expliquer et prédire les indicateurs entomologiques, et à ce titre, très souvent utilisée dans les travaux de géo-épidémiologie du paludisme [@ebhuoma_remote_2016; @parselia_satellite_2019].  -->
+
+Nous avons extrait les températures et les précipitations dans nos zones d'études sur les périodes précédant les collectes entomologiques à partir de produits satellitaires d'observation de la Terre. Pour les précipitations, nous avons utilisé les produits de la mission *Global Precipitation Measurement* (GPM) (voir point info ci-dessous). Pour les températures, nous avons utilisé les données recueillies par l'instrument *Moderate Resolution Imaging Spectroradiometer* (MODIS) embarqué à bord des satellites Terra et Aqua. En particulier, nous avons utilisé les collections GPM et MODIS suivantes :
+
+- *MOD11A1.006* [@wan__zhengming_mod11a1_2015] : Températures de surface terrestre diurnes et nocturnes extraites de l'instrument MODIS embarqué sur le satellite Terra (résolution spatiale : 1 km, résolution temporelle : 1 jour)
+- *MYD11A1.006* [@wan__zhengming_myd11a1_2015] : Températures de surface terrestre diurnes et nocturnes extraites de l'instrument MODIS embarqué sur le satellite Aqua (résolution spatiale : 1 km, résolution temporelle : 1 jour) 
+- *GPM_3IMERGDF.06* [@nasa_goddard_earth_sciences_data_and_information_services_center_gpm_2019] : Précipitations extraites de GPM (résolution spatiale : 0.1 ° (~ 10 km), résolution temporelle : 1 jour)\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°5 : **GPM et MODIS : des données météorologiques à l'échelle mondiale et à fine résolution spatio-temporelle**
+:::
+
+Initiée par la NASA et la JAXA (agences spatiales respectivement états-uniennes et japonaises), la mission GPM est un projet international en cours depuis l'année 2014, comprenant une constellation de satellites appartenant à plusieurs agences spatiales nationales. À sa résolution spatio-temporelle la plus fine, elle fournit des estimations des précipitations à une résolution de 10 km / 30 minutes pour l'ensemble du globe en temps quasi réel (4 heures de latence entre l'acquisition du satellite et la mise à disposition des données). Les estimations sont ensuite consolidées via divers algorithmes de correction, pour créer des produits consolidés destinés à la recherche environ 3 mois après l'acquisition. Les données GPM sont générées à différentes résolutions temporelles (30 minutes, 1 jour, 1 mois). Tous les produits sont gratuits et libres d'accès pour l'utilisateur.\
+
+L'instrument MODIS est embarqué à bord de Terra et Aqua de la NASA, deux satellites d'observation de la Terre lancés respectivement en 1999 et 2002. Les différents spectromètres de MODIS prennent une image complète de la Terre tous les 1 à 2 jours. Les satellites Terra et Aqua fonctionnant en phase et l'instrument MODIS capturant des données strictement identiques, les produits MODIS issus des deux satellites peuvent être combinés pour obtenir des produits à résolution temporelle très fine (jusqu'à 0.5 jour). Les observations brutes de MODIS sont traitées automatiquement par différents algorithmes de la NASA pour générer des produits dits de "haut niveau", directement utilisables par les différentes communautés scientifiques (océanographie, biologie, sciences de l'atmosphère, etc.). Les produits de haut niveau de MODIS comprennent, par exemple, la réflectance de la surface, la température de surface de la terre et de la mer, la couverture neigeuse, la concentration de chlorophylle-a dans l'océan, des indices de végétation, etc. Les résolutions spatiales et temporelles varient en fonction du produit. Toutes les données MODIS sont ouvertes et gratuites, et mises à disposition des utilisateurs finaux à différentes échéances temporelles après l'acquisition (quelques heures à une année, en fonction du produit).\
+
+::::
+
+Nous avons choisi d'extraire ces données de précipitations et températures sur une période de six semaines (soit 42 jours) précédant chaque collecte entomologique. Cette période permet en effet de couvrir largement la durée de vie d'un anophèle sur le terrain (incluant les phases aquatiques et larvaires) [@holstein_biologie_1952]. La quantité de données à extraire (3 collections de produits satellitaires, 2 zones d'études, plusieurs centaines de dates d'intérêt) nous a emmené à nous poser la question de la méthode à utiliser pour ce faire. Les données MODIS et GPM sont originellement stockées sur les serveurs de la NASA. Afin de s'adapter aux différents besoins, habitudes et compétences techniques des utilisateurs finaux des produits satellitaires, l'agence met à disposition de multiples outils pour les télécharger et les propose dans de nombreux formats numériques. Parmi les différents outils disponibles pour accéder aux données, un a particulièrement retenu notre attention : le protocole OPeNDAP.\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°6 : **Le protocole OPeNDAP**
+:::
+
+OPeNDAP est l'acronyme de "Open-source Project for a Network Data Access Protocol", un projet (et le nom du serveur) visant à faciliter l'accès à des données structurées (telles que les produits satellitaires) sur le Web. L'une des principales forces d'OPeNDAP est qu'il permet de filter les produits satellitaires dès la phase de téléchargement - spatialement, temporellement et dimensionnellement. Ainsi, seule la partie réellement utile des données pour l’utilisateur est téléchargée (et le volume de données téléchargées est donc limité au strict nécéssaire) ; ce qui contraste avec la plupart des interfaces 'clic-bouton' d'accès aux données - où de grands volumes de données sont généralement importés, quand bien même l'utilisateur n'en nécéssiterait qu'une petite partie. Notons aussi que le projet OPeNDAP est développé collaborativement par plusieurs institutions et entreprises, que le code source et ouvert et que le logiciel est gratuit.\
+
+Pour télécharger un produit satellitaire disponible sur un serveur OPeNDAP, il s'agit d'envoyer au serveur une URL dans laquelle les filtres (spatiaux, temporels, dimensionnels) sont spécifiés. Par exemple l'URL suivante :
+
+https://opendap.cr.usgs.gov/opendap/hyrax/MOD11A1.006/h17v08.ncml.nc4?MODIS_Grid_Daily_1km_LST_eos_cf_projection,LST_Day_1km [6093:6122][55:140][512:560],LST_Night_1km[6093:6122][55:140][512:560] ,time[6093:6122],YDim[55:140],XDim[512:560]
+
+permet de télécharger les bandes LST_Day_1km et LST_Night_1km (filtre dimensionnel) du produit MOD11A1.006 entre le 1er et le 30 janvier 2017 (filtre temporel) sur la zone délimitée par les coordonnées géographiques suivantes (en WGS84) : xmin: -5.82 ymin: 8.84 xmax: -5.41 ymax: 9.55 (coordonnées de la zone CI du projet REACT).
+
+::::
+
+La pluspart des données d'observation de la Terre produites par la NASA sont disponibles en accès OPeNDAP, mais utiliser ce protocole pour télécharger des données reste compliqué pour l'utilisateur néophyte (en particulier, la constitution de l'URL n'est pas triviale, comme le montre l'exemple précédent). Afin de faciliter l'extraction de ces données depuis les serveurs OPeNDAP, nous avons développé une librairie dans le langage de programmation R [@r_core_team_r_2018] que nous avons nommée [**opendapr**](https://github.com/ptaconet/opendapr). La principale fonction de cette librairie, nommée `odr_get_url`, prend en argument une collection d'intérêt (par exemple `MOD11A1.006`), une période d'intérêt (sous forme d'une date de début et de fin), une aire géographique d'intérêt (sous forme des coordonnées géographiques qui la délimitent), et des bandes d'intérêts (par exemple `LST_Night_1km`), et contruit automatiquement l'URL qui permettra finalement de télécharger le produit satellitaire d'intérêt. Une seconde fonction, `odr_download_data`, permet ensuite de télécharger le produit en local. À ce jour, la librairie permet de télécharger 77 collections de produits satellitaires recueillis sur toute la surface terrestre (incluant les produits MODIS et GPM, mais aussi SMAP (humidité du sol) et VIIRS (successeur de MODIS)). Au delà de son utilisation pour les travaux de cette thèse, cette librairie présente l'intérêt de rendre l’accès à certains produits satellitaires plus aisé aux utilisateurs de R, en particulier si la connexion à internet de l'utilisateur est lente et/ou onéreuse, de promouvoir une forme de sobriété digitale dans les travaux de recherche scientifique, et de soutenir le mouvement des logiciels libres et ouverts (sur lesquels nous nous sommes exclusivement basés pour l'ensemble de nos travaux, cf. section \@ref(software)).\
+
+La libraire est disponible à l'adresse suivante : https://github.com/ptaconet/opendapr, et une description plus détaillée de la librairie est disponible en annexe \@ref(annex-opendapr) de ce manuscrit.\
+
+Une fois les produits téléchargés localement, nous avons préparé les données dans l'objectif de constituer des variables statistiques exploitables dans des modèles. Nous avons rééchantillonné les produits GPM (précipitations) depuis leur résolution spatiale initiale (10 km) à une résolution d'un kilomètre, en utilisant une méthode d'interpolation bilinéaire. Nous avons également combiné les produits journaliers MODIS issus de Terra et Aqua, en conservant les valeurs de pixels les plus élevées (respectivement les plus basses) disponibles pour les températures diurnes (respectivement nocturnes). Nous avons finalement comblé les valeurs manquantes dans les pixels (principalement dues à la présence de nuages) en interpolant temporellement les valeurs disponibles aux dates les plus proches.\
+
+La figure \@ref(fig:plot-pastweather) montre les séries temporelles hebdomadaires des précipitations et températures sur les deux zones d'études, extraites des données GPM et MODIS LST. Le bandeau gris représente la variabilité spatiale autour des différents points de captures entomologiques. L'alternance des saisons sèches et pluvieuses dans les deux zones d'études est clairement visible sur les graphiques de précipitations. Notons que les températures diurnes sont plus élevées dans la zone de Diébougou que dans celle de Korhogo, que les températures nocturnes sont relativement similaires, et que les précipitations en saison pluvieuse sont plus abondantes à Korhogo qu'à Diébougou.
+
+```{r plot-pastweather, fig.cap="Courbes des conditions météorologiques sur les deux zones d'étude. Les lignes noires indiquent la moyenne de la variables météorologique pour tous les points de collectes entomologiques pour la semaine considérée.\n Les bandeaux gris indiquent la moyenne ± l'écart type (i.e. la variabilité spatiale pour la semaine considérée).\n Les lignes rouges verticales indiquent les dates des collectes entomologiques.\nLes bandeaux bleus indiquent une période de six semaines précédant chaque collecte entomologique.\nSource des données : GPM (précipitations), MODIS (températures diurnes et nocturnes)", fig.scap="Courbes des conditions météorologiques sur les deux zones d'étude", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/plot_pastweather.pdf")
+```
+
+### Données d'occupation du sol {#landcover-data}
+
+<!-- L'occupation et l'utilisation du sol ont, potentiellement, un impact sur les densités d'anophèles, leurs comportements de piqure, ou encore la prévalence des génotypes physiologiques ou comportementaux résistants (en lien avec les gites larvaires, la dispersion des vecteurs, etc.) (voir section \@ref(interaction-environnement-vecteur)). Il était donc important d'obtenir cette donnée pour modéliser la distribution spatio-temporelle des indicateurs entomologiques de la transmission.\ -->
+
+La caractérisation de l'occupation des sols sur un territoire peut être obtenue par classification d'images satellitaires [@anderson_land_1976] ou aériennes [@horning_mapping_2020]. Nous avons ainsi cartographié l'occupation du sol sur nos deux zones d'étude à l'aide d'une classification supervisée orientée objet de produits satellitaires d'observation de la Terre [@blaschke_geographic_2008].\
+
+:::: {.lightcyanbox data-latex=""}
+::: {.center data-latex=""}
+Boite info n°7 : **Concept et principales étapes d'une classification supervisée orientée objet de produits satellitaires d'observation de la Terre**
+:::
+
+Le principe de la cartographie de l'occupation du sol par télédétection spatiale est d'attribuer une classe d'occupation du sol à chaque pixel ou groupe de pixel d'une (ou plusieurs) image(s) géoréférencée(s). On peut distinguer deux grandes approches de classification d'images satellitaires à des fins de cartographie d'occupation du sol : i) l'approche orientée 'pixel', où chaque pixel de l'image satellitaire ou aérienne est classé individuellement sans tenir compte des pixels adjacents, et ii) l'approche orientée 'objet' [@blaschke_geographic_2008], où les pixels adjacents ayant des propriétés communes sont d'abord regroupés en 'objets', ces objets étant ensuite classés. L'approche orientée objet est particulièrement adaptée dans les cas où la résolution spatiale des pixels de l'image est largement inférieure à celle des entités constituant les classes d'occupation du sol que l'on cherche à extraire [@blaschke_geographic_2008] : par exemple, si la résolution du pixel est de quelques (centi)mètres mais que l'on cherche à extraire des informations type 'zones forestières'. Par ailleurs, l'approche orientée objet permet la classification non plus seulement sur les seules valeurs spectrales des pixels mais sur un ensemble de caractéristiques associées à l'objet : forme, relation avec les objets voisins, statistique sur les valeurs des pixels qui le compose, etc. Le qualificatif 'supervisé' fait référence, en modélisation statistique, au caractère connu *à priori* des classes (ici, d'occupation du sol) que l’on souhaite obtenir, par opposition à la classification non-supervisée où les classes sont automatiquement définies par un algorithme.\
+
+Les principales étapes d'une classification supervisée orientée objet sont les suivantes [@blaschke_geographic_2008] : 
+
+1. *Acquisition des produits satellitaires* : Il s'agit tout d'abord d'acquérir le(s) produit(s) satellitaire(s) qui sera(ont) utilisé(s) pour la classification. Notons que plusieurs produits satellitaires peuvent être utilisés, afin d'augmenter le volume et la diversité des informations capturées - et ainsi en théorie la qualité de la classification. Par exemple, il est possible d'utiliser une ou plusieurs images satellitaires optiques - qui donneront des informations sur la réfléctance des objets au sol dans plusieurs bandes spectrales - et un modèle numérique de terrain - qui donnera des informations sur le relief (altitude, pente, etc.).
+2. *Constitution du jeu de données d'apprentissage et de validation* : Dans le cas d'une classification supervisée, il est nécessaire de constituer un jeu de donnée d'apprentissage / validation composé de plusieurs échantillons (parcelles) géoréférencés de chaque classe d'occupation du sol présentes dans la zone d'étude (les 'vérités terrain'). Ce travail nécessite donc i) de définir la liste des classes d'occupation du sol potentiellement présentes sur le territoire d'intérêt ; et ii) de constituer le jeu de données d'apprentissage / validation, par des enquêtes sur le terrain ou par photo-interprétation.
+3. *Prétraitements des produits satellitaires* : Le ou les produits satellitaires utilisés pour la classification peuvent nécessiter un ensemble de prétraitements, selon leur degré de 'préparation' à l'étape d'acquisition. Parmi les prétraitements classiques, citons par exemple : la fusion des tuiles (dans le cas où la zone d'étude est composée de plusieurs tuiles satellitaires), la calibration optique (conversion des pixels dans le cas où les images satellitaires optiques ne sont pas prises sous les mêmes conditions atmosphériques), le traitement des pixels indisponibles (par exemple, à cause de la couverture nuageuse), ou encore l'orthorectification (afin d'améliorer le géoréférencement des images).
+4. *Segmentation* : Cette étape est celle de la constitution des 'objets' par regroupement des pixels adjacents ayant des propriétés communes. Il existe plusieurs algorithmes de segmentation. Une des méthodes pour définir des objets consiste à agréger les pixels de proche en proche jusqu'à atteindre des seuils d'hétérogénéités fixés par l'utilisateur (liés à la taille des objets, à leurs formes, et aux valeurs contenues dans les pixels), interrompant le processus et délimitant l'objet [@baatz_schape_2000]. 
+5. *Constitution des variables prédictives* : Il s'agit ensuite de calculer pour chaque objet un ensemble d'attribut qui servira à entraîner le modèle sur le jeu d'entrainement, et à prédire sur les objets issus de la segmentation. Ces variables prédictives peuvent être basées sur des descripteurs statistiques des valeurs des pixels qui composent l'objet, sur la forme de l'objet, sa relation avec les objets voisins, etc.
+6. *Classification* : Vient ensuite l'étape de la classification même : un modèle prédictif est d'abord entraîné sur les parcelles du jeu d'entraînement, puis est utilisé pour prédire la classe d'occupation du sol sur l'ensemble des objets de la zone d'étude.
+7. *Evaluation de la qualité de la classification* : Enfin, la qualité de la classification est évaluée en prédisant l'occupation du sol sur le jeu de données de validation, puis en générant la matrice de confusion et les métriques de performances classiques afférentes (indices kappa, *accuracy*, etc.)
+
+::::
+\
+
+Dans notre cas, le détail des traitements ayant permis de génerer les produits d'occupation du sol à partir de classifications supervisées orientées objets de produits satellitaires est présenté ci-après.\
+
+***1. Acquisition des produits satellitaires***. Nous avons aquis les produits satellitaires suivants sur chaque zone d'étude : 
+
+- *images SPOT 6 et 7* (Satellite Pour l’Observation de la Terre) : images optiques à Très Haute Résolution Spatiale (THRS). Dates d'aquisition par le(s) satellite(s) : octobre 2017. Résolution spatiale : 1.6 m en panchromatique et 6.3 m en multispectral. Nombre de bandes spectrales : 4. Ces images ont été commandées via le dispositif Geosud, un projet (ANR-10-EQPX-20) du programme "Investissements d’Avenir" géré par le Centre National de la Recherche Scientifique.
+- *images Sentinel-2* : images optiques à Haute Résolution Spatiale (HRS). Dates d'aquisition par le(s) satellite(s) : novembre / décembre 2018 (corresponsant aux dates des campagnes d’acquisition de vérités terrain, voir ci-dessous). Résolution spatiale : 10 m à 60 m selon les bandes. Nombre de bandes spectrales : 10. Ces images libres d'accès ont été téléchargées sur le portail Copernicus SciHub de l’Agence spatiale européenne. L'intérêt d'utiliser des images Sentinel-2 en complément des images SPOT 6/7 est double : i) diversifier la nature et augmenter le nombre des variables prédictives (les images Sentinel-2 contiennent une information spectrale plus riche que les images SPOT-6 (10 bandes contre 4 bandes), et ii) intégrer des images acquises simultanément aux campagnes d'acquisition des vérités terrain. 
+- *Shuttle Radar Topography Mission (SRTM)* [@nasa_jpl_nasa_2013] : Modèle Numérique de Terrain (MNT) procurant la valeur de l'altitude en tout point du globe. Résolution spatiale : 30 m. Ce MNT libre d'accès a até téléchargé sur portail EarthExplorer (https://earthexplorer.usgs.gov/).
+
+***2. Constitution du jeu de données d'apprentissage et de validation***. Nous avons mené une campagne d’acquisition de vérités terrain sur chacune des zones en novembre et décembre 2018 (10 jours sur la zone burkinabé, 14 jours sur la zone ivoirienne). Nous avons établi les classes d’occupation du sol dans chacune des zones sur la base de recherches bibliographiques sur les types de paysages potentiellement rencontrés dans nos zones [@aubreville_accord_1957; @cilss_2016_landscapes_nodate; @oss_landcover_bf] et de nos observations du paysage sur le terrain. Nous avons collecté un minimum de 20 parcelles par classe, en tentant de les répartir au mieux sur l’étendue de chacune des zones. Sur le terrain, nous avons collecté les données à l'aide de l'application QField, compatible avec le logiciel de Système d'Information Géographique QGIS [@qgis_development_team_qgis_2021]. Nous avons ensuite complété le jeu de données en y ajoutant quelques parcelles par photo-interprétation d'images satellitaires très haute résolution (Google Earth et Spot 6/7).\
+
+***3. Prétraitements des produits satellitaires***. Les images SPOT ont été préparées selon la suite d'opérations suivante : fusion des tuiles de l’image panchromatique (PAN); conversion des images panchromatiques et multispectrales (MS) en valeurs de réflectance 'Top-of-Atmosphere'; orthorectification des images PAN et MS en utilisant les informations disponibles dans les métadonnées des fichiers ainsi que le MNT SRTM (dont la résolution spatiale est suffisante pour une orthorectification de qualité au regard du profil de nos zones, peu accidentées); découpage des images sur l’étendue de nos zones d’études uniquement; 'pansharpening' de l’image MS utilisant l’image PAN; mosaïquage des images (uniquement dans le cas de la zone de Diébougou, qui était constituée de deux images SPOT). Les produits Sentinel 2 et SRTM, de leur côté, ont nécéssité relativement peu de prétraitements. Nous avons reprojeté le MNT originellement fourni en WGS84 sur la zone UTM 30 Nord (zone UTM correspondant à nos zones d’étude), mosaiqué les images (dans le cas où nos zones d’études étaient couvertes par plusieurs tuiles) et découpé les produits afin de les conserver uniquement sur l’étendue de nos zones d’études.\
+
+***4. Segmentation***. Nous avons ensuite segmenté les images SPOT en utilisant un algorithme de croissance de région avec le critère d’homogénéité de Baatz and Shape [@baatz_schape_2000]. Nous avons testé plusieurs paramétrisations, à la fois de l’algorithme (paramètres d’échelle, spectraux et de compacité) et des bandes spectrales utilisées pour la segmentation (bandes spectrales de l'image SPOT pan-sharpenées, bandes spectrales + indices spectraux type NDVI, etc.). Basé sur une approche visuelle des résultats de la segmentation (en les superposant à l’image SPOT 6/7), nous avons finalement retenu les paramètres suivants :
+
+- Bandes spectrales utilisées pour la segmentation : les 4 bandes spectrales de l'image SPOT 6/7 pan-sharpenée, chacune avec un poids égal dans la segmentation ;
+- Paramètres de segmentation pour la zone de Diébougou (BF) : seuil = 100 ; valeur pour le poids de forme = 0.1 ; valeur pour le poids spectral = 0.9
+- Paramètres de segmentation pour la zone de Korhogo (CI) : seuil = 160 ; valeur pour le poids de forme = 0.1 ; valeur pour le poids spectral = 0.8
+
+Nous avons vectorisé le jeu de données en sortie de l’algorithme afin d’avoir une version vecteur des objets segmentés. Puis, nous avons intersecté la base de données d’apprentissage (parcelles d’occupation du sol recueillies sur le terrain) avec la couche résultant de la segmentation, dans l’objectif d’obtenir des parcelles d’apprentissage plus homogènes du point de vue des critères de segmentation. Cette étape a sensiblement fait croître le nombre de parcelles d'entraînement - les objets issus de la segmentation étant globalement plus fragmentés et petits que les parcelles relevées sur le terrain. C’est cette couche de données d’apprentissage qui sera utilisée pour la suite du travail.\
+
+***5. Constitution des variables prédictives***. Afin de générer les variables prédictives, nous avons extrait ou calculé les couches géographiques suivantes (sous forme de fichiers raster) : 
+
+- Couches issues de l'image SPOT 6/7 : 
+  - chacune des 4 bandes spectrales de la THRS pan-sharpenée ;
+  - image panchromatique ;
+  - indices spectraux suivants: NDVI, NDWI2, BRI ;
+  - indices de texture suivants, extraits de l’image PAN : energie, anthropie, correlation, inertie, haralick correlation, moyenne. Chacun des indices a été calculé sur 3 tailles de fenêtres glissantes : 5 pixels, 9 pixels, 17 pixels ;
+- Couches issus de l'image Sentinel-2 : 
+  - chacune des 10 bandes spectrales ;
+  - indices spectraux suivants : NDVI, NDWI, BRI, MNDWI, MNDVI, RNDVI (ces trois derniers indices sont des variantes des indices classiques NDWI et NDVI qui utilisent les bandes spectrales dans le moyen infra-rouge) ;
+- Couches issues du MNT SRTM : 
+  - altitude ;
+  - pente ;
+  - réseau hydrographique théorique (couche vectorielle).
+
+Au total, cela représentait ainsi 45 couches géographiques utilisables pour générer les variables prédictives. Nous avons calculé la moyenne et l’écart type des valeurs des pixels pour l’ensemble des indices préparées pour la classification sur chaque objet. Nous avons également calculé et ajouté les descripteurs contextuels suivants : i) la distance de chaque objet au réseau hydrographique théorique (calculé à partir du MNT, voir section \@ref(hydro-data)), et ii) un ensemble d'indices liés à la forme des objets (aire, périmètre, etc.). La centaine de variables ainsi générée constituait les prédicteurs pour la classification à suivre.\
+
+***6. Classification***. Nous avons ensuite entrainé un modèle de forêts aléatoires sur le jeu de données d'entrainement. Nous avons généré la matrice de confusion en utilisant la procédure de validation interne aux forêts aléatoires (basée sur les 'out-of-bag' observations [@Breiman1996OUTOFBAGE]). En se basant sur cette matrice, nous avons ensuite regroupé, dans le jeu de données d'entrainement, les classes d'occupation du sol dont la confusion était importante (par exemple, zones de culture de mil et de sorgho) ; en prenant cependant soin de conserver la distinction entre les différentes classes à priori favorables à la présence de gîtes larvaires (par exemple, zones marécageuses et rizicoles) ou à la résistance. Nous avons entrainé un modèle de forêt aléatoires sur cette nouvelle version du jeu de données d'entraînement puis l'avons utilisé pour prédire la classe d'occupation du sol sur chaque objet issu de la segmentation.\
+
+***7. Evaluation de la qualité de la classification***. Comme précédemment, nous avons généré la matrice de confusion puis en avons extrait un indice de qualité de la classification (*accuracy* [@cohen_coefficient_1960]) mesurant la proportion d'objets correctement classés.\
+
+Les différentes étapes de la classification sont résumées graphiquement dans la figure \@ref(fig:workflow-obia) disponible en annexe \@ref(details-annex-landcover). Nous avons développé un script R implémentant l'ensemble des traitements (voir section \@ref(scripts)).\
+
+Le tableau \@ref(tab:table-landcover) présente les classes d'occupation du sol initialement définies et finalement retenues. La définition de chacune des classes ainsi qu'un ensemble de photographies représentatives des principales classes d'occupation du sol, prises lors des campagnes de terrain, sont disponibles en annexe \@ref(annex-landcover).
+
+\pagebreak
+
+```{r table-landcover, results="asis", echo = F}
+df1 <- read.csv("tables/table_landcover.csv", check.names = FALSE) %>% dplyr::select(1:3)
+df1[,1] <- gsub("\\(","\n(",df1[,1] )
+
+df1 %>%
+  mutate_all(linebreak) %>%
+  kable("latex", booktabs = T, escape = F, caption.short = "Classes d'occupation du sol initialement définies et finalement retenues", caption = "Classes d'occupation du sol initialement définies et finalement retenues") %>%  
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1, valign = "top") %>%
+  kable_styling(latex_options =c("hold_position"),font_size = 8)
+```
+
+\pagebreak
+
+Les matrices de confusion indiquaient que respectivement 84 % et 86 % des objets dans les zones de Diébougou et Korhogo étaient bien classés. Les cartes \@ref(fig:map-landcover-bf) et \@ref(fig:map-landcover-ci) présentent les produits finis d'occupation du sol dans les deux zones d'étude. Ces cartes incluent également le réseau hydrographique théorique, généré à partir du MNT SRTM (voir section \@ref(hydro-data)).
+
+```{r map-landcover-bf, fig.cap="Carte d'occupation du sol résultante des travaux de classification dans la zone de Diébougou (BF) (résolution spatiale : 1,5 x 1,5 m)", fig.scap="Carte d'occupation du sol résultante des travaux de classification dans la zone de Diébougou (BF)", out.width="1\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/map_landcover_bf.pdf")
+```
+
+\pagebreak
+
+```{r map-landcover-ci, fig.cap="Carte d'occupation du sol résultante des travaux de classification dans la zone de Korhogo (CI) (résolution spatiale : 1,5 x 1,5 m)", fig.scap="Carte d'occupation du sol résultante des travaux de classification dans la zone de Korhogo (CI)", out.width="0.8\\linewidth", fig.align="center", echo=F}
+knitr::include_graphics(path = "figure/map_landcover_ci.jpg")
+```
+
+\pagebreak
+
+Enfin, la figure \@ref(fig:landcover-stats) présente la proportion de surface occupé par chaque classe d'occupation du sol dans l'ensemble de la zone d'étude.
+
+```{r landcover-stats, fig.cap="Proportion de surface occupée par chaque classe d'occupation du sol sur chaque zone d'étude", fig.scap="Proportion de surface occupée par chaque classe d'occupation du sol sur chaque zone d'étude", out.width="1\\linewidth", fig.align="center", echo=F}
+df1 <- read.csv("tables/table_landcover_stats.csv") %>% tidyr::pivot_longer(!Classe) %>% mutate(name = ifelse(name=="Zone.CI","Korhogo (CI)","Diébougou (BF)")) %>% rename(Zone=name)
+
+ggplot2::ggplot(df1, aes(x=reorder(Classe,-value),y=value,fill=Zone))+ 
+    geom_bar(position="dodge", stat="identity") + 
+  theme_bw() + 
+  ylab("% total de la surface") +
+  xlab("") +
+   theme(axis.text.x = element_text(angle = 40 ,hjust=1)) + 
+  scale_fill_manual(values =  c("#999999", "#E69F00"))
+```
+
+Nous pouvons noter que la zone de Diébougou était dominée par les savanes ligneuses (52% de la surface totale), les cultures non-inondées (25%) et les prairies non-inondées (7%). La zone de Korhogo, de son côté, était principalement composée de cultures non-inondées (24%), de milieux forestiers non-humides (18%) et de plantations d'anacardiers et mangues (17%). Les rizicultures et cultures de coton y représentaient chacune 9% de la surface totale.
+
+### Données sur le réseau hydrographique théorique {#hydro-data}
+
+Le réseau hydrographique (cad. les rivières) est susceptible de produire des gîtes larvaires pour les anophèles. Nous avons utilisé le MNT SRTM pour produire le réseau hydrographique théorique dans nos zones d'étude. Nous avons tout d'abord produit une couche raster d'accumulation de flux à partir du MNT [@jenson_extracting_1988], puis avons sélectionné tous les pixels dont la valeur d'accumulation de flux était supérieur à un seuil défini visuellement par superposition avec une image satellite THRS. Ces seuils étaient de 1000 pour la zone BF et 800 pour la zone CI. Les réseaux hydrographiques théoriques sont représentés sur les cartes \@ref(fig:map-landcover-bf) et \@ref(fig:map-landcover-ci).
+
+## Ressources informatiques : codes R développés et logiciels utilisés
+
+### Codes R développés {#scripts}
+
+L'ensemble des travaux d'extraction et préparation des données décrits dans ce chapitre a été programmé, sous formes de codes informatiques, dans le language de programmation R [@r_core_team_r_2018] sous l'environnement RStudio [@rstudio_team_rstudio_2020]. Les travaux de modélisation de l'ensemble des articles à suivre ont eux aussi été scriptés en R.\
+
+Le niveau de description, généricité, réutilisation diffère selon les codes. Le plus abouti en ce sens est la librairie `opendapr`, puisqu'il s'agit d'une réelle libraire R. D'une manière générale, les codes de création, extraction et préparation des données ont un niveau acceptable de description et généricité (à savoir, ils peuvent être réutilisés tout ou partie à moindre coût par un utilisateur de R). Les codes de modélisation statistique sont moins décrits et reproductibles. Quel que soit le niveau de généricité et description, nous avons archivé l'ensemble de ces codes en leur état à l'issue des travaux de thèse, afin d'en conserver une copie pérenne et conforme aux travaux effectués. Le dossier contenant les codes est disponible à l'adresse suivante :  https://doi.org/10.5281/zenodo.6334110 . L'architecture du dossier est décrite dans le tableau \@ref(tab:scripts-developed).
+
+\renewcommand{\arraystretch}{2} 
+<!-- pour augmenter l'espace entre les lignes du tableau  -->
+```{r scripts-developed, results="asis", echo = F}
+dt <-tibble(Items =c("data\\_creation extraction\\_preparation","data\\_modeling"),
+            Text_1 =c("Ce dossier contient les codes R développés pour créer, extraire, préparer les données environnementales : \n
+            - le sous-dossier data\\_creation\\_extraction contient les codes pour i) (extraction\\_landcover\\_data) générer les données d'occupation du sol par classification supervisée orientée objet de produits satellitaires, ii) (extraction\\_meteo\\_data) extraire les produits météorologiques avec la librairie opendapr, iii) (extraction\\_miscellaneous\\_data) extraire des données environnementales diverses (les données de magnitude visuelle de la Lune (IMCCE), les données de vent (ERA-5), le MNT SRTM) \n
+            - le sous-dossier data\\_preparation contient les codes développés pour extraire les données, les préparer, et calculer les variables explicatives pour les travaux de modélisation statistique",
+            "Ce dossier contient les codes R développés pour les travaux de modélisation statistique : \n
+            - le sous-dossier modeling contient les codes pour générer les modèles statistiques des chapitres 4 et 5 \n
+            - le sous-dossier models\\_analysis contient les codes pour analyser (interpréter) les modèles statistiques" 
+            ))
+                      
+                      
+#                       générer les cartes d’occupation du sol par classification supervisée orientée objet de produits satellitaires",
+# "Ce dossier contient la librairie opendapr, développée dans le cadre de la thèse pour extraire les données satellitaires MODIS et GPM depuis les serveurs de la NASA via le protocole OpeNDAP",
+#                       "Ce dossier contient les codes R développés pour extraire les données, les préparer, et calculer les variables explicatives pour les travaux de modélisation statistique : \n
+#                       - le fichier `workflow\\_extract\\_expl\\_var.Rmd` est un script R markdown développé pour automatiser les tâches d'extraction des données, préparation, et calcul des variables explicatives. Il utilise la librairie opendapr et les fonctions R stockées dans les sous-dossier décrits ci-dessous \n
+#                       - le sous-dossier `getremotedata` contient une librairie R développée dans le cadre de la thèse, permettant de télécharger i) les données de magnitude visuelle de la Lune (IMCCE) , ii) les données de vent (ERA-5), iii) le MNT SRTM \n
+#                       - le sous-dossier `functions\\_extract\\_prepare\\_data` contient un ensemble de fonction d'extraction et transformation des données utilisées dans le code `workflow\\_extract\\_expl\\_var.Rmd`",
+#                       "Ce dossier contient les codes R développés pour les travaux de modélisation statistique : \n
+#                       - Le fichier `.R` est le code R développé pour générer les modèles de densités agressives des vecteurs (chapitre 4) \n
+#                       - Le fichier `.R` est le code R développé pour générer les modèles de résistances physiologiques et comportementales des vecteurs (chapitre 5) \n
+#                       - Le fichier `models\\_analysis.R` est le code R développé pour interpréter les modèles"))
+
+dt %>% mutate_all(linebreak) %>% kable("latex", booktabs = T, escape = F, col.names =c("Nom du dossier", "Description du contenu"), caption.short = "Codes R développés au cours de la thèse", caption = "Codes R développés au cours de la thèse")  %>% kable_styling(full_width = TRUE,latex_options =c("striped", "hold_position"),font_size = 9) %>% column_spec(2, width = "12cm")
+```
+\renewcommand{\arraystretch}{1}
+
+
+
+### Logiciels et librairies utilisés {#software}
+
+Les logiciels et librairies utilisées pour nos travaux de thèse étaient tous libres d'accès et à code source ouvert.\
+
+Les données d'occupation du sol (section \@ref(landcover-data)) et du réseau hydrographique théorique (section \@ref(hydro-data)) ont été générés en utilisant les librairies R suivantes : `RSAGA` [@brenning_rsaga_2018], `rgrass7` [@bivand_rgrass7_2018], `raster` [@hijmans_raster_2020], `sf` [@pebesma_simple_2018], `rgdal` [@bivand_rgdal_2019] et `randomForest` [@liaw_classification_2002]. Certaines de ces librairies utilisent en arrière-plan les logiciels libres SAGA GIS [@conrad_system_2015] et GRASS GIS [@GRASS_GIS_software]. La segmentation a été réalisée grâce à l'algorithme 'Generic Region Merging Segmentation' implémenté dans le logiciel libre Orfeo Toolbox [@grizonnet2017orfeo].\
+
+Désireux de soutenir le mouvement du logiciel libre, nous avons rédigé au cours de la thèse un tutoriel d'initiation à la télédétéction spatiale (cartographie de l’occupation/utilisation du sol) sur logiciel libre (QGIS [@qgis_development_team_qgis_2021] et SAGA GIS). Le tutoriel est disponible en annexe \@ref(formation-teledec). Nous l'avons utilisé au cours d'une formation en télédétéction dispensée à des étudiants de niveau master.\
+
+Les travaux de modélisation dans les études qui suivent ont eux aussi nécéssité l'utilisation de nombreuses librairies R, qui sont précisées dans les sections *Matériel et méthode* des articles respectifs.\
+
+<!-- Les travaux de modélisation dans les études qui suivent ont aux aussi utilisé de nombreuses librairies R, que nous détaillons le plus exhaustivement possible ici (les librairies sont rappelées dans le corps des chapitres) : `landscapemetrics` [@hesselbarth_landscapemetrics_2019] et `spatstat` [@spatstat_2005] pour générer certaines variables explicatives ; `ggmap` [@kahle_ggmap_2013] pour créer certaines cartes ; `correlation` [@makowski_methods_2020], `caret` [@wing_caret_2018], `ranger` [@wright_ranger_2017], `randomForest` [@liaw_classification_2002], `CAST` [@meyer_cast_2020], `glmmTMB` [@brooks_glmmtmb_2017], et `buildmer` [@voeten_buildmer_2020] pour entraîner les modèles statistiques ; `MLmetrics` [@yan_mlmetrics_2016], `MuMIn` [@barton_mumin_2020], et `precrec` [@saito_precrec_2017] pour évaluer les capacités explicatives ou prédictives des modèles statistiques ; `broom.mixed` [@bolker_broommixed_2020], `jtools` [@long_jtools_2020], `iml` [@molnar_iml_2018] et `pdp` [@greenwell_pdp_2017], pour interpréter les modèles statistiques.\ -->
+
+<!-- Les librairies `patchwork` [@pedersen_patchwork_2019] et `gridExtra` [@auguie_gridextra_2017] ont été utilisée pour créer les compositions de figures. La meta-librairie `tivyerse` [@wickham_tidyverse_2017] a été utilisée tout au long des travaux (extraction et nettoyage des données, visualisation, etc.).\ -->
+
+<!-- Les cartes d'occupation du sol (figures \@ref(fig:map-landcover-bf) et \@ref(fig:map-landcover-ci)) et la carte de présentation des zones d'étude (figure \@ref(fig:study-areas)) ont été réalisées avec le logiciel libre QGIS [@qgis_development_team_qgis_2021].\ -->
+
+Le logiciel de gestion de la bibliographie utilisé pour cette thèse était Zotero. Enfin, l'ensemble des travaux de thèse a été réalisé sur un ordinateur équipé d'Ubuntu, un système d'exploitation à code source ouvert utilisant le noyau Linux ; et ce manuscrit de thèse a été rédigé en \LaTeX  en s'appuyant sur les librairies R `rmarkdown` [@markdown], `knitr` [@knitr], `bookdown` [@bookdown], `thesisdown` [@thesisdown], `kableExtra` [@kableExtra]. 
+
+<!--  Figures -->
+
+<!-- If your thesis has a lot of figures, _R Markdown_ might behave better for you than that other word processor.  One perk is that it will automatically number the figures accordingly in each chapter.    You'll also be able to create a label for each figure, add a caption, and then reference the figure in a way similar to what we saw with tables earlier.  If you label your figures, you can move the figures around and _R Markdown_ will automatically adjust the numbering for you.  No need for you to remember!  So that you don't have to get too far into LaTeX to do this, a couple **R** functions have been created for you to assist.  You'll see their use below. -->
+
+<!-- <!-- -->
+<!-- One thing that may be annoying is the way _R Markdown_ handles "floats" like tables and figures (it's really \LaTeX's fault). \LaTeX\ will try to find the best place to put your object based on the text around it and until you're really, truly done writing you should just leave it where it lies. There are some optional arguments specified in the options parameter of the `label` function.  If you need to shift your figure around, it might be good to look here on tweaking the options argument:  <https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions> -->
+
+<!-- If you need a graphic or tabular material to be part of the text, you can just put it inline. If you need it to appear in the list of figures or tables, it should be placed in a code chunk. -->
+<!-- --> 
+
+
+<!-- In the **R** chunk below, we will load in a picture stored as `reed.jpg` in our main directory.  We then give it the caption of "Reed logo", the label of "reedlogo", and specify that this is a figure.  Make note of the different **R** chunk options that are given in the R Markdown file (not shown in the knitted document). -->
+
+
+<!-- <!-- Note the use of `out.width` as a chunk option here. The resulting -->
+<!-- image is 20% of what the linewidth is in LaTeX. You can also center -->
+<!-- the image using `fig.align="center"` as shown.--> 
+
+<!-- Here is a reference to the Reed logo: Figure \@ref(fig:reedlogo).  Note the use of the `fig:` code here.  By naming the **R** chunk that contains the figure, we can then reference that figure later as done in the first sentence here.  We can also specify the caption for the figure via the R chunk option `fig.cap`. -->
+
+<!-- \clearpage -->
+
+<!-- <!-- clearpage ends the page, and also dumps out all floats. -->
+<!--   Floats are things like tables and figures. --> 
+
+<!-- Below we will investigate how to save the output of an **R** plot and label it in a way similar to that done above.  Recall the `flights` dataset from Chapter \@ref(rmd-basics).  (Note that we've shown a different way to reference a section or chapter here.)  We will next explore a bar graph with the mean flight departure delays by airline from Portland for 2014. -->
+
+<!-- ```{r delaysboxplot, warnings=FALSE, messages=FALSE, fig.cap="Mean Delays by Airline", fig.width=6, fig.height=5} -->
+<!-- mean_delay_by_carrier <- flights %>% -->
+<!--   group_by(carrier) %>% -->
+<!--   summarize(mean_dep_delay = mean(dep_delay)) -->
+<!-- ggplot(mean_delay_by_carrier, aes(x = carrier, y = mean_dep_delay)) + -->
+<!--   geom_bar(position = "identity", stat = "identity", fill = "red") -->
+<!-- ``` -->
+
+<!-- Here is a reference to this image: Figure \@ref(fig:delaysboxplot). -->
+
+<!-- A table linking these carrier codes to airline names is available at <https://github.com/ismayc/pnwflights14/blob/master/data/airlines.csv>. -->
+
+<!-- \clearpage -->
+
+<!-- Next, we will explore the use of the `out.extra` chunk option, which can be used to shrink or expand an image loaded from a file by specifying `"scale= "`. Here we use the mathematical graph stored in the "subdivision.pdf" file. -->
+
+<!-- ```{r subd, results="asis", echo=FALSE, fig.cap="Subdiv. graph", out.extra="scale=0.75"} -->
+<!-- include_graphics("figure/subdivision.pdf") -->
+<!-- ``` -->
+
+<!-- Here is a reference to this image: Figure \@ref(fig:subd).  Note that `echo=FALSE` is specified so that the **R** code is hidden in the document. -->
+
+<!-- **More Figure Stuff** -->
+
+<!-- Lastly, we will explore how to rotate and enlarge figures using the `out.extra` chunk option.  (Currently this only works in the PDF version of the book.) -->
+
+<!-- ```{r subd2, results="asis", echo=FALSE, out.extra="angle=180, scale=1.1", fig.cap="A Larger Figure, Flipped Upside Down"} -->
+<!-- include_graphics("figure/subdivision.pdf") -->
+<!-- ``` -->
+
+<!-- As another example, here is a reference: Figure \@ref(fig:subd2).   -->
+
+<!--  Footnotes and Endnotes -->
+
+<!-- You might want to footnote something. ^[footnote text] The footnote will be in a smaller font and placed appropriately. Endnotes work in much the same way. More information can be found about both on the CUS site or feel free to reach out to <data@reed.edu>. -->
+
+<!--  Bibliographies -->
+
+<!-- Of course you will need to cite things, and you will probably accumulate an armful of sources. There are a variety of tools available for creating a bibliography database (stored with the .bib extension).  In addition to BibTeX suggested below, you may want to consider using the free and easy-to-use tool called Zotero.  The Reed librarians have created Zotero documentation at <https://libguides.reed.edu/citation/zotero>.  In addition, a tutorial is available from Middlebury College at <https://sites.middlebury.edu/zoteromiddlebury/>. -->
+
+<!-- _R Markdown_ uses _pandoc_ (<https://pandoc.org/>) to build its bibliographies.  One nice caveat of this is that you won't have to do a second compile to load in references as standard LaTeX requires. To cite references in your thesis (after creating your bibliography database), place the reference name inside square brackets and precede it by the "at" symbol.  For example, here's a reference to a book about worrying:  [@curriero_cross_2005; @taconet_data-driven_2021].  This `Molina1994` entry appears in a file called `thesis.bib` in the `bib` folder.  This bibliography database file was created by a program called BibTeX.  You can call this file something else if you like (look at the YAML header in the main .Rmd file) and, by default, is to placed in the `bib` folder.   -->
+
+<!-- For more information about BibTeX and bibliographies, see our CUS site (<https://web.reed.edu/cis/help/latex/index.html>)^[@curriero_cross_2005]. There are three pages on this topic:  _bibtex_ (which talks about using BibTeX, at <https://web.reed.edu/cis/help/latex/bibtex.html>), _bibtexstyles_ (about how to find and use the bibliography style that best suits your needs, at <https://web.reed.edu/cis/help/latex/bibtexstyles.html>) and _bibman_ (which covers how to make and maintain a bibliography by hand, without BibTeX, at <https://web.reed.edu/cis/help/latex/bibman.html>). The last page will not be useful unless you have only a few sources. -->
+
+<!-- If you look at the YAML header at the top of the main .Rmd file you can see that we can specify the style of the bibliography by referencing the appropriate csl file.  You can download a variety of different style files at <https://www.zotero.org/styles>.  Make sure to download the file into the csl folder.   -->
+
+<!-- <!-- Fill the rest of the page with the content below for the PDF version. --> 
+
+<!-- \vfill -->
+
+<!-- **Tips for Bibliographies** -->
+
+<!-- - Like with thesis formatting, the sooner you start compiling your bibliography for something as large as thesis, the better. Typing in source after source is mind-numbing enough; do you really want to do it for hours on end in late April? Think of it as procrastination. -->
+<!-- - The cite key (a citation's label) needs to be unique from the other entries. -->
+<!-- - When you have more than one author or editor, you need to separate each author's name by the word "and" e.g. `Author = {Noble, Sam and Youngberg, Jessica},`. -->
+<!-- - Bibliographies made using BibTeX (whether manually or using a manager) accept LaTeX markup, so you can italicize and add symbols as necessary. -->
+<!-- - To force capitalization in an article title or where all lowercase is generally used, bracket the capital letter in curly braces. -->
+<!-- - You can add a Reed Thesis citation^[@noble2002] option. The best way to do this is to use the phdthesis type of citation, and use the optional "type" field to enter "Reed thesis" or "Undergraduate thesis."  -->
+
+<!--  Anything else? -->
+
+<!-- If you'd like to see examples of other things in this template, please contact the Data @ Reed team (email <data@reed.edu>) with your suggestions. We love to see people using _R Markdown_ for their theses, and are happy to help. -->
+
