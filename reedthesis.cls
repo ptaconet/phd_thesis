@@ -349,7 +349,7 @@ le 2 juin 2022}
 \begin{tabular}{p{12cm}l}
 \textbf{Catherine LINARD, Professeure, Université de Namur} & \textbf{Rapportrice} \\
 \textbf{Ibrahima DIA, Directeur de recherche, Institut Pasteur de Dakar} & \textbf{Rapporteur} \\
-\textbf{Florence FOURNET, Directrice de recherche, IRD (UMR 224)} & \textbf{Examinatrice} \\
+\textbf{Florence FOURNET, Directrice de recherche, IRD (UMR 224)} & \textbf{Examinatrice, Présidente} \\
 \textbf{Jean GAUDART, Professeur, Aix Marseille Université (UMR 1252)} & \textbf{Examinateur} \\
 \textbf{Emmanuel ROUX, Chargé de recherche, IRD (UMR 228)} & \textbf{Examinateur} \\
 \textbf{Nicolas MOIROUX, Chargé de recherche, IRD (UMR 224)} & \textbf{Directeur de thèse} \\

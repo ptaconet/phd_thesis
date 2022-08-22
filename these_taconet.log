@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.2.14)  22 AUG 2022 17:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2022.2.14)  22 AUG 2022 17:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2128,6 +2128,10 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+Overfull \hbox (12.44008pt too wide) in paragraph at lines 337--337
+ [][] 
+ []
+
 <logo_um.png, id=265, 184.0318pt x 57.65804pt>
 File: logo_um.png Graphic file (type png)
 <use logo_um.png>
@@ -7234,7 +7238,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2924.
 Here is how much of TeX's memory you used:
  40159 strings out of 494374
  762025 string characters out of 6171240
- 984019 words of memory out of 5000000
+ 983032 words of memory out of 5000000
  41101 multiletter control sequences out of 15000+600000
  699498 words of font info for 817 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
@@ -7277,7 +7281,7 @@ hare/texlive/texmf-dist/fonts/type1/public/stix/stix-mathrm.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cyrillic/wncyi10.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cyrillic/wncyr10.pfb>
-Output written on these_taconet.pdf (347 pages, 65689903 bytes).
+Output written on these_taconet.pdf (347 pages, 65689917 bytes).
 PDF statistics:
  4752 PDF objects out of 5155 (max. 8388607)
  3496 compressed objects within 35 object streams
